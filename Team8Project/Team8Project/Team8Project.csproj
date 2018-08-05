@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Effects.cs" />
+    <Compile Include="Common\StatusType.cs" />
     <Compile Include="Common\HeroClass.cs" />
     <Compile Include="Contracts\IEffectAbility.cs" />
     <Compile Include="Core\GameEngine.cs" />
@@ -59,6 +59,9 @@
     <Compile Include="Models\Magic\DebuffSpell.cs" />
     <Compile Include="IO\IPrinter.cs" />
     <Compile Include="Core\Providers\RandomProvider.cs" />
+    <Compile Include="Models\Statuses\Frozen.cs" />
+    <Compile Include="Models\Statuses\Status.cs" />
+    <Compile Include="Models\Turn.cs" />
     <Compile Include="StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

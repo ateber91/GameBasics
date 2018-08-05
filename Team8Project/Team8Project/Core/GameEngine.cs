@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Team8Project.Common;
 using Team8Project.Contracts;
-using Team8Project.Core;
 using Team8Project.Core.Providers;
 using Team8Project.Models;
 using Team8Project.Models.Magic;
@@ -20,11 +17,7 @@ namespace Team8Project.Core
         //  private readonly ICommandParser parser;
         // private readonly ICommandProcessor commandProcessor;
         private readonly Factory factory;
-        private readonly HeroPool heroPool;
-        //spell pool TODO
-        private readonly IList<IHero> currentGameHeroes;
-        private IHero activeHero;
-        private int turn;
+        private Turn turn;
 
 
 
@@ -33,8 +26,7 @@ namespace Team8Project.Core
             //    this.parser = CommandParser.Instance;
             //    this.commandProcessor = CommandProcessor.Instance;
             this.factory = Factory.Instance;
-            this.heroPool = HeroPool.Instance;
-            this.currentGameHeroes = new List<IHero>();
+            this.turn = Turn.Instance;
         }
 
         public void Run()
@@ -43,69 +35,39 @@ namespace Team8Project.Core
             //Set Current Game Heroes
             var seceltedHeroClassForPlayerOne = HeroClass.Warrior; //set class depending on choice
             var seceltedHeroClassForPlayerTwo = HeroClass.Assasin;
-            currentGameHeroes.Add(heroPool.Heroes.FirstOrDefault(x => x.HeroClass == seceltedHeroClassForPlayerOne));
-            currentGameHeroes.Add(heroPool.Heroes.FirstOrDefault(x => x.HeroClass == seceltedHeroClassForPlayerTwo));
 
-            //todo: set spells from spellPool
-            //create spells
-            DamagingAbility fireball = new DamagingAbility("fireball", 2, 50);
-            DamagingAbility sinisterStrike = new DamagingAbility("sinister strike", 2, 40);
-            //add spell and set spell owner
-            currentGameHeroes.First().AddAbility(fireball);
-            fireball.Caster = currentGameHeroes.First();
-            currentGameHeroes.Last().AddAbility(sinisterStrike);
-            sinisterStrike.Caster = currentGameHeroes.Last();
+            turn.ActiveHero = factory.CreateHero(seceltedHeroClassForPlayerOne);
+            turn.ActiveHero.Opponent = factory.CreateHero(seceltedHeroClassForPlayerTwo);
 
             //set heroes realtionship 
-            currentGameHeroes.First().Opponent = currentGameHeroes.Last();
-            currentGameHeroes.Last().Opponent = currentGameHeroes.First();
+            turn.ActiveHero.Opponent.Opponent = turn.ActiveHero;
 
-            activeHero = SetWhoIsFirst(currentGameHeroes.First());
+            turn.ActiveHero = turn.SetWhoIsFirst();
 
             //START GAME
             while (true)
             {
-                Console.WriteLine($" Turn: {turn++}. {activeHero.Name} is active");
+                Console.WriteLine($" Turn: {turn.TurnNumeber}. {turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
 
-                //cast
-                activeHero.UseAbility(activeHero.Abilities[0]);
-                Console.WriteLine($"{activeHero.Name} uses {activeHero.Abilities[0].Name} and {activeHero.Abilities[0].ToString()}. {activeHero.Opponent.Name} is left with {activeHero.Opponent.HealthPoints} HP");
+                //cast depending of selection [0],[1],[2] 
+                var selectedAbility = turn.ActiveHero.Abilities[0];
 
-                if (activeHero.Opponent.HealthPoints < 0)
+                turn.ActiveHero.UseAbility(selectedAbility);
+                Console.WriteLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}. {turn.ActiveHero.Opponent.Name} is left with {turn.ActiveHero.Opponent.HealthPoints} HP");
+
+                if (turn.ActiveHero.Opponent.HealthPoints < 0)
                 {
-                    Console.WriteLine($"{activeHero.Name.ToUpper()} WON! ");
+                    Console.WriteLine($"{turn.ActiveHero.Name.ToUpper()} WON! ");
                     break;
                 }
-                activeHero = SwapTurnHolder(activeHero);
+                turn.ActiveHero = turn.SwapTurnHolder();
             }
 
         }
 
-        private static IHero SwapTurnHolder(IHero active)
-        {
-            active.HasTurn = false;
-            active.Opponent.HasTurn = true;
-            return active.Opponent;
-        }
 
-        public static IHero SetWhoIsFirst(IHero playerOne)
-        {
 
-            var res = RandomProvider.Generate(1, 3);
 
-            if (res == 1)
-            {
-                playerOne.HasTurn = true;
-                playerOne.Opponent.HasTurn = false;
-                return playerOne;
-            }
-            else
-            {
-                playerOne.Opponent.HasTurn = true;
-                playerOne.HasTurn = false;
-                return playerOne.Opponent;
-            }
-        }
 
         public static GameEngine Instance
         {

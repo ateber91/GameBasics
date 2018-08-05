@@ -4,12 +4,10 @@ namespace Team8Project.Models.Magic
 {
     public class DamagingAbility : IDamagingAbility
     {
-
         private int spellPower;
         private string name;
         private int cd;
         private IHero caster;
-        //     private IHero target;
         private string result;
 
         public DamagingAbility(string name, int cd, int spellPower)
@@ -37,10 +35,6 @@ namespace Team8Project.Models.Magic
                 this.caster = value;
             }
         }
-        //public IHero Target
-        //{
-        //    get { return this.target; }
-        //}
         public int SpellPower
         {
             get { return this.spellPower; }
@@ -57,7 +51,8 @@ namespace Team8Project.Models.Magic
 
         public override string ToString()
         {
-            return $"deals {result} damage";
+            var total = int.Parse(result) + spellPower;
+            return $"deals {total} damage";
         }
     }
 }

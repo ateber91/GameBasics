@@ -7,9 +7,10 @@ using Team8Project.Contracts;
 
 namespace Team8Project.Common
 {
-    public class Effects
+    public enum StatusType
     {
-        public string Name { get; set; }
-        public IHero Target { get; set; }
+        Frozen,
+        
+
     }
 }

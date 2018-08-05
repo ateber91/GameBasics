@@ -16,7 +16,7 @@ namespace Team8Project.Models
         private int healthPoints;
         private int dmgStartOfRange;
         private int dmgEndOfRange;
-        private List<IAbility> abilities;
+        private IList<IAbility> abilities;
         private IHero oppopnent;
         private bool hasTurn;
         private HeroClass heroClass;
@@ -50,7 +50,7 @@ namespace Team8Project.Models
             get { return this.dmgEndOfRange; }
             set { this.dmgEndOfRange = value; }
         }
-        public List<IAbility> Abilities { get { return this.abilities; } }
+        public IList<IAbility> Abilities { get { return this.abilities; } set { this.abilities = value; } } //?leave or remove set depending on future game logic
         public bool HasTurn
         {
             get { return this.hasTurn; }
@@ -75,14 +75,11 @@ namespace Team8Project.Models
 
         public void UseAbility(IAbility ability)
         {
+            ability.Caster = this;
             ability.Incantation();
         }
 
-        //Do not delete!
-        //public void Cast(DamagingAbility ability)
-        //{
-        //    ability.Caster = this;
-
+        
     }
 }
 

@@ -8,12 +8,10 @@ using Team8Project.Contracts;
 
 namespace Team8Project.Models.Magic
 {
-    //public class BuffSpell : Spell
-    //{
-    //    //public BuffSpell(string name, CoolDown cD, Target target) : base(name, cD, target)
-    //    //{
-    //    //}
+    public class BuffSpell
+    {
 
 
-    //}
+
+    }
 }

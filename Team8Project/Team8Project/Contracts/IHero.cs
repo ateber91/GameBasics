@@ -16,7 +16,7 @@ namespace Team8Project.Contracts
         IHero Opponent { get; set; }
         HeroClass HeroClass { get; set; }
         bool HasTurn { get; set; }
-        List<IAbility> Abilities { get; }
+        IList<IAbility> Abilities { get; set; } //leave set>?
         void AddAbility(IAbility ability);
         void UseAbility(IAbility ability);
     }
