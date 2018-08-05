@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Team8Project.Common;
 
 namespace Team8Project.Contracts
 {
@@ -13,6 +14,7 @@ namespace Team8Project.Contracts
         int DmgStartOfRange { get; set; }
         int DmgEndOfRange { get; set; }
         IHero Opponent { get; set; }
+        HeroClass HeroClass { get; set; }
         bool HasTurn { get; set; }
         List<IAbility> Abilities { get; }
         void AddAbility(IAbility ability);

@@ -1,5 +1,5 @@
 ﻿using Team8Project.Contracts;
-using Team8Project.Providers;
+using Team8Project.Core.Providers;
 namespace Team8Project.Models.Magic
 {
     public class DamagingAbility : IDamagingAbility

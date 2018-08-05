@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Team8Project.Contracts;
 
-namespace Team8Project.Providers
+namespace Team8Project.Core.Providers
 {
     public static class RandomProvider
     {
