@@ -12,14 +12,12 @@ namespace Team8Project.Models.Statuses
         private string name;
         private bool thisTurnApplied;
         private int duration;
-        private IHero caster;
 
-        protected Status(string name, bool thisTurnApplied, int duration, IHero target)
+        protected Status(string name, bool thisTurnApplied, int duration)
         {
             Name = name;
             ThisTurnApplied = thisTurnApplied;
             Duration = duration;
-            Caster = caster;
         }
 
         public string Name
@@ -46,14 +44,7 @@ namespace Team8Project.Models.Statuses
                 duration = value;
             }
         }
-        public IHero Caster
-        {
-            get { return caster; }
-            set
-            {
-                caster = value;
-            }
-        }
+      
 
         protected abstract void Apply();
         protected abstract void Expire();

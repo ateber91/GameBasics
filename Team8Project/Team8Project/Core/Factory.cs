@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Team8Project.Common;
 using Team8Project.Contracts;
 using Team8Project.Core.Providers;
-using Team8Project.Models;
 using Team8Project.Models.Magic;
 
 namespace Team8Project.Core
@@ -38,7 +34,7 @@ namespace Team8Project.Core
 
         private IList<IAbility> AddSpellbook(HeroClass heroClass)
         {
-            //TODO: GET SPELLS FORM SPELLPOOL
+            //TODO: GET SPELLS FROM SPELLPOOL
             //todo: FIX which hero gets what spellbook
             var spellBook = new List<IAbility>();
             if (heroClass == HeroClass.Warrior)

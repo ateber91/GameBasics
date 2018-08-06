@@ -42,9 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\StatusType.cs" />
+    <Compile Include="Common\EffectType.cs" />
     <Compile Include="Common\HeroClass.cs" />
     <Compile Include="Contracts\IEffectAbility.cs" />
+    <Compile Include="Core\EffectChecker.cs" />
     <Compile Include="Core\GameEngine.cs" />
     <Compile Include="Core\Factory.cs" />
     <Compile Include="Core\Providers\HeroPool.cs" />

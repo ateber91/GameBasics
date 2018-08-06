@@ -27,6 +27,10 @@ namespace Team8Project.Models
 
         public static void CheckActiveHeroStatus()
         {
+            //foreach (var status in collection)
+            //{
+
+            //}
         }
 
 
@@ -44,16 +48,9 @@ namespace Team8Project.Models
             var res = RandomProvider.Generate(1, 3);
             if (res == 1)
             {
-                //active.HasTurn = true;
-                //active.Opponent.HasTurn = false;
                 return this.activeHero;
             }
-            else
-            {
-                //active.Opponent.HasTurn = true;
-                //active.HasTurn = false;
                 return this.activeHero.Opponent;
-            }
         }
 
         public static Turn Instance

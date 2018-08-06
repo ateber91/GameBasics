@@ -62,7 +62,6 @@ namespace Team8Project.Core
                 }
                 turn.ActiveHero = turn.SwapTurnHolder();
             }
-
         }
 
 

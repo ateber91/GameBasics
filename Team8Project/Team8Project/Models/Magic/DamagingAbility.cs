@@ -8,13 +8,14 @@ namespace Team8Project.Models.Magic
         private string name;
         private int cd;
         private IHero caster;
-        private string result;
+        private int totalDamage;
 
         public DamagingAbility(string name, int cd, int spellPower)
         {
             Name = name;
             Cd = cd;
             SpellPower = spellPower;
+            this.totalDamage= RandomProvider.Generate(this.Caster.DmgStartOfRange, this.caster.DmgEndOfRange) + spellPower;
         }
 
         public string Name
@@ -44,15 +45,12 @@ namespace Team8Project.Models.Magic
         //FIX : printing logic
         public void Incantation()
         {
-            result = RandomProvider.Generate(this.Caster.DmgStartOfRange, this.caster.DmgEndOfRange).ToString();
-
-            caster.Opponent.HealthPoints -= int.Parse(result) + this.spellPower;
+            caster.Opponent.HealthPoints -= this.totalDamage;
         }
 
         public override string ToString()
         {
-            var total = int.Parse(result) + spellPower;
-            return $"deals {total} damage";
+            return $"deals {this.totalDamage} damage";
         }
     }
 }

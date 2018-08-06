@@ -7,6 +7,7 @@ using Team8Project.Static;
 using Team8Project.Contracts;
 using Team8Project.Models.Magic;
 using Team8Project.Common;
+using Team8Project.Models.Statuses;
 
 namespace Team8Project.Models
 {
@@ -18,8 +19,8 @@ namespace Team8Project.Models
         private int dmgEndOfRange;
         private IList<IAbility> abilities;
         private IHero oppopnent;
-        private bool hasTurn;
         private HeroClass heroClass;
+        private IList<Status> status;
 
 
         public Hero(string name, int healthPoints, int dmgStartOfRange, int dmgEndOfRange, HeroClass heroClass)
@@ -30,7 +31,6 @@ namespace Team8Project.Models
             this.DmgEndOfRange = dmgEndOfRange;
             this.HeroClass = heroClass;
             this.abilities = new List<IAbility>();
-            this.hasTurn = false;
 
         }
 
@@ -51,11 +51,7 @@ namespace Team8Project.Models
             set { this.dmgEndOfRange = value; }
         }
         public IList<IAbility> Abilities { get { return this.abilities; } set { this.abilities = value; } } //?leave or remove set depending on future game logic
-        public bool HasTurn
-        {
-            get { return this.hasTurn; }
-            set { this.hasTurn = value; }
-        }
+
         public IHero Opponent
         {
             get { return this.oppopnent; }
