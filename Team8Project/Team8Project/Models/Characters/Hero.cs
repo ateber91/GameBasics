@@ -22,16 +22,10 @@ namespace Team8Project.Models
         private HeroClass heroClass;
         private IList<Status> status;
 
-
-        public Hero(string name, int healthPoints, int dmgStartOfRange, int dmgEndOfRange, HeroClass heroClass)
+        public Hero()
         {
-           this.Name = name;
-            this.HealthPoints = healthPoints;
-            this.DmgStartOfRange = dmgStartOfRange;
-            this.DmgEndOfRange = dmgEndOfRange;
-            this.HeroClass = heroClass;
-            this.abilities = new List<IAbility>();
-
+            this.Abilities = new List<IAbility>();
+           
         }
 
         public string Name { get => this.name; set => this.name = value; }
@@ -64,18 +58,12 @@ namespace Team8Project.Models
             set { this.heroClass = value; }
         }
 
-        public void AddAbility(IAbility ability)
-        {
-            this.abilities.Add(ability);
-        }
-
         public void UseAbility(IAbility ability)
         {
-            ability.Caster = this;
-            ability.Incantation();
+            ability.ApplyAbility();
         }
 
-        
+
     }
 }
 

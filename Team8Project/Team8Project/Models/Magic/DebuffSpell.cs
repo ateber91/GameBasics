@@ -15,3 +15,11 @@ namespace Team8Project.Models.Magic
     //    //}
     //}
 }
+
+
+
+//attack
+
+    // get ability
+
+    // ability.applyEffectsto(opponent)

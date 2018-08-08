@@ -1,52 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Team8Project.Common;
-using Team8Project.Contracts;
-using Team8Project.Core.Providers;
-using Team8Project.Models;
-using Team8Project.Models.Magic;
 
 namespace Team8Project.Core
 {
     public class GameEngine
     {
-
-        private static GameEngine instance;
-
-        //  private readonly ICommandParser parser;
-        // private readonly ICommandProcessor commandProcessor;
+        private static GameEngine instance; 
         private readonly Factory factory;
-        private Turn turn;
-
-
+        private TurnProcessor turn;
 
         private GameEngine()
         {
-            //    this.parser = CommandParser.Instance;
-            //    this.commandProcessor = CommandProcessor.Instance;
             this.factory = Factory.Instance;
-            this.turn = Turn.Instance;
+            this.turn = TurnProcessor.Instance;
         }
 
         public void Run()
         {
 
             //Set Current Game Heroes
-            var seceltedHeroClassForPlayerOne = HeroClass.Warrior; //set class depending on choice
-            var seceltedHeroClassForPlayerTwo = HeroClass.Assasin;
+            var selectedHeroClassForPlayerOne = HeroClass.Warrior; //set class depending on choice
+            var selectedHeroClassForPlayerTwo = HeroClass.Assasin;
 
-            turn.ActiveHero = factory.CreateHero(seceltedHeroClassForPlayerOne);
-            turn.ActiveHero.Opponent = factory.CreateHero(seceltedHeroClassForPlayerTwo);
+            turn.FirstHero = factory.CreateHero(selectedHeroClassForPlayerOne);
+            turn.SecondHero = factory.CreateHero(selectedHeroClassForPlayerTwo);
 
-            //set heroes realtionship 
-            turn.ActiveHero.Opponent.Opponent = turn.ActiveHero;
-
-            turn.ActiveHero = turn.SetWhoIsFirst();
+            turn.SetFirstTurnActiveHero();
 
             //START GAME
             while (true)
             {
+
                 Console.WriteLine($" Turn: {turn.TurnNumeber}. {turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
 
                 //cast depending of selection [0],[1],[2] 
@@ -60,13 +44,9 @@ namespace Team8Project.Core
                     Console.WriteLine($"{turn.ActiveHero.Name.ToUpper()} WON! ");
                     break;
                 }
-                turn.ActiveHero = turn.SwapTurnHolder();
+                turn.NextTurn();
             }
         }
-
-
-
-
 
         public static GameEngine Instance
         {
@@ -80,7 +60,5 @@ namespace Team8Project.Core
                 return instance;
             }
         }
-
-
     }
 }

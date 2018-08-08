@@ -48,7 +48,6 @@
     <Compile Include="Core\EffectChecker.cs" />
     <Compile Include="Core\GameEngine.cs" />
     <Compile Include="Core\Factory.cs" />
-    <Compile Include="Core\Providers\HeroPool.cs" />
     <Compile Include="IO\ConsolePrinter.cs" />
     <Compile Include="Contracts\IAbility.cs" />
     <Compile Include="Contracts\IDamagingAbility.cs" />
@@ -62,7 +61,7 @@
     <Compile Include="Core\Providers\RandomProvider.cs" />
     <Compile Include="Models\Statuses\Frozen.cs" />
     <Compile Include="Models\Statuses\Status.cs" />
-    <Compile Include="Models\Turn.cs" />
+    <Compile Include="Core\TurnProcessor.cs" />
     <Compile Include="StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using Team8Project.Contracts;
 using Team8Project.Core.Providers;
 
-namespace Team8Project.Models
+namespace Team8Project.Core
 {
-    public class Turn
+    public class TurnProcessor
     {
         private int turnNumeber = 1;
-        private static readonly Turn instance = new Turn();
+        private static readonly TurnProcessor instance = new TurnProcessor();
         private IHero activeHero;
+        private IHero firstHero;
+        private IHero secondHero;
 
 
-        private Turn()
+
+        private TurnProcessor()
         {
         }
         public int TurnNumeber
@@ -34,26 +37,30 @@ namespace Team8Project.Models
         }
 
 
-        public IHero SwapTurnHolder()
+        public void NextTurn()
         {
-            //this.ActiveHero.HasTurn = false;
-            //this.ActiveHero.Opponent.HasTurn = true;  
             this.TurnNumeber++;
-
-            return this.ActiveHero.Opponent;
+            this.ActiveHero = ActiveHero.Opponent;
         }
 
-        public IHero SetWhoIsFirst()
+        public void SetFirstTurnActiveHero()
         {
+            SetRelationship();
             var res = RandomProvider.Generate(1, 3);
             if (res == 1)
             {
-                return this.activeHero;
+                this.ActiveHero = this.FirstHero;
             }
-                return this.activeHero.Opponent;
+            this.ActiveHero = this.SecondHero;
         }
 
-        public static Turn Instance
+        private void SetRelationship()
+        {
+            this.FirstHero.Opponent = this.SecondHero;
+            this.SecondHero.Opponent = this.FirstHero;
+        }
+
+        public static TurnProcessor Instance
         {
             get
             {
@@ -70,5 +77,21 @@ namespace Team8Project.Models
             }
         }
 
+        public IHero FirstHero
+        {
+            get { return firstHero; }
+            set
+            {
+                firstHero = value;
+            }
+        }
+        public IHero SecondHero
+        {
+            get { return secondHero; }
+            set
+            {
+                secondHero = value;
+            }
+        }
     }
 }

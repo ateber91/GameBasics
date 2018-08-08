@@ -6,6 +6,6 @@
         int Cd { get; set; }
         IHero Caster { get; set; }
 
-        void Incantation();
+        void ApplyAbility();
     }
 }
