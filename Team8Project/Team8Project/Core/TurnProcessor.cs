@@ -13,9 +13,9 @@ namespace Team8Project.Core
         private int turnNumeber = 1;
         private static readonly TurnProcessor instance = new TurnProcessor();
         private IHero activeHero;
+
         private IHero firstHero;
         private IHero secondHero;
-
 
 
         private TurnProcessor()
@@ -76,6 +76,7 @@ namespace Team8Project.Core
                 activeHero = value;
             }
         }
+
 
         public IHero FirstHero
         {

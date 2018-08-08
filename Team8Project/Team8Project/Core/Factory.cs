@@ -6,6 +6,7 @@ using Team8Project.Contracts;
 using Team8Project.Core.Providers;
 using Team8Project.Models;
 using Team8Project.Models.Magic;
+using Team8Project.Models.Terrains;
 
 namespace Team8Project.Core
 {
@@ -64,9 +65,6 @@ namespace Team8Project.Core
             return hero;
         }
 
-
-
-
         private IList<IAbility> Spellbook(HeroClass heroClass)
         {
             var spellBook = new List<IAbility>();
@@ -82,7 +80,7 @@ namespace Team8Project.Core
 
                 //Todo: add 3rd effect ability
             };
-                    spellBook.Add(warriorSpellBook[RandomProvider.Generate(0, warriorSpellBook.Count())]);
+                    spellBook.Add(warriorSpellBook[RandomProvider.Generate(0, warriorSpellBook.Count()-1)]);
                     break;
                 case HeroClass.Mage:
 
@@ -94,7 +92,7 @@ namespace Team8Project.Core
                                 //Todo: add 3rd effect ability
 
             };
-                    spellBook.Add(mageSpellBook[RandomProvider.Generate(0, mageSpellBook.Count())]);
+                    spellBook.Add(mageSpellBook[RandomProvider.Generate(0, mageSpellBook.Count()-1)]);
 
                     break;
                 case HeroClass.Assasin:
@@ -105,7 +103,7 @@ namespace Team8Project.Core
                 new DamagingAbility("Eviscerate", 1, 22),
                                 //Todo: add 3rd effect ability
             };
-                    spellBook.Add(assasinSpellBook[RandomProvider.Generate(0, assasinSpellBook.Count())]);
+                    spellBook.Add(assasinSpellBook[RandomProvider.Generate(0, assasinSpellBook.Count()-1)]);
 
                     break;
                 case HeroClass.Cleric:
@@ -117,7 +115,7 @@ namespace Team8Project.Core
                                 //Todo: add 3rd effect ability
 
             };
-                    spellBook.Add(clericSpellBook[RandomProvider.Generate(0, clericSpellBook.Count())]);
+                    spellBook.Add(clericSpellBook[RandomProvider.Generate(0, clericSpellBook.Count()-1)]);
 
                     break;
                 default: throw new ArgumentException("Invalid hero class");

@@ -63,7 +63,6 @@ namespace Team8Project.Models
             ability.ApplyAbility();
         }
 
-
     }
 }
 

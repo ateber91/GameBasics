@@ -45,6 +45,7 @@
     <Compile Include="Common\EffectType.cs" />
     <Compile Include="Common\HeroClass.cs" />
     <Compile Include="Contracts\IEffectAbility.cs" />
+    <Compile Include="Contracts\ITerrain.cs" />
     <Compile Include="Core\EffectChecker.cs" />
     <Compile Include="Core\GameEngine.cs" />
     <Compile Include="Core\Factory.cs" />
@@ -61,6 +62,9 @@
     <Compile Include="Core\Providers\RandomProvider.cs" />
     <Compile Include="Models\Statuses\Frozen.cs" />
     <Compile Include="Models\Statuses\Status.cs" />
+    <Compile Include="Models\Terrains\Graveyard.cs" />
+    <Compile Include="Models\Terrains\Jungle.cs" />
+    <Compile Include="Models\Terrains\Terrain.cs" />
     <Compile Include="Core\TurnProcessor.cs" />
     <Compile Include="StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
