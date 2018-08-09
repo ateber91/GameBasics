@@ -9,7 +9,7 @@ using Team8Project.Models.Terrains;
 
 namespace Team8Project.Core
 {
-    public class GameEngine
+    public class GameEngine : IEngine
     {
         private static GameEngine instance;
         private readonly Factory factory;
