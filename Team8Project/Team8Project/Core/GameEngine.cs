@@ -51,7 +51,6 @@ namespace Team8Project.Core
             //if(userChoice == 0)
             //Get the only object available
             this.terrain = Jungle.getInstance();
-            this.terrain = Graveyard.getInstance();
             //apply effect
             terrain.HeroEffect(turn.ActiveHero);
             terrain.HeroEffect(turn.ActiveHero.Opponent);
@@ -60,6 +59,17 @@ namespace Team8Project.Core
             //START GAME
             while (true)
             {
+                if (RandomProvider.Generate(1, 2) == 1)
+                {
+                    terrain.ContinuousEffect(turn.ActiveHero);
+                    //TODO: needs message
+                }
+                else
+                {
+                    terrain.ContinuousEffect(turn.ActiveHero.Opponent);
+                    //TODO: needs message
+                }
+
                 for (int i = 1; i <= 2; i++)
                 {
                     Console.WriteLine($" Turn: {turn.TurnNumeber}. {turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
@@ -73,18 +83,18 @@ namespace Team8Project.Core
                     {
                         Console.WriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}");
                     }
-
-
-                    if (RandomProvider.Generate(1, 2) == 1)
+                    ////refreshing cooldowns
+                    foreach (IAbility ability in turn.ActiveHero.Abilities)
                     {
-                        terrain.ContinuousEffect(turn.ActiveHero);
+                        if (ability.OnCD == true)
+                        {
+                            ability.CD2++;
+                            if (ability.CD2 == ability.Cd)
+                            {
+                                ability.OnCD = false;
+                            }
+                        }
                     }
-                    else
-                    {
-                        terrain.ContinuousEffect(turn.ActiveHero.Opponent);
-                    }
-
-
 
                     Console.WriteLine($"{turn.ActiveHero.Name}'s abilities: ");
 
@@ -95,10 +105,14 @@ namespace Team8Project.Core
                         Console.WriteLine($"{pos}. {ability.Name}");
                     }
 
-                    //int inputAbility = int.Parse(Console.ReadLine());
-                    //var selectedAbility = turn.ActiveHero.Abilities[inputAbility - 1];
                     string selectAbilityCommand = this.Reader.ConsoleReadKey();
                     var selectedAbility = this.ProcessCommand(selectAbilityCommand);
+                    while (selectedAbility.OnCD == true)
+                    {
+                        Console.WriteLine("Chosen ability is on cooldown, choose another");
+                        selectAbilityCommand = this.Reader.ConsoleReadKey();
+                        selectedAbility = this.ProcessCommand(selectAbilityCommand);
+                    }
 
                     turn.ActiveHero.UseAbility(selectedAbility);
                     Console.WriteLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}. {turn.ActiveHero.Opponent.Name} is left with {turn.ActiveHero.Opponent.HealthPoints} HP");
