@@ -7,6 +7,7 @@ using Team8Project.Core.Providers;
 using Team8Project.Models;
 using Team8Project.Models.Magic;
 using Team8Project.Models.Statuses;
+using Team8Project.Models.Terrains;
 
 namespace Team8Project.Core
 {
@@ -113,6 +114,7 @@ namespace Team8Project.Core
             }
         }
 
+
         private IList<IAbility> Spellbook(HeroClass heroClass)
         {
             var spellBook = new List<IAbility>();
@@ -126,5 +128,6 @@ namespace Team8Project.Core
 
             return spellBook;
         }
+
     }
 }

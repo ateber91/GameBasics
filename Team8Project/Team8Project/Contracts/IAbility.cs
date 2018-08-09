@@ -12,5 +12,6 @@ namespace Team8Project.Contracts
         HeroClass HeroClass { get; set; }
         EffectType Type { get; set; }
         void Apply();
+        string Print();
     }
 }

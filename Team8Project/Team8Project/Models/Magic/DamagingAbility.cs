@@ -1,6 +1,7 @@
 ﻿using Team8Project.Common;
 using Team8Project.Contracts;
 using Team8Project.Core;
+﻿using System.Text;
 using Team8Project.Core.Providers;
 namespace Team8Project.Models.Magic
 {
@@ -28,6 +29,20 @@ namespace Team8Project.Models.Magic
         public override string ToString()
         {
             return $"deals {this.damageDealt} damage";
+        }
+
+        public override string Print()
+        {
+            //string Name { get; set; }
+            //int Cd { get; set; }
+            //IHero Caster { get; set; }
+
+            var sb = new StringBuilder();
+
+            sb.AppendLine("Spell name: " + this.Name);
+            sb.AppendLine("Spell cooldown " + this.Cd);
+
+            return sb.ToString();
         }
     }
 }

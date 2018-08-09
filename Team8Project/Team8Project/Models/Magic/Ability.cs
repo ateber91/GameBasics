@@ -87,6 +87,8 @@ namespace Team8Project.Models.Magic
         }
 
         public abstract void Apply();
+
+        public abstract string Print(); 
     }
 }
 

@@ -52,6 +52,7 @@ namespace Team8Project.Models.Statuses
             return $"applied {this.Type.ToString()}";
         }
 
+        public override string Print() { return null; }
 
     }
 }

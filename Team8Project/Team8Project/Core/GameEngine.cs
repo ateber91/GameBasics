@@ -2,6 +2,10 @@
 using Team8Project.Common;
 using Team8Project.Contracts;
 
+using Team8Project.Core.Providers;
+using Team8Project.Models;
+using Team8Project.Models.Terrains;
+
 namespace Team8Project.Core
 {
     public class GameEngine
@@ -10,6 +14,7 @@ namespace Team8Project.Core
         private readonly Factory factory;
         private TurnProcessor turn;
         private EffectManager effect;
+        private ITerrain terrain;
 
         private GameEngine()
         {
@@ -20,7 +25,6 @@ namespace Team8Project.Core
 
         public void Run()
         {
-
             //Set Current Game Heroes
 
             Console.WriteLine($"Choose a character: 1.{HeroClass.Assasin}, 2.{HeroClass.Warrior}, 3.{HeroClass.Mage} 4.{HeroClass.Cleric}");
@@ -50,6 +54,16 @@ namespace Team8Project.Core
             factory.CreateSpellBook(turn.SecondHero);
 
 
+            //choose terrain depending on user choice [0] [1] etc
+            //if(userChoice == 0)
+            //Get the only object available
+            this.terrain = Jungle.getInstance();
+            this.terrain = Graveyard.getInstance();
+            //apply effect
+            terrain.HeroEffect(turn.ActiveHero);
+            terrain.HeroEffect(turn.ActiveHero.Opponent);
+
+
             //START GAME
             while (true)
             {
@@ -67,7 +81,17 @@ namespace Team8Project.Core
                         Console.WriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}");
                     }
 
-                    //TODO FIX :
+
+                if (RandomProvider.Generate(1, 2) == 1)
+                {
+                    terrain.ContinuousEffect(turn.ActiveHero);
+                }
+                else
+                {
+                    terrain.ContinuousEffect(turn.ActiveHero.Opponent);
+                }
+
+
 
                     Console.WriteLine($"{turn.ActiveHero.Name}'s abilities: ");
 

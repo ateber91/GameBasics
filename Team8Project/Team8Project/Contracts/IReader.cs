@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Team8Project.Common;
-using Team8Project.Contracts;
 
-namespace Team8Project.Models.Magic
+namespace Team8Project.Contracts
 {
-    public class BuffSpell
+    public interface IReader
     {
-        
+        string ReadLine();
     }
 }

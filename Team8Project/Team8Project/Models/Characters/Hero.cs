@@ -22,10 +22,12 @@ namespace Team8Project.Models
         private HeroClass heroClass;
         private IList<IEffect> appliedEffects;
 
+
         public Hero()
         {
             this.Abilities = new List<IAbility>();
             this.AppliedEffects = new List<IEffect>();
+
         }
 
         public string Name { get => this.name; set => this.name = value; }
@@ -44,6 +46,7 @@ namespace Team8Project.Models
             get { return this.dmgEndOfRange; }
             set { this.dmgEndOfRange = value; }
         }
+
         public IList<IAbility> Abilities
         {
             get { return this.abilities; }
@@ -77,6 +80,33 @@ namespace Team8Project.Models
             ability.Apply();
         }
 
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine("Hero health points: " + this.HealthPoints);
+            sb.AppendLine("Hero damage " + this.DmgStartOfRange + " to " + this.DmgEndOfRange);
+            sb.AppendLine("Hero class " + this.HeroClass);
+            sb.AppendLine("Spells:");
+            foreach (IAbility spell in this.Abilities)
+            {
+                sb.Append(spell.Print());
+            }
+
+            //if (this.Status.Count == 0)
+            //{
+            //    sb.AppendLine("NO EFFECTS CURRENTLY");
+            //}
+            //else
+            //{
+            //    sb.AppendLine("CURRENT EFFECTS:");
+            //    foreach (EffectType effect in this.CurrentEffects)
+            //    {
+            //        sb.Append(effect);
+            //    }
+            //}
+            return sb.ToString();
+        }
 
     }
 }
