@@ -8,8 +8,7 @@ namespace Team8Project.Contracts
 {
     public interface IWriter
     {
-        void Write(string message);
-
-        void WriteLine(string message);
+        void ConsoleWriteLine(string message);
+        void ConsoleWrite(string message);
     }
 }

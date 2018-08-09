@@ -8,6 +8,7 @@ namespace Team8Project.Contracts
 {
     public interface IReader
     {
-        string ReadLine();
+        string ConsoleReadLine();
+        string ConsoleReadKey();
     }
 }
