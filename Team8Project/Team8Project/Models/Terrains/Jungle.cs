@@ -40,14 +40,14 @@ namespace Team8Project.Models.Terrains
                     break; 
                 case HeroClass.Assasin:
                     hero.DmgStartOfRange -= 10;
-                    hero.DmgEndOfRange += 10;
+                    hero.DmgEndOfRange -= 10;
                     break;
                 case HeroClass.Cleric:
                     hero.HealthPoints -= 100;
                     break;
                 case HeroClass.Mage:
                     hero.DmgStartOfRange += 10;
-                    hero.DmgEndOfRange -= 10;
+                    hero.DmgEndOfRange += 10;
                     break;
                 default:
                     break;

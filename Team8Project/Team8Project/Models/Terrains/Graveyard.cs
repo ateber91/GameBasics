@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Team8Project.Common;
+﻿using Team8Project.Common;
 using Team8Project.Contracts;
 
 namespace Team8Project.Models.Terrains
@@ -39,14 +34,14 @@ namespace Team8Project.Models.Terrains
                     hero.HealthPoints -= 50;
                     break;
                 case HeroClass.Assasin:
-                    hero.DmgStartOfRange -= 5;
+                    hero.DmgStartOfRange += 5;
                     hero.DmgEndOfRange += 5;
                     break;
                 case HeroClass.Cleric:
                     hero.HealthPoints += 50;
                     break;
                 case HeroClass.Mage:
-                    hero.DmgStartOfRange += 5;
+                    hero.DmgStartOfRange -= 5;
                     hero.DmgEndOfRange -= 5;
                     break;
                 default:

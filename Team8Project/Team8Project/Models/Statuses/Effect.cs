@@ -17,15 +17,7 @@ namespace Team8Project.Models.Statuses
         {
             this.Duration = duration;
 
-            //if (type == EffectType.Buff || type == EffectType.HOT || type == EffectType.Resistance)
-            //{
-            //    base.Target = base.Caster;
-            //}
-            //else
-            //{
-            //    base.Target = base.Caster.Opponent;
-            //}
-        }
+                  }
 
         public int Duration
         {

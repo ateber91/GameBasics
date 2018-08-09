@@ -49,7 +49,6 @@
     <Compile Include="Contracts\IReader.cs" />
     <Compile Include="Contracts\ITerrain.cs" />
     <Compile Include="Contracts\IWriter.cs" />
-    <Compile Include="Core\EffectChecker.cs" />
     <Compile Include="Core\GameEngine.cs" />
     <Compile Include="Core\Factory.cs" />
     <Compile Include="IO\ConsolePrinter.cs" />
@@ -61,13 +60,10 @@
     <Compile Include="Models\Characters\Hero.cs" />
     <Compile Include="Common\Target.cs" />
     <Compile Include="Models\Magic\Ability.cs" />
-    <Compile Include="Models\Magic\BuffSpell.cs" />
     <Compile Include="Models\Magic\DamagingAbility.cs" />
-    <Compile Include="Models\Magic\DebuffSpell.cs" />
     <Compile Include="IO\IPrinter.cs" />
     <Compile Include="Core\Providers\RandomProvider.cs" />
     <Compile Include="Models\Statuses\Effect.cs" />
-    <Compile Include="Models\Statuses\Frozen.cs" />
     <Compile Include="Models\Statuses\Status.cs" />
     <Compile Include="Models\Terrains\Graveyard.cs" />
     <Compile Include="Models\Terrains\Jungle.cs" />

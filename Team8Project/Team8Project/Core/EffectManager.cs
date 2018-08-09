@@ -21,11 +21,11 @@ namespace Team8Project.Core
                 {
                     case EffectType.Buff:
                         damage += effect.AbilityPower;
-                        //effect.Duration = 0;
+                    //    effect.Duration = 0;
                         break;
                     case EffectType.Debuff:
                         damage -= effect.AbilityPower;
-                        //effect.Duration = 0;
+                    //    effect.Duration = 0;
                         break;
                 }
             }

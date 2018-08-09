@@ -1,7 +1,6 @@
 ﻿using System;
 using Team8Project.Common;
 using Team8Project.Contracts;
-
 using Team8Project.Core.Providers;
 using Team8Project.Models;
 using Team8Project.Models.Terrains;
@@ -53,7 +52,6 @@ namespace Team8Project.Core
             factory.CreateSpellBook(turn.FirstHero);
             factory.CreateSpellBook(turn.SecondHero);
 
-
             //choose terrain depending on user choice [0] [1] etc
             //if(userChoice == 0)
             //Get the only object available
@@ -82,14 +80,14 @@ namespace Team8Project.Core
                     }
 
 
-                if (RandomProvider.Generate(1, 2) == 1)
-                {
-                    terrain.ContinuousEffect(turn.ActiveHero);
-                }
-                else
-                {
-                    terrain.ContinuousEffect(turn.ActiveHero.Opponent);
-                }
+                    if (RandomProvider.Generate(1, 2) == 1)
+                    {
+                        terrain.ContinuousEffect(turn.ActiveHero);
+                    }
+                    else
+                    {
+                        terrain.ContinuousEffect(turn.ActiveHero.Opponent);
+                    }
 
 
 

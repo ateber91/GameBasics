@@ -36,11 +36,11 @@ namespace Team8Project.Models.Terrains
             switch (hero.HeroClass)
             {
                 case HeroClass.Warrior:
-                    hero.DmgStartOfRange -= 10;
+                    hero.DmgStartOfRange += 10;
                     hero.DmgEndOfRange += 10;
                     break;
                 case HeroClass.Assasin:
-                    hero.DmgStartOfRange += 10;
+                    hero.DmgStartOfRange -= 10;
                     hero.DmgEndOfRange -= 10;
                     break;
                 case HeroClass.Cleric:
