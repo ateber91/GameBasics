@@ -41,7 +41,7 @@ namespace Team8Project.Models.Statuses
         }
         public override string ToString()
         {
-            return $"applied {this.Type.ToString()}";
+            return $"applies {this.Type.ToString()} duration {this.Duration}turns";
         }
 
         public override string Print() { return null; }
