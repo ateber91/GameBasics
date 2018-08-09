@@ -9,7 +9,7 @@ using Team8Project.Models.Magic;
 
 namespace Team8Project.Models.Statuses
 {
-    public class Effect : Ability, IEffect
+    public class Effect : Ability, IAbility, IEffect
     {
         private int duration;
         public Effect(string name, int cd, HeroClass heroClass, EffectType type, int duration, int abilityPower)
@@ -38,6 +38,8 @@ namespace Team8Project.Models.Statuses
             {
                 base.Target.AppliedEffects.Add(this);
             }
+            this.CD2 = -1;
+            this.OnCD = true;
         }
         public override string ToString()
         {
