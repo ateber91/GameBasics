@@ -1,6 +1,7 @@
 ﻿using System;
 using Team8Project.Common;
 using Team8Project.Contracts;
+using Team8Project.Core.Providers;
 using Team8Project.Models;
 using Team8Project.Models.Terrains;
 
@@ -39,12 +40,21 @@ namespace Team8Project.Core
             terrain.HeroEffect(turn.ActiveHero);
             terrain.HeroEffect(turn.ActiveHero.Opponent);
 
-            
+
             //START GAME
             while (true)
             {
 
                 Console.WriteLine($" Turn: {turn.TurnNumeber}. {turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
+
+                if (RandomProvider.Generate(1, 2) == 1)
+                {
+                    terrain.ContinuousEffect(turn.ActiveHero);
+                }
+                else
+                {
+                    terrain.ContinuousEffect(turn.ActiveHero.Opponent);
+                }
 
                 //cast depending of selection [0],[1],[2] 
                 var selectedAbility = turn.ActiveHero.Abilities[0];

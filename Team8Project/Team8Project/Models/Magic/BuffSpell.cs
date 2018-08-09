@@ -10,8 +10,6 @@ namespace Team8Project.Models.Magic
 {
     public class BuffSpell
     {
-
-
-
+        
     }
 }

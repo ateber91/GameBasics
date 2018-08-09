@@ -12,6 +12,6 @@ namespace Team8Project.Models.Terrains
     public abstract class Terrain: ITerrain
     {
         public abstract void HeroEffect(IHero hero);
+        public abstract void ContinuousEffect(IHero hero);
     }
 }
-//terena moje da e singleton i da vzimash negovata instanciq v engina, i tam nali imash dostup do dwata geroq da prilagash kakvoto ida e

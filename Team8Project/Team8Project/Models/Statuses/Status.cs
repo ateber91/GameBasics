@@ -44,14 +44,10 @@ namespace Team8Project.Models.Statuses
                 duration = value;
             }
         }
-      
-
         protected abstract void Apply();
         protected abstract void Expire();
-
-
-
-        private void Affect()
+        
+        private void Affect()//IHero hero
         {
             if (this.ThisTurnApplied == true)
             {

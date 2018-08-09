@@ -36,22 +36,26 @@ namespace Team8Project.Models.Terrains
             switch (hero.HeroClass)
             {
                 case HeroClass.Warrior:
-                    hero.HealthPoints += 100;
+                    hero.HealthPoints -= 50;
                     break;
                 case HeroClass.Assasin:
-                    hero.DmgStartOfRange -= 10;
-                    hero.DmgEndOfRange += 10;
+                    hero.DmgStartOfRange -= 5;
+                    hero.DmgEndOfRange += 5;
                     break;
                 case HeroClass.Cleric:
-                    hero.HealthPoints -= 100;
+                    hero.HealthPoints += 50;
                     break;
                 case HeroClass.Mage:
-                    hero.DmgStartOfRange += 10;
-                    hero.DmgEndOfRange -= 10;
+                    hero.DmgStartOfRange += 5;
+                    hero.DmgEndOfRange -= 5;
                     break;
                 default:
                     break;
             }
+        }
+        public override void ContinuousEffect(IHero hero)
+        {
+            hero.HealthPoints -= 10;
         }
     }
 }

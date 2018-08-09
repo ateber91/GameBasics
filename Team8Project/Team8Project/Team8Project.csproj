@@ -66,6 +66,7 @@
     <Compile Include="Models\Terrains\Jungle.cs" />
     <Compile Include="Models\Terrains\Terrain.cs" />
     <Compile Include="Core\TurnProcessor.cs" />
+    <Compile Include="Models\Terrains\Tundra.cs" />
     <Compile Include="StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

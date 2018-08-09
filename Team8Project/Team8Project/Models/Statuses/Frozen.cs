@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Team8Project.Common;
 using Team8Project.Contracts;
 using Team8Project.Core;
 
@@ -14,15 +15,14 @@ namespace Team8Project.Models.Statuses
         //{
         //}
 
-    //    protected override void Apply()
-    //    {
-    //        throw new NotImplementedException();
+        //    protected override void Apply()
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-    //    }
-
-    //    protected override void Expire()
-    //    {
-    //        throw new NotImplementedException();
-    //    }
+        //    protected override void Expire()
+        //    {
+        //        throw new NotImplementedException();
+        //    }
     }
 }

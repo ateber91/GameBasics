@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Team8Project.Common;
+using Team8Project.Models.Statuses;
 
 namespace Team8Project.Contracts
 {
@@ -11,7 +12,9 @@ namespace Team8Project.Contracts
         int DmgEndOfRange { get; set; }
         IHero Opponent { get; set; }
         HeroClass HeroClass { get; set; }
-        IList<IAbility> Abilities { get; set; } //leave set>?
+        IList<IAbility> Abilities { get; set; }
+        IList<EffectType> CurrentEffects { get; set; }
+        IList<Status> Status { get; set; }//leave set>?
         void UseAbility(IAbility ability);
     }
 }

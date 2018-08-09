@@ -8,14 +8,14 @@ using Team8Project.Contracts;
 
 namespace Team8Project.Models.Terrains
 {
-    public class Jungle: Terrain, ITerrain
+    public class Tundra:Terrain
     {
         //create an object of SingleObject
-        private static ITerrain instance = new Jungle();
+        private static ITerrain instance = new Tundra();
 
         //make the constructor private so that this class cannot be
         //instantiated
-        private Jungle() { }
+        private Tundra() { }
 
         //Get the only object available
         public static ITerrain getInstance()
@@ -36,18 +36,18 @@ namespace Team8Project.Models.Terrains
             switch (hero.HeroClass)
             {
                 case HeroClass.Warrior:
-                    hero.HealthPoints += 100;
-                    break; 
-                case HeroClass.Assasin:
                     hero.DmgStartOfRange -= 10;
                     hero.DmgEndOfRange += 10;
+                    break;
+                case HeroClass.Assasin:
+                    hero.DmgStartOfRange += 10;
+                    hero.DmgEndOfRange -= 10;
                     break;
                 case HeroClass.Cleric:
                     hero.HealthPoints -= 100;
                     break;
                 case HeroClass.Mage:
-                    hero.DmgStartOfRange += 10;
-                    hero.DmgEndOfRange -= 10;
+                    hero.HealthPoints += 100;
                     break;
                 default:
                     break;
@@ -55,7 +55,7 @@ namespace Team8Project.Models.Terrains
         }
         public override void ContinuousEffect(IHero hero)
         {
-            hero.HealthPoints += 10;
+            hero.DmgEndOfRange -= 2;
         }
     }
 }

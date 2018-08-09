@@ -16,7 +16,7 @@ namespace Team8Project.Core
 
         }
 
-     //   public bool CheckForHpBoost
+       //public bool CheckForHpBoost
 
 
         public static EffectChecker Instance
