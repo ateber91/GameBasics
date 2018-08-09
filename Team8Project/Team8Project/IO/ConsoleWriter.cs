@@ -9,14 +9,13 @@ namespace Team8Project.IO
 {
     public class ConsoleWriter : IWriter
     {
-        public void Write(string message)
-        {
-            Console.Write(message);
-        }
-
-        public void WriteLine(string message)
+        public void ConsoleWriteLine(string message)
         {
             Console.WriteLine(message);
+        }
+        public void ConsoleWrite(string message)
+        {
+            Console.Write(message);
         }
     }
 }
