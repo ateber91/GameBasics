@@ -45,7 +45,9 @@
     <Compile Include="Common\EffectType.cs" />
     <Compile Include="Common\HeroClass.cs" />
     <Compile Include="Contracts\IEffectAbility.cs" />
+    <Compile Include="Contracts\IReader.cs" />
     <Compile Include="Contracts\ITerrain.cs" />
+    <Compile Include="Contracts\IWriter.cs" />
     <Compile Include="Core\EffectChecker.cs" />
     <Compile Include="Core\GameEngine.cs" />
     <Compile Include="Core\Factory.cs" />
@@ -53,6 +55,8 @@
     <Compile Include="Contracts\IAbility.cs" />
     <Compile Include="Contracts\IDamagingAbility.cs" />
     <Compile Include="Contracts\IHero.cs" />
+    <Compile Include="IO\ConsoleReader.cs" />
+    <Compile Include="IO\ConsoleWriter.cs" />
     <Compile Include="Models\Characters\Hero.cs" />
     <Compile Include="Common\Target.cs" />
     <Compile Include="Models\Magic\BuffSpell.cs" />
