@@ -16,6 +16,7 @@ namespace Team8Project.Core
         private TurnProcessor turn;
         private EffectManager effect;
         private ITerrain terrain;
+        private CommandProcessor commandProcessor;
         private List<IHero> listHeros;
 
         private GameEngine()
@@ -25,6 +26,7 @@ namespace Team8Project.Core
             this.effect = EffectManager.Instance;
             this.Reader = new ConsoleReader();
             this.Writer = new ConsoleWriter();
+            this.commandProcessor = new CommandProcessor();
             this.listHeros = new List<IHero>();
         }
 
@@ -41,8 +43,11 @@ namespace Team8Project.Core
 
             players[0] = this.Reader.ConsoleReadLine();
             players[1] = this.Reader.ConsoleReadLine();
-            this.ProcessCommand(players);
-           
+            
+            this.listHeros = commandProcessor.ProcessCommand(players);
+            turn.FirstHero = this.listHeros[0];
+            turn.SecondHero = this.listHeros[1];
+
             turn.SetFirstTurnActiveHero();
             factory.CreateSpellBook(turn.FirstHero);
             factory.CreateSpellBook(turn.SecondHero);
@@ -106,12 +111,13 @@ namespace Team8Project.Core
                     }
 
                     string selectAbilityCommand = this.Reader.ConsoleReadKey();
-                    var selectedAbility = this.ProcessCommand(selectAbilityCommand);
+                    var selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
+
                     while (selectedAbility.OnCD == true)
                     {
                         Console.WriteLine("Chosen ability is on cooldown, choose another");
                         selectAbilityCommand = this.Reader.ConsoleReadKey();
-                        selectedAbility = this.ProcessCommand(selectAbilityCommand);
+                        selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
                     }
 
                     turn.ActiveHero.UseAbility(selectedAbility);
@@ -127,45 +133,7 @@ namespace Team8Project.Core
                 turn.NextTurn();
             }
         }
-        private void ProcessCommand(string[] players)
-        {
-            foreach (var player in players)
-            {
-                switch (player)
-                {
-                    case "1":
-                        this.listHeros.Add(factory.CreateHero(HeroClass.Warrior));
-                        break;
-                    case "2":
-                        this.listHeros.Add(factory.CreateHero(HeroClass.Mage));
-                        break;
-                    case "3":
-                        this.listHeros.Add(factory.CreateHero(HeroClass.Assasin));
-                        break;
-                    case "4":
-                        this.listHeros.Add(factory.CreateHero(HeroClass.Cleric));
-                        break;
-                    default:
-                        throw new ArgumentException("I couldn't create you hero! :(");
-                }
-            }
-            turn.FirstHero = this.listHeros[0];
-            turn.SecondHero = this.listHeros[1];
-        }
-        private IAbility ProcessCommand(string key)
-        {
-            switch (key)
-            {
-                case "1":
-                    return turn.ActiveHero.Abilities[0];
-                case "2":
-                    return turn.ActiveHero.Abilities[1];
-                case "3":
-                    return turn.ActiveHero.Abilities[2];
-                default:
-                    throw new ArgumentException("I couldn't return ability! :(");
-            }
-        }
+        
         public static GameEngine Instance
         {
             get

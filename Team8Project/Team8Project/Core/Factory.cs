@@ -58,32 +58,21 @@ namespace Team8Project.Core
 
         public IHero CreateHero(HeroClass heroClass)
         {
-            IHero hero = new Hero();
+            IHero hero;
+
             switch (heroClass)
             {
                 case HeroClass.Warrior:
-                    hero.Name = "Pesho";
-                    hero.HealthPoints = 220;
-                    hero.DmgStartOfRange = 12;
-                    hero.DmgEndOfRange = 18;
+                    hero = this.SetStats("Pesho", 220, 12, 18);
                     break;
                 case HeroClass.Mage:
-                    hero.Name = "Penka";
-                    hero.HealthPoints = 180;
-                    hero.DmgStartOfRange = 10;
-                    hero.DmgEndOfRange = 12;
+                    hero = this.SetStats("Penka", 180, 10, 12);
                     break;
                 case HeroClass.Assasin:
-                    hero.Name = "Gesho";
-                    hero.HealthPoints = 200;
-                    hero.DmgStartOfRange = 15;
-                    hero.DmgEndOfRange = 20;
+                    hero = this.SetStats("Pesho", 200, 25, 20);
                     break;
                 case HeroClass.Cleric:
-                    hero.Name = "Pesho";
-                    hero.HealthPoints = 160;
-                    hero.DmgStartOfRange = 8;
-                    hero.DmgEndOfRange = 10;
+                    hero = this.SetStats("Pesho", 160, 8, 10);
                     break;
                 default:
                     throw new ArgumentException("Invalid hero class");
@@ -122,6 +111,16 @@ namespace Team8Project.Core
             spellBook.Add(effectAbilitues[RandomProvider.Generate(0, effectAbilitues.Count - 1)]);
 
             return spellBook;
+        }
+
+        private IHero SetStats(string name, int hp, int dmgStartOfRange, int dmgEndOfRange)
+        {
+            IHero hero = new Hero();
+            hero.Name = name;
+            hero.HealthPoints = hp;
+            hero.DmgStartOfRange = dmgStartOfRange;
+            hero.DmgEndOfRange = dmgEndOfRange;
+            return hero;
         }
 
     }
