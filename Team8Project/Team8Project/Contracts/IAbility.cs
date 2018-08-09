@@ -13,5 +13,7 @@ namespace Team8Project.Contracts
         EffectType Type { get; set; }
         void Apply();
         string Print();
+        bool OnCD { get; set; }
+        int CD2 { get; set; }
     }
 }

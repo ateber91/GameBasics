@@ -17,6 +17,33 @@ namespace Team8Project.Models.Magic
         private IHero target;
         private HeroClass heroClass;
         private EffectType type;
+        private bool onCD = false;
+        private int cd2 = 0;
+
+        public int CD2
+        {
+            get
+            {
+                return this.cd2;
+            }
+            set
+            {
+                this.cd2 = value;
+            }
+        }
+
+        public bool OnCD
+        {
+            get
+            {
+                return this.onCD;
+            }
+            set
+            {
+                this.onCD = value;
+            }
+        }
+
 
         public Ability(string name, int cd, HeroClass heroClass, EffectType type, int abilityPower)
         {

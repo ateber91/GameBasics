@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Team8Project.Common;
 using Team8Project.Contracts;
 using Team8Project.Core.Providers;
+using Team8Project.IO;
 using Team8Project.Models;
 using Team8Project.Models.Terrains;
 
@@ -14,39 +16,37 @@ namespace Team8Project.Core
         private TurnProcessor turn;
         private EffectManager effect;
         private ITerrain terrain;
+        private CommandProcessor commandProcessor;
+        private List<IHero> listHeros;
 
         private GameEngine()
         {
             this.factory = Factory.Instance;
             this.turn = TurnProcessor.Instance;
             this.effect = EffectManager.Instance;
+            this.Reader = new ConsoleReader();
+            this.Writer = new ConsoleWriter();
+            this.commandProcessor = new CommandProcessor();
+            this.listHeros = new List<IHero>();
         }
 
+        public IReader Reader { get; set; }
+        public IWriter Writer { get; set; }
+        
+        
         public void Run()
         {
             //Set Current Game Heroes
 
             Console.WriteLine($"Choose a character: 1.{HeroClass.Assasin}, 2.{HeroClass.Warrior}, 3.{HeroClass.Mage} 4.{HeroClass.Cleric}");
-            var selectedHeroClass = HeroClass.NotSelectedYet;
-            var input = Console.ReadLine();
-            switch (input)
-            {
-                case "1": selectedHeroClass = HeroClass.Assasin; break;
-                case "2": selectedHeroClass = HeroClass.Warrior; break;
-                case "3": selectedHeroClass = HeroClass.Mage; break;
-                case "4": selectedHeroClass = HeroClass.Cleric; break;
-            }
-            turn.FirstHero = factory.CreateHero(selectedHeroClass);
+            string[] players = new string[2];
 
-            input = Console.ReadLine();
-            switch (input)
-            {
-                case "1": selectedHeroClass = HeroClass.Assasin; break;
-                case "2": selectedHeroClass = HeroClass.Warrior; break;
-                case "3": selectedHeroClass = HeroClass.Mage; break;
-                case "4": selectedHeroClass = HeroClass.Cleric; break;
-            }
-            turn.SecondHero = factory.CreateHero(selectedHeroClass);
+            players[0] = this.Reader.ConsoleReadLine();
+            players[1] = this.Reader.ConsoleReadLine();
+            
+            this.listHeros = commandProcessor.ProcessCommand(players);
+            turn.FirstHero = this.listHeros[0];
+            turn.SecondHero = this.listHeros[1];
 
             turn.SetFirstTurnActiveHero();
             factory.CreateSpellBook(turn.FirstHero);
@@ -56,7 +56,6 @@ namespace Team8Project.Core
             //if(userChoice == 0)
             //Get the only object available
             this.terrain = Jungle.getInstance();
-            this.terrain = Graveyard.getInstance();
             //apply effect
             terrain.HeroEffect(turn.ActiveHero);
             terrain.HeroEffect(turn.ActiveHero.Opponent);
@@ -65,6 +64,17 @@ namespace Team8Project.Core
             //START GAME
             while (true)
             {
+                if (RandomProvider.Generate(1, 2) == 1)
+                {
+                    terrain.ContinuousEffect(turn.ActiveHero);
+                    //TODO: needs message
+                }
+                else
+                {
+                    terrain.ContinuousEffect(turn.ActiveHero.Opponent);
+                    //TODO: needs message
+                }
+
                 for (int i = 1; i <= 2; i++)
                 {
                     Console.WriteLine($" Turn: {turn.TurnNumeber}. {turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
@@ -78,18 +88,18 @@ namespace Team8Project.Core
                     {
                         Console.WriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}");
                     }
-
-
-                    if (RandomProvider.Generate(1, 2) == 1)
+                    ////refreshing cooldowns
+                    foreach (IAbility ability in turn.ActiveHero.Abilities)
                     {
-                        terrain.ContinuousEffect(turn.ActiveHero);
+                        if (ability.OnCD == true)
+                        {
+                            ability.CD2++;
+                            if (ability.CD2 == ability.Cd)
+                            {
+                                ability.OnCD = false;
+                            }
+                        }
                     }
-                    else
-                    {
-                        terrain.ContinuousEffect(turn.ActiveHero.Opponent);
-                    }
-
-
 
                     Console.WriteLine($"{turn.ActiveHero.Name}'s abilities: ");
 
@@ -100,9 +110,15 @@ namespace Team8Project.Core
                         Console.WriteLine($"{pos}. {ability.Name}");
                     }
 
-                    int inputAbility = int.Parse(Console.ReadLine());
-                    var selectedAbility = turn.ActiveHero.Abilities[inputAbility - 1];
+                    string selectAbilityCommand = this.Reader.ConsoleReadKey();
+                    var selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
 
+                    while (selectedAbility.OnCD == true)
+                    {
+                        Console.WriteLine("Chosen ability is on cooldown, choose another");
+                        selectAbilityCommand = this.Reader.ConsoleReadKey();
+                        selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
+                    }
 
                     turn.ActiveHero.UseAbility(selectedAbility);
                     Console.WriteLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}. {turn.ActiveHero.Opponent.Name} is left with {turn.ActiveHero.Opponent.HealthPoints} HP");
@@ -117,7 +133,7 @@ namespace Team8Project.Core
                 turn.NextTurn();
             }
         }
-
+        
         public static GameEngine Instance
         {
             get

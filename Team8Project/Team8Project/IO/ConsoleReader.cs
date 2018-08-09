@@ -9,9 +9,15 @@ namespace Team8Project.IO
 {
     public class ConsoleReader: IReader
     {
-        public string ReadLine()
+        public string ConsoleReadLine()
         {
-            return Console.ReadLine();
+            var message = Console.ReadLine();
+            return message;
+        }
+        public string ConsoleReadKey()
+        {
+            string key = Console.ReadKey().KeyChar.ToString();
+            return key;
         }
     }
 }

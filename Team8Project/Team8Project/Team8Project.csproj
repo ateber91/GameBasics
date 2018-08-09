@@ -51,6 +51,7 @@
     <Compile Include="Contracts\IWriter.cs" />
     <Compile Include="Core\GameEngine.cs" />
     <Compile Include="Core\Factory.cs" />
+    <Compile Include="Core\CommandProcessor.cs" />
     <Compile Include="IO\ConsolePrinter.cs" />
     <Compile Include="Contracts\IAbility.cs" />
     <Compile Include="Contracts\IDamagingAbility.cs" />
@@ -75,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

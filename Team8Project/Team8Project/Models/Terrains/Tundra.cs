@@ -55,7 +55,10 @@ namespace Team8Project.Models.Terrains
         }
         public override void ContinuousEffect(IHero hero)
         {
-            hero.DmgEndOfRange -= 2;
+            if (hero.DmgEndOfRange - 2 >= hero.DmgEndOfRange)
+            {
+                hero.DmgEndOfRange -= 2;
+            }
         }
     }
 }
