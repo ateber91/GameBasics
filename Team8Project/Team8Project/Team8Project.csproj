@@ -44,8 +44,8 @@
   <ItemGroup>
     <Compile Include="Common\EffectType.cs" />
     <Compile Include="Common\HeroClass.cs" />
-    <Compile Include="Contracts\IEffectAbility.cs" />
-    <Compile Include="Core\EffectChecker.cs" />
+    <Compile Include="Contracts\IEffect.cs" />
+    <Compile Include="Core\EffectManager.cs" />
     <Compile Include="Core\GameEngine.cs" />
     <Compile Include="Core\Factory.cs" />
     <Compile Include="IO\ConsolePrinter.cs" />
@@ -54,13 +54,13 @@
     <Compile Include="Contracts\IHero.cs" />
     <Compile Include="Models\Characters\Hero.cs" />
     <Compile Include="Common\Target.cs" />
+    <Compile Include="Models\Magic\Ability.cs" />
     <Compile Include="Models\Magic\BuffSpell.cs" />
     <Compile Include="Models\Magic\DamagingAbility.cs" />
     <Compile Include="Models\Magic\DebuffSpell.cs" />
     <Compile Include="IO\IPrinter.cs" />
     <Compile Include="Core\Providers\RandomProvider.cs" />
-    <Compile Include="Models\Statuses\Frozen.cs" />
-    <Compile Include="Models\Statuses\Status.cs" />
+    <Compile Include="Models\Statuses\Effect.cs" />
     <Compile Include="Core\TurnProcessor.cs" />
     <Compile Include="StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

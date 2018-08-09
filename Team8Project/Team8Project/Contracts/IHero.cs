@@ -11,7 +11,8 @@ namespace Team8Project.Contracts
         int DmgEndOfRange { get; set; }
         IHero Opponent { get; set; }
         HeroClass HeroClass { get; set; }
-        IList<IAbility> Abilities { get; set; } //leave set>?
+        IList<IAbility> Abilities { get; set; } 
+        IList<IEffect> AppliedEffects { get; set; }
         void UseAbility(IAbility ability);
     }
 }

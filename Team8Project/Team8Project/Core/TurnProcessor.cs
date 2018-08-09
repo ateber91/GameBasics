@@ -37,16 +37,26 @@ namespace Team8Project.Core
         }
 
 
+        public void EndTurn()
+        {
+            this.ActiveHero = ActiveHero.Opponent;
+        }
         public void NextTurn()
         {
-            this.TurnNumeber++;
-            this.ActiveHero = ActiveHero.Opponent;
+            this.turnNumeber++;
+            foreach (var effect in firstHero.AppliedEffects)
+            {
+                effect.Duration--;
+            }
+            firstHero.AppliedEffects = firstHero.AppliedEffects.Where(e => e.Duration != 0).ToList();
+            secondHero.AppliedEffects = secondHero.AppliedEffects.Where(e => e.Duration != 0).ToList();
+
         }
 
         public void SetFirstTurnActiveHero()
         {
             SetRelationship();
-            var res = RandomProvider.Generate(1, 3);
+            var res = RandomProvider.Generate(1, 2);
             if (res == 1)
             {
                 this.ActiveHero = this.FirstHero;

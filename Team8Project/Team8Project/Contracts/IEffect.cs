@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Team8Project.Contracts
 {
-    public interface IEffectAbility : IAbility
+    public interface IEffect : IAbility
     {
-
+        int Duration { get; set; }
     }
 }

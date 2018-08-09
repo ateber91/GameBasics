@@ -9,14 +9,25 @@ namespace Team8Project.Common
 {
     public enum EffectType
     {
-        HpBoost, //add hp to active hero
-        AttackBoost, //add attack to active hero
-        SpBoost, // add spell power to active hero
-        Weakness, // removes attack from active hero
-        Frozen, // active hero skips turn
-        Block, // active hero does 0 direct damage to opponent
-        Evasion, // active hero has 50% chance to miss targeting opponent
-        Fatigue // active hero's opponent has reduced healthpoints
+        Damage = 0,
+        DOT = 1, //Damage over time
+        HOT = 2, //Healing over time
+        Incapacitated = 3, //Cannot act this turn
+        Resistance = 4, // Takes 0 damage
+        Buff = 5,// Possitive application
+        Debuff = 6 //Negative application
+        //Critical = 1,
+        //Poison = 2,
+        //Evasion = 3,
+        //Bleed = 4,
+        //Block = 5,
+        //Stunned = 6,
+        //IceBarrier = 7,
+        //Burn = 8,
+        //Frozen = 9,
+        //Regeneration = 10,
+        //Cursed = 11,
+        //Blessed = 12
 
     }
 }

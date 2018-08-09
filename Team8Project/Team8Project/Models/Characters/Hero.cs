@@ -20,12 +20,12 @@ namespace Team8Project.Models
         private IList<IAbility> abilities;
         private IHero oppopnent;
         private HeroClass heroClass;
-        private IList<Status> status;
+        private IList<IEffect> appliedEffects;
 
         public Hero()
         {
             this.Abilities = new List<IAbility>();
-           
+            this.AppliedEffects = new List<IEffect>();
         }
 
         public string Name { get => this.name; set => this.name = value; }
@@ -44,7 +44,12 @@ namespace Team8Project.Models
             get { return this.dmgEndOfRange; }
             set { this.dmgEndOfRange = value; }
         }
-        public IList<IAbility> Abilities { get { return this.abilities; } set { this.abilities = value; } } //?leave or remove set depending on future game logic
+        public IList<IAbility> Abilities
+        {
+            get { return this.abilities; }
+            set
+            { this.abilities = value; }
+        }
 
         public IHero Opponent
         {
@@ -58,9 +63,18 @@ namespace Team8Project.Models
             set { this.heroClass = value; }
         }
 
+        public IList<IEffect> AppliedEffects
+        {
+            get { return this.appliedEffects; }
+            set
+            {
+                this.appliedEffects = value;
+            }
+        }
+
         public void UseAbility(IAbility ability)
         {
-            ability.ApplyAbility();
+            ability.Apply();
         }
 
 

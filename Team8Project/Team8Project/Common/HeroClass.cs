@@ -11,6 +11,7 @@ namespace Team8Project.Common
         Warrior,
         Mage,
         Assasin,
-        Cleric
+        Cleric,
+        NotSelectedYet
     }
 }

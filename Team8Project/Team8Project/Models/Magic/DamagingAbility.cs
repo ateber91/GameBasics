@@ -1,51 +1,28 @@
-﻿using Team8Project.Contracts;
+﻿using Team8Project.Common;
+using Team8Project.Contracts;
+using Team8Project.Core;
 using Team8Project.Core.Providers;
 namespace Team8Project.Models.Magic
 {
-    public class DamagingAbility : IDamagingAbility
+    public class DamagingAbility : Ability, IDamagingAbility
     {
-        private int spellPower;
-        private string name;
-        private int cd;
-        private IHero caster;
+
         private int damageDealt;
 
-        public DamagingAbility(string name, int cd, int spellPower)
+        public DamagingAbility(string name, int cd, HeroClass heroClass, EffectType type, int abilityPower)
+            : base(name, cd, heroClass, type, abilityPower)
         {
-            Name = name;
-            Cd = cd;
-            SpellPower = spellPower;
-        }
-
-        public string Name
-        {
-            get { return this.name; }
-            set { this.name = value; }
-        }
-        public int Cd
-        {
-            get { return this.cd; }
-            set { this.cd = value; }
-        }
-        public IHero Caster
-        {
-            get { return this.caster; }
-            set
-            {
-                this.caster = value;
-            }
-        }
-        public int SpellPower
-        {
-            get { return this.spellPower; }
-            set { this.spellPower = value; }
+           // base.Target = base.Caster.Opponent;
         }
 
         //FIX : printing logic
-        public void ApplyAbility()
-        {
-            this.damageDealt = RandomProvider.Generate(this.Caster.DmgStartOfRange, this.caster.DmgEndOfRange) + spellPower;
-            caster.Opponent.HealthPoints -= damageDealt;
+        public override void Apply()
+        { //TEST this:
+            var heroDmg = RandomProvider.Generate(this.Caster.DmgStartOfRange, base.Caster.DmgEndOfRange);
+            this.damageDealt = heroDmg + base.AbilityPower;
+          
+            damageDealt = EffectManager.Instance.TransformDamage(damageDealt, this.Caster);
+            base.Caster.Opponent.HealthPoints -= damageDealt;
         }
 
         public override string ToString()
