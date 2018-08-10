@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Team8Project.Static;
 using Team8Project.Contracts;
-using Team8Project.Models.Magic;
 using Team8Project.Common;
-using Team8Project.Models.Statuses;
 
 namespace Team8Project.Models
 {

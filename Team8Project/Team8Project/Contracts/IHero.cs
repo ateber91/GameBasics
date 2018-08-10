@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Team8Project.Common;
-using Team8Project.Models.Statuses;
 
 namespace Team8Project.Contracts
 {

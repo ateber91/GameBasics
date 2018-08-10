@@ -57,19 +57,35 @@ namespace Team8Project.Models.Terrains
         }
         public override void ContinuousEffect(IHero hero)
         {
+            //TODO FIX!
+            //if (!this.IsDay)
+            //{
+            //    var effects = hero.AppliedEffects;
+
+            //    effects
+            //        .Where(e => e.Type == EffectType.Incapacitated)
+            //        .ToList()
+            //        .ForEach(e => e.Duration++);
+            //}
+            //else
+            //{
+            //    hero.DmgEndOfRange -= 2;
+            //}
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
             if (!this.IsDay)
             {
-                var effects = hero.AppliedEffects;
-
-                effects
-                    .Where(e => e.Type == EffectType.Incapacitated)
-                    .ToList()
-                    .ForEach(e => e.Duration++);
+                sb.AppendLine("Incapacitating effects extended with 1 turn");
             }
             else
             {
-                hero.DmgEndOfRange -= 2;
+                sb.AppendLine("Hero max damage reduced by 2");
             }
+            return sb.ToString();
         }
     }
 }

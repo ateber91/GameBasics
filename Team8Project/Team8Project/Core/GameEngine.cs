@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Team8Project.Common;
 using Team8Project.Contracts;
@@ -41,7 +42,11 @@ namespace Team8Project.Core
 
 
         public void Run()
-        { 
+        {
+            //Set Current Game Heroes
+
+            //Set console size
+
             Console.SetWindowSize(160, 40);
             this.Writer.ConsoleWriteLine(string.Format(INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
             this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
@@ -64,68 +69,70 @@ namespace Team8Project.Core
             factory.CreateSpellBook(turn.FirstHero);
             factory.CreateSpellBook(turn.SecondHero);
 
+            this.terrainManager.SetTerrain();
+            this.terrainManager.ApplyInitialEffects(turn.ActiveHero);
+
 
             //START GAME
             while (true)
             {
                 try
                 {
+
+
                     this.Writer.PrintOnPosition(0, 60, "Initial terrain effects applied to both heroes");
                     this.Writer.PrintOnPosition(0, 150, $" Turn: {turn.TurnNumeber}", ConsoleColor.Red);
-                    this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
+
                     for (int i = 1; i <= 2; i++)
                     {
                         Console.WriteLine($" Turn: {turn.TurnNumeber}. {turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
 
-                        effect.AtTurnStart(turn.ActiveHero); //TODO: PRINT LOGIC FOR EFFECTS
-                        if (turn.ActiveHero.AppliedEffects.Count == 0)
-                        {
-                            Console.WriteLine("Applied effects: No effects.");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}");
-                        }
+        private void Act(IHero activeHero)
+        {
+            //checks for status incapacitated
+            if ((turn.ActiveHero.AppliedEffects.Any(x => x.Type == EffectType.Incapacitated)))
+            {
+                Writer.ConsoleWriteLine($"{turn.ActiveHero.HeroClass} {turn.ActiveHero.Name} is incapacitated!. Cannot act!");
 
-                        Console.WriteLine($"{turn.ActiveHero.Name}'s abilities: ");
+                turn.ActiveHero.AppliedEffects.Remove(turn.ActiveHero.AppliedEffects.First(x => x.Type == EffectType.Incapacitated));
+            }
+            else
+            {
+                effect.AtTurnStart(turn.ActiveHero); // checks for statuses : DOT,HOT
+                activeHero.AppliedEffects = activeHero.AppliedEffects.Where(e => e.CurrentStacks != 0).ToList(); //removes expired effects
 
-                        int pos = 0;
-                        foreach (var ability in turn.ActiveHero.Abilities)
-                        {
-                            pos++;
-                            Writer.ConsoleWriteLine($"{pos}. {ability.Print()}");
-                        }
+                Writer.ConsoleWriteLine($"{turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
 
-                        string selectAbilityCommand = this.Reader.ConsoleReadKey();
-                        this.Writer.ConsoleWriteLine("");
+                if (turn.ActiveHero.AppliedEffects.Count == 0) { Writer.ConsoleWriteLine("Applied effects: No effects."); }
+                else { Writer.ConsoleWriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}"); }
 
-                        var selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
+                Writer.ConsoleWriteLine($"{turn.ActiveHero.Name}'s abilities: ");
 
-                        while (selectedAbility.OnCD == true)
-                        {
-                            Console.WriteLine("Chosen ability is on cooldown, choose another");
-                            selectAbilityCommand = this.Reader.ConsoleReadKey();
-                            selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
-                        }
-
-                        turn.ActiveHero.UseAbility(selectedAbility);
-                        Console.WriteLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}. {turn.ActiveHero.Opponent.Name} is left with {turn.ActiveHero.Opponent.HealthPoints} HP");
-
-                        if (turn.ActiveHero.Opponent.HealthPoints < 0)
-                        {
-                            Console.WriteLine($"{turn.ActiveHero.Name.ToUpper()} WON! ");
-                            break;
-                        }
-                        turn.EndTurn();
-                    }
-                    turn.NextTurn();
-                    this.Writer.ConsoleClear();
-                }
-                catch (Exception ex)
+                int pos = 0;
+                foreach (var ability in turn.ActiveHero.Abilities)
                 {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine("Press any key to continue!");
-                    this.Reader.ConsoleReadKey();
+                    pos++;
+                    Writer.ConsoleWriteLine($"{pos}. {ability.Print()}");
+                }
+
+                string selectAbilityCommand = this.Reader.ConsoleReadKey();
+                this.Writer.ConsoleWriteLine("");
+                var selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
+
+                while (selectedAbility.OnCD == true)
+                {
+                    Console.WriteLine("Chosen ability is on cooldown, choose another");
+                    selectAbilityCommand = this.Reader.ConsoleReadKey();
+                    selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
+                }
+
+                turn.ActiveHero.UseAbility(selectedAbility);
+                Console.WriteLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}.");
+
+                if (turn.ActiveHero.Opponent.HealthPoints < 0)
+                {
+                    Console.WriteLine($"{turn.ActiveHero.Name.ToUpper()} WON! ");
+                    return;
                 }
             }
         }

@@ -21,13 +21,16 @@ namespace Team8Project.Core
                 {
                     case EffectType.Buff:
                         damage += effect.AbilityPower;
-                    //    effect.Duration = 0;
+                        effect.CurrentStacks--;
+
                         break;
                     case EffectType.Debuff:
-                        damage -= effect.AbilityPower;
-                    //    effect.Duration = 0;
+                        if (damage - effect.AbilityPower < 0) { damage = 0; }
+                        else { damage -= effect.AbilityPower; }
+                        effect.CurrentStacks--;
                         break;
                 }
+
             }
             foreach (var effect in activeHero.Opponent.AppliedEffects)
             {
@@ -35,13 +38,13 @@ namespace Team8Project.Core
                 {
                     case EffectType.Resistance:
                         damage = 0;
-                        activeHero.AppliedEffects.Remove(activeHero.Opponent.AppliedEffects.First(x => x.Type == EffectType.Resistance));
-                        //check if linq is correct/ TODO : MESSAGES 
+                        effect.CurrentStacks--;
                         break;
                 }
             }
             return damage;
         }
+
         public void AtTurnStart(IHero activeHero)
         {
             foreach (var effect in activeHero.AppliedEffects)
@@ -50,16 +53,16 @@ namespace Team8Project.Core
                 {
                     case EffectType.DOT:
                         activeHero.HealthPoints -= effect.AbilityPower;
+                        Console.WriteLine($"{activeHero.Name} takes {effect.AbilityPower}dmg from {effect.Name}");
+                        effect.CurrentStacks--;
                         break;
                     case EffectType.HOT:
                         activeHero.HealthPoints += effect.AbilityPower;
-                        break;
-
-                    case EffectType.Incapacitated:
-                        Console.WriteLine($"You are {effect.Type.ToString()}, you cannot do anything!"); //TODO : FIX MESSAGE
-                        TurnProcessor.Instance.EndTurn();
+                        Console.WriteLine($"{activeHero.Name} heals {effect.AbilityPower} hp from {effect.Name}");
+                        effect.CurrentStacks--;
                         break;
                 }
+
             }
         }
 

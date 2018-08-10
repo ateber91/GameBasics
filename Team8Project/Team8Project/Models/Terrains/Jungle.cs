@@ -62,5 +62,20 @@ namespace Team8Project.Models.Terrains
                 hero.HealthPoints -= 2;
             }
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (this.IsDay)
+            {
+                sb.AppendLine("'s healthpoints increased by 10");
+            }
+            else
+            {
+                sb.AppendLine("'s healthpoints reduced by 2");
+            }
+            return sb.ToString();
+        }
     }
 }

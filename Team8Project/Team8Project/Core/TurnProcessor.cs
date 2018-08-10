@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Team8Project.Contracts;
+﻿using Team8Project.Contracts;
 using Team8Project.Core.Providers;
-using Team8Project.Models.Terrains;
 
 namespace Team8Project.Core
 {
@@ -27,32 +21,14 @@ namespace Team8Project.Core
         }
 
 
-        public void EndTurn()
+        public void EndAct()
         {
-            ////refreshing cooldowns
-            foreach (IAbility ability in this.ActiveHero.Abilities)
-            {
-                if (ability.OnCD == true)
-                {
-                    ability.CDCounter++;
-                    if (ability.CDCounter == ability.Cd)
-                    {
-                        ability.OnCD = false;
-                    }
-                }
-            }
+            this.UpdateCooldowns();
             this.ActiveHero = ActiveHero.Opponent;
         }
         public void NextTurn()
         {
             this.turnNumeber++;
-            foreach (var effect in firstHero.AppliedEffects)
-            {
-                effect.Duration--;
-            }
-            firstHero.AppliedEffects = firstHero.AppliedEffects.Where(e => e.Duration != 0).ToList();
-            secondHero.AppliedEffects = secondHero.AppliedEffects.Where(e => e.Duration != 0).ToList();
-           
         }
 
         public void SetFirstTurnActiveHero()
@@ -63,7 +39,10 @@ namespace Team8Project.Core
             {
                 this.ActiveHero = this.FirstHero;
             }
-            this.ActiveHero = this.SecondHero;
+            else
+            {
+                this.ActiveHero = this.SecondHero;
+            }
         }
 
         private void SetRelationship()
@@ -107,6 +86,22 @@ namespace Team8Project.Core
             set
             {
                 secondHero = value;
+            }
+        }
+
+        private void UpdateCooldowns()
+        {
+            ////refreshing cooldowns
+            foreach (IAbility ability in this.ActiveHero.Abilities)
+            {
+                if (ability.OnCD == true)
+                {
+                    ability.CDCounter++;
+                    if (ability.CDCounter == ability.Cd)
+                    {
+                        ability.OnCD = false;
+                    }
+                }
             }
         }
     }
