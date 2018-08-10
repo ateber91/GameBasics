@@ -11,9 +11,8 @@ namespace Team8Project.Core
     public class TurnProcessor
     {
         private int turnNumeber = 1;
-        private static readonly TurnProcessor instance = new TurnProcessor();
+        private static TurnProcessor instance;
         private IHero activeHero;
-
         private IHero firstHero;
         private IHero secondHero;
 
@@ -25,15 +24,6 @@ namespace Team8Project.Core
         {
             get { return this.turnNumeber; }
             private set { this.turnNumeber = value; }
-        }
-
-
-        public static void CheckActiveHeroStatus()
-        {
-            //foreach (var status in collection)
-            //{
-
-            //}
         }
 
 
@@ -74,6 +64,10 @@ namespace Team8Project.Core
         {
             get
             {
+                if (instance == null)
+                {
+                    instance = new TurnProcessor();
+                }
                 return instance;
             }
         }
@@ -86,7 +80,6 @@ namespace Team8Project.Core
                 activeHero = value;
             }
         }
-
 
         public IHero FirstHero
         {

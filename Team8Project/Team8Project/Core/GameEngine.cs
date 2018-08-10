@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Team8Project.Common;
 using Team8Project.Contracts;
 using Team8Project.Core.Providers;
@@ -114,7 +115,7 @@ namespace Team8Project.Core
                     foreach (var ability in turn.ActiveHero.Abilities)
                     {
                         pos++;
-                        Console.WriteLine($"{pos}. {ability.Name}");
+                        Writer.ConsoleWriteLine($"{pos}. {ability.Print()}");
                     }
 
                     string selectAbilityCommand = this.Reader.ConsoleReadKey();
@@ -141,7 +142,7 @@ namespace Team8Project.Core
                 turn.NextTurn();
             }
         }
-        
+
         public static GameEngine Instance
         {
             get

@@ -1,7 +1,7 @@
 ﻿using Team8Project.Common;
 using Team8Project.Contracts;
 using Team8Project.Core;
-﻿using System.Text;
+using System.Text;
 using Team8Project.Core.Providers;
 namespace Team8Project.Models.Magic
 {
@@ -13,7 +13,7 @@ namespace Team8Project.Models.Magic
         public DamagingAbility(string name, int cd, HeroClass heroClass, EffectType type, int abilityPower)
             : base(name, cd, heroClass, type, abilityPower)
         {
-           // base.Target = base.Caster.Opponent;
+            // base.Target = base.Caster.Opponent;
         }
 
         //FIX : printing logic
@@ -21,7 +21,7 @@ namespace Team8Project.Models.Magic
         { //TEST this:
             var heroDmg = RandomProvider.Generate(this.Caster.DmgStartOfRange, base.Caster.DmgEndOfRange);
             this.damageDealt = heroDmg + base.AbilityPower;
-          
+
             damageDealt = EffectManager.Instance.TransformDamage(damageDealt, this.Caster);
             base.Caster.Opponent.HealthPoints -= damageDealt;
             this.CD2 = -1;
@@ -35,15 +35,9 @@ namespace Team8Project.Models.Magic
 
         public override string Print()
         {
-            //string Name { get; set; }
-            //int Cd { get; set; }
-            //IHero Caster { get; set; }
-
             var sb = new StringBuilder();
-
-            sb.AppendLine("Spell name: " + this.Name);
-            sb.AppendLine("Spell cooldown " + this.Cd);
-
+            sb.Append($"{this.Name} {this.Caster.DmgStartOfRange + this.AbilityPower} - {this.Caster.DmgEndOfRange + this.AbilityPower} dmg");
+            //todo: add cd
             return sb.ToString();
         }
     }
