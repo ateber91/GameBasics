@@ -53,6 +53,7 @@
     <Compile Include="Core\GameEngine.cs" />
     <Compile Include="Core\Factory.cs" />
     <Compile Include="Core\CommandProcessor.cs" />
+    <Compile Include="Core\TerrainManager.cs" />
     <Compile Include="IO\ConsolePrinter.cs" />
     <Compile Include="Contracts\IAbility.cs" />
     <Compile Include="Contracts\IDamagingAbility.cs" />

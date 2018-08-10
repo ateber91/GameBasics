@@ -52,7 +52,7 @@ namespace Team8Project.Models.Statuses
             var sb = new StringBuilder();
 
             sb.Append($"{this.Name}  {this.Type} {effect}");
-
+            sb.Append(base.Print());
 
             return sb.ToString();
         }
