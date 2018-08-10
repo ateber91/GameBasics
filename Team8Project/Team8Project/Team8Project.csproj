@@ -45,6 +45,7 @@
     <Compile Include="Common\EffectType.cs" />
     <Compile Include="Common\HeroClass.cs" />
     <Compile Include="Contracts\IEffect.cs" />
+    <Compile Include="Contracts\IEngine.cs" />
     <Compile Include="Core\EffectManager.cs" />
     <Compile Include="Contracts\IReader.cs" />
     <Compile Include="Contracts\ITerrain.cs" />
@@ -71,12 +72,12 @@
     <Compile Include="Models\Terrains\Terrain.cs" />
     <Compile Include="Core\TurnProcessor.cs" />
     <Compile Include="Models\Terrains\Tundra.cs" />
+    <Compile Include="Models\Validations.cs" />
     <Compile Include="StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,8 +9,12 @@ using Team8Project.Models.Terrains;
 
 namespace Team8Project.Core
 {
-    public class GameEngine
+    public class GameEngine : IEngine
     {
+        private const string INITIAL_MESSAGE = "Choose a character:\n 1.{0}\n 2.{1}\n 3.{2}\n 4.{3}";
+
+
+
         private static GameEngine instance;
         private readonly Factory factory;
         private TurnProcessor turn;
@@ -32,18 +36,21 @@ namespace Team8Project.Core
 
         public IReader Reader { get; set; }
         public IWriter Writer { get; set; }
-        
-        
+
+
         public void Run()
         {
             //Set Current Game Heroes
 
-            Console.WriteLine($"Choose a character: 1.{HeroClass.Assasin}, 2.{HeroClass.Warrior}, 3.{HeroClass.Mage} 4.{HeroClass.Cleric}");
+            this.Writer.ConsoleWriteLine(string.Format(INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
+            this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
             string[] players = new string[2];
-
+            this.Writer.ConsoleWrite("Player 1: ");
             players[0] = this.Reader.ConsoleReadLine();
+            this.Writer.ConsoleWrite("Player 2: ");
             players[1] = this.Reader.ConsoleReadLine();
-            
+            this.Writer.ConsoleClear();
+
             this.listHeros = commandProcessor.ProcessCommand(players);
             turn.FirstHero = this.listHeros[0];
             turn.SecondHero = this.listHeros[1];
@@ -111,6 +118,7 @@ namespace Team8Project.Core
                     }
 
                     string selectAbilityCommand = this.Reader.ConsoleReadKey();
+                    this.Writer.ConsoleWriteLine("");
                     var selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
 
                     while (selectedAbility.OnCD == true)
