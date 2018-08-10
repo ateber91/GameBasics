@@ -8,6 +8,7 @@ namespace Team8Project.Contracts
 {
     public interface IEffect : IAbility
     {
-        int Duration { get; set; }
+        int CurrentStacks { get; set; }
+        int DefaultStacks { get; set; }
     }
 }

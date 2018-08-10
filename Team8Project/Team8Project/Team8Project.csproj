@@ -65,8 +65,7 @@
     <Compile Include="Models\Magic\DamagingAbility.cs" />
     <Compile Include="IO\IPrinter.cs" />
     <Compile Include="Core\Providers\RandomProvider.cs" />
-    <Compile Include="Models\Statuses\Effect.cs" />
-    <Compile Include="Models\Statuses\Status.cs" />
+    <Compile Include="Models\Magic\Effect.cs" />
     <Compile Include="Models\Terrains\Graveyard.cs" />
     <Compile Include="Models\Terrains\Jungle.cs" />
     <Compile Include="Models\Terrains\Terrain.cs" />

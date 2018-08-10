@@ -56,17 +56,17 @@ namespace Team8Project.Models.Terrains
         }
         public override void ContinuousEffect(IHero hero)
         {
-            if (!this.IsDay)
-            {
-                foreach (var ef in hero.AppliedEffects.Where(x => x.Type == EffectType.Incapacitated))
-                {
-                    ef.Duration++;
-                }
-            }
-            else
-            {
-                hero.DmgEndOfRange -= 2;
-            }
+            //if (!this.IsDay)
+            //{
+            //    foreach (var ef in hero.AppliedEffects.Where(x => x.Type == EffectType.Incapacitated))
+            //    {
+            //        ef.dur++;
+            //    }
+            //}
+            //else
+            //{
+            //    hero.DmgEndOfRange -= 2;
+            //}
         }
     }
 }

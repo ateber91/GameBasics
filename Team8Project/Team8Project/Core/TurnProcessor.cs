@@ -27,7 +27,7 @@ namespace Team8Project.Core
         }
 
 
-        public void EndTurn()
+        public void EndAct()
         {
             ////refreshing cooldowns
             foreach (IAbility ability in this.ActiveHero.Abilities)
@@ -46,13 +46,10 @@ namespace Team8Project.Core
         public void NextTurn()
         {
             this.turnNumeber++;
-            foreach (var effect in firstHero.AppliedEffects)
-            {
-                effect.Duration--;
-            }
-            firstHero.AppliedEffects = firstHero.AppliedEffects.Where(e => e.Duration != 0).ToList();
-            secondHero.AppliedEffects = secondHero.AppliedEffects.Where(e => e.Duration != 0).ToList();
-           
+
+            //firstHero.AppliedEffects = firstHero.AppliedEffects.Where(e => e.ExpirationTurn != this.turnNumeber).ToList();
+            //secondHero.AppliedEffects = secondHero.AppliedEffects.Where(e => e.ExpirationTurn != this.turnNumeber).ToList();
+
         }
 
         public void SetFirstTurnActiveHero()
@@ -63,7 +60,10 @@ namespace Team8Project.Core
             {
                 this.ActiveHero = this.FirstHero;
             }
-            this.ActiveHero = this.SecondHero;
+            else
+            {
+                this.ActiveHero = this.SecondHero;
+            }
         }
 
         private void SetRelationship()

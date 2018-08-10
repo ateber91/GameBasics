@@ -18,7 +18,7 @@ namespace Team8Project.Models.Magic
 
         //FIX : printing logic
         public override void Apply()
-        { //TEST this:
+        {   //TEST this:
             var heroDmg = RandomProvider.Generate(this.Caster.DmgStartOfRange, base.Caster.DmgEndOfRange);
             this.damageDealt = heroDmg + base.AbilityPower;
 

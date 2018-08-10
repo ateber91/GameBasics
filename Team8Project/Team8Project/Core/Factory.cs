@@ -47,7 +47,6 @@ namespace Team8Project.Core
                 new Effect("Regeneration",2,HeroClass.Cleric,EffectType.HOT,2,15),
                 new Effect("Curse",2,HeroClass.Cleric,EffectType.Debuff,2,20),
                 new Effect("Bless",2,HeroClass.Cleric,EffectType.Buff,2,20),
-
             };
         }
 
@@ -76,10 +75,10 @@ namespace Team8Project.Core
                     hero = this.SetStats("Penka", 180, 10, 12);
                     break;
                 case HeroClass.Assasin:
-                    hero = this.SetStats("Pesho", 200, 15, 20);
+                    hero = this.SetStats("Gesho", 200, 15, 20);
                     break;
                 case HeroClass.Cleric:
-                    hero = this.SetStats("Pesho", 160, 8, 10);
+                    hero = this.SetStats("Genka", 160, 8, 10);
                     break;
                 default:
                     throw new ArgumentException("Invalid hero class");
