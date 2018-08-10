@@ -43,11 +43,10 @@ namespace Team8Project.Core
 
         public void Run()
         {
-            //Set Current Game Heroes
-
-            //Set console size
 
             Console.SetWindowSize(160, 40);
+
+
             this.Writer.ConsoleWriteLine(string.Format(INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
             this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
             string[] players = new string[2];
@@ -83,9 +82,77 @@ namespace Team8Project.Core
                     this.Writer.PrintOnPosition(0, 60, "Initial terrain effects applied to both heroes");
                     this.Writer.PrintOnPosition(0, 150, $" Turn: {turn.TurnNumeber}", ConsoleColor.Red);
 
-                    for (int i = 1; i <= 2; i++)
-                    {
-                        Console.WriteLine($" Turn: {turn.TurnNumeber}. {turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
+                    Act(turn.ActiveHero); //first hero move
+                    turn.EndAct();
+                    Writer.ConsoleWriteLine("------------------------------------------------------------------");
+                    Act(turn.ActiveHero); //second hero move
+                    turn.EndAct();
+                    Writer.ConsoleWriteLine("------------------------------------------------------------------");
+
+                    turn.NextTurn();
+                    Writer.ConsoleWriteLine("******************************************************************");
+
+
+                    //                    for (int i = 1; i <= 2; i++)
+                    //                    {
+                    //                        Console.WriteLine($" Turn: {turn.TurnNumeber}. {turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
+
+                    //                        effect.AtTurnStart(turn.ActiveHero); //TODO: PRINT LOGIC FOR EFFECTS
+                    //                        if (turn.ActiveHero.AppliedEffects.Count == 0)
+                    //                        {
+                    //                            Console.WriteLine("Applied effects: No effects.");
+                    //                        }
+                    //                        else
+                    //                        {
+                    //                            Console.WriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}");
+                    //                        }
+
+                    //                        Console.WriteLine($"{turn.ActiveHero.Name}'s abilities: ");
+
+                    //                        int pos = 0;
+                    //                        foreach (var ability in turn.ActiveHero.Abilities)
+                    //                        {
+                    //                            pos++;
+                    //                            Writer.ConsoleWriteLine($"{pos}. {ability.Print()}");
+                    //                        }
+
+                    //                        string selectAbilityCommand = this.Reader.ConsoleReadKey();
+                    //                        this.Writer.ConsoleWriteLine("");
+
+                    //                        var selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
+
+                    //                        while (selectedAbility.OnCD == true)
+                    //                        {
+                    //                            Console.WriteLine("Chosen ability is on cooldown, choose another");
+                    //                            selectAbilityCommand = this.Reader.ConsoleReadKey();
+                    //                            selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
+                    //                        }
+
+                    //                        turn.ActiveHero.UseAbility(selectedAbility);
+                    //                        Console.WriteLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}. {turn.ActiveHero.Opponent.Name} is left with {turn.ActiveHero.Opponent.HealthPoints} HP");
+
+                    //                        if (turn.ActiveHero.Opponent.HealthPoints < 0)
+                    //                        {
+                    //                            Console.WriteLine($"{turn.ActiveHero.Name.ToUpper()} WON! ");
+                    //                            break;
+                    //                        }
+                    //                        turn.EndTurn();
+                    //                    }
+                    //                    turn.NextTurn();
+                    //                    if (turn.TurnNumeber % 3 == 0)
+                    //                    {
+                    //                        this.terrainManager.ChangeDayNight();
+                    //                    }
+                    this.Writer.ConsoleClear();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Press any key to continue!");
+                    this.Reader.ConsoleReadKey();
+                }
+            }
+        }
 
         private void Act(IHero activeHero)
         {
