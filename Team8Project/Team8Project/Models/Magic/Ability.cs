@@ -28,6 +28,7 @@ namespace Team8Project.Models.Magic
             }
             set
             {
+                //TODO: Validation (Needs to be discussed with Georgi Z)
                 this.cDCounter = value;
             }
         }
@@ -58,15 +59,20 @@ namespace Team8Project.Models.Magic
         public string Name
         {
             get { return this.name; }
-            set
+            private set
             {
+                Validations.ValidateLength(value, 1, 60, "The name of your ability can be less than 1 and more than 60 characters");
                 this.name = value;
             }
         }
         public int Cd
         {
             get { return this.cd; }
-            set { this.cd = value; }
+            set
+            {
+                //TODO: Validation (Needs to be discussed with Georgi Z)
+                this.cd = value;
+            }
         }
         public IHero Caster
         {
@@ -80,7 +86,7 @@ namespace Team8Project.Models.Magic
         public HeroClass HeroClass
         {
             get { return this.heroClass; }
-            set
+            private set
             {
                 this.heroClass = value;
             }

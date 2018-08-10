@@ -32,7 +32,7 @@ namespace Team8Project.Models
             this.Name = name;
             this.HealthPoints = healthPoints;
             this.DmgStartOfRange = dmgStartOfRange;
-            this.DmgEndOfRange = dmgStartOfRange;
+            this.DmgEndOfRange = dmgEndOfRange;
             this.Abilities = new List<IAbility>();
             this.AppliedEffects = new List<IEffect>();
 
@@ -41,7 +41,7 @@ namespace Team8Project.Models
         public string Name
         {
             get => this.name;
-            set
+            private set
             {
                 if (string.IsNullOrEmpty(value))
                 {

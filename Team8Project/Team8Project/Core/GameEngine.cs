@@ -41,14 +41,8 @@ namespace Team8Project.Core
 
 
         public void Run()
-        {
-            //Set Current Game Heroes
-
-            //Set console size
-
+        { 
             Console.SetWindowSize(160, 40);
-
-
             this.Writer.ConsoleWriteLine(string.Format(INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
             this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
             string[] players = new string[2];
