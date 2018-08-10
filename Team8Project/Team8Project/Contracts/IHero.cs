@@ -13,7 +13,7 @@ namespace Team8Project.Contracts
         IHero Opponent { get; set; }
         HeroClass HeroClass { get; set; }
         IList<IAbility> Abilities { get; set; } 
-        IList<IEffect> AppliedEffects { get; set; }       
+        IList<IEffect> AppliedEffects { get; set; }
         void UseAbility(IAbility ability);
     }
 }
