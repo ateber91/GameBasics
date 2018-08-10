@@ -20,7 +20,7 @@ namespace Team8Project.Core
         private readonly Factory factory;
         private TurnProcessor turn;
         private EffectManager effect;
-        private ITerrain terrain;
+        private TerrainManager terrainManager;
         private CommandProcessor commandProcessor;
         private List<IHero> listHeros;
 
@@ -33,6 +33,7 @@ namespace Team8Project.Core
             this.Writer = new ConsoleWriter();
             this.commandProcessor = new CommandProcessor();
             this.listHeros = new List<IHero>();
+            this.terrainManager = TerrainManager.Instance;
         }
 
         public IReader Reader { get; set; }
@@ -60,30 +61,13 @@ namespace Team8Project.Core
             factory.CreateSpellBook(turn.FirstHero);
             factory.CreateSpellBook(turn.SecondHero);
 
-            //choose terrain depending on user choice [0] [1] etc
-            //if(userChoice == 0)
-            //Get the only object available
-            this.terrain = Jungle.Instance;
-            //apply effect
-            terrain.HeroEffect(turn.ActiveHero);
-            terrain.HeroEffect(turn.ActiveHero.Opponent);
-            Console.WriteLine("Initial terrain effects applied to both heroes");
-
+            this.terrainManager.SetTerrain();
+            this.terrainManager.ApplyInitialEffects(turn.ActiveHero);
 
             //START GAME
             while (true)
             {
-                if (RandomProvider.Generate(1, 2) == 1)
-                {
-                    terrain.ContinuousEffect(turn.ActiveHero);
-                    //TODO: needs message
-                }
-                else
-                {
-                    terrain.ContinuousEffect(turn.ActiveHero.Opponent);
-                    //TODO: needs message
-                }
-
+                this.terrainManager.ApplyContinuousEffect(turn.ActiveHero);
                 for (int i = 1; i <= 2; i++)
                 {
                     Console.WriteLine($" Turn: {turn.TurnNumeber}. {turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
@@ -131,8 +115,8 @@ namespace Team8Project.Core
                 turn.NextTurn();
                 if (turn.TurnNumeber % 3 == 0)
                 {
-                    terrain.IsDay = (terrain.IsDay) ? false : true;
-                    Console.WriteLine((terrain.IsDay) ? "Day has come" : "Night has come");
+                    this.terrainManager.Terrain.IsDay = (terrainManager.Terrain.IsDay) ? false : true;
+                    Console.WriteLine((terrainManager.Terrain.IsDay) ? "Day has come" : "Night has come");
                 }
             }
         }
