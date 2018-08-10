@@ -81,5 +81,11 @@ namespace Team8Project.Core
                 Console.WriteLine(activeHero.Opponent.Name + this.Terrain.ToString());
             }
         }
+
+        public void ChangeDayNight()
+        {
+            this.Terrain.IsDay = (this.Terrain.IsDay)? false : true;
+            Console.WriteLine((this.Terrain.IsDay)? "Day has come" : "Night has come");
+        }
     }
 }

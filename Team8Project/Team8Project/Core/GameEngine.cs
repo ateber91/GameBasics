@@ -130,8 +130,10 @@ namespace Team8Project.Core
                         turn.EndTurn();
                     }
                     turn.NextTurn();
-                    this.terrainManager.Terrain.IsDay = (terrainManager.Terrain.IsDay) ? false : true;
-                    Console.WriteLine((terrainManager.Terrain.IsDay) ? "Day has come" : "Night has come");
+                    if (turn.TurnNumeber % 3 == 0)
+                    {
+                        this.terrainManager.ChangeDayNight();
+                    }
                     this.Writer.ConsoleClear();
                 }
                 catch (Exception ex)
