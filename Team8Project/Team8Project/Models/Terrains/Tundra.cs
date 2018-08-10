@@ -72,5 +72,20 @@ namespace Team8Project.Models.Terrains
             //    hero.DmgEndOfRange -= 2;
             //}
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (!this.IsDay)
+            {
+                sb.AppendLine("Incapacitating effects extended with 1 turn");
+            }
+            else
+            {
+                sb.AppendLine("Hero max damage reduced by 2");
+            }
+            return sb.ToString();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Team8Project.Common;
+﻿using System.Text;
+using Team8Project.Common;
 using Team8Project.Contracts;
 
 namespace Team8Project.Models.Terrains
@@ -60,6 +61,20 @@ namespace Team8Project.Models.Terrains
                     hero.HealthPoints -= 5;
                 }
             }
+        }
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (this.IsDay)
+            {
+                sb.AppendLine("'s healthpoints increased by 1");
+            }
+            else
+            {
+                sb.AppendLine("'s healthpoints reduced by 5");
+            }
+            return sb.ToString();
         }
     }
 }
