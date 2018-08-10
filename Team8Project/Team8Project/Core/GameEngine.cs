@@ -72,7 +72,7 @@ namespace Team8Project.Core
                 {
                     this.Writer.PrintOnPosition(0, 60, "Initial terrain effects applied to both heroes");
                     this.Writer.PrintOnPosition(0, 150, $" Turn: {turn.TurnNumeber}", ConsoleColor.Red);
-
+                    this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
                     for (int i = 1; i <= 2; i++)
                     {
                         Console.WriteLine($" Turn: {turn.TurnNumeber}. {turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");

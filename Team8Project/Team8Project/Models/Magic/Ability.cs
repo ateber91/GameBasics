@@ -19,6 +19,8 @@ namespace Team8Project.Models.Magic
         private EffectType type;
         private bool onCD = false;
         private int cDCounter = 0;
+        private const int MIN_NAME_LEN = 1;
+        private const int MAX_NAME_LEN = 60;
 
         public int CDCounter
         {
@@ -61,7 +63,7 @@ namespace Team8Project.Models.Magic
             get { return this.name; }
             private set
             {
-                Validations.ValidateLength(value, 1, 60, "The name of your ability can be less than 1 and more than 60 characters");
+                Validations.ValidateLength(value, MIN_NAME_LEN, MAX_NAME_LEN, $"The name of your ability can be less than {MIN_NAME_LEN} and more than {MAX_NAME_LEN} characters");
                 this.name = value;
             }
         }
