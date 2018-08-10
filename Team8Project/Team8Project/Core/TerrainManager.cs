@@ -73,12 +73,12 @@ namespace Team8Project.Core
             if (RandomProvider.Generate(1, 2) == 1)
             {
                 this.Terrain.ContinuousEffect(activeHero);
-                Console.WriteLine("Continuous effect applied to " + activeHero.Name);
+                Console.WriteLine(activeHero.Name + this.Terrain.ToString());
             }
             else
             {
                 this.Terrain.ContinuousEffect(activeHero.Opponent);
-                Console.WriteLine("Continuous effect applied to " + activeHero.Opponent.Name);
+                Console.WriteLine(activeHero.Opponent.Name + this.Terrain.ToString());
             }
         }
     }

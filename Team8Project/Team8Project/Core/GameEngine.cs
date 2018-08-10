@@ -70,6 +70,9 @@ namespace Team8Project.Core
             factory.CreateSpellBook(turn.FirstHero);
             factory.CreateSpellBook(turn.SecondHero);
 
+            this.terrainManager.SetTerrain();
+            this.terrainManager.ApplyInitialEffects(turn.ActiveHero);
+
 
             //START GAME
             while (true)
@@ -78,6 +81,8 @@ namespace Team8Project.Core
                 {
                     this.Writer.PrintOnPosition(0, 60, "Initial terrain effects applied to both heroes");
                     this.Writer.PrintOnPosition(0, 150, $" Turn: {turn.TurnNumeber}", ConsoleColor.Red);
+
+                    this.terrainManager.ApplyContinuousEffect(turn.ActiveHero);
 
                     for (int i = 1; i <= 2; i++)
                     {
@@ -125,6 +130,8 @@ namespace Team8Project.Core
                         turn.EndTurn();
                     }
                     turn.NextTurn();
+                    this.terrainManager.Terrain.IsDay = (terrainManager.Terrain.IsDay) ? false : true;
+                    Console.WriteLine((terrainManager.Terrain.IsDay) ? "Day has come" : "Night has come");
                     this.Writer.ConsoleClear();
                 }
                 catch (Exception ex)
