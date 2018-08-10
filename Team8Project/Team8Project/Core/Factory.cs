@@ -6,7 +6,6 @@ using Team8Project.Contracts;
 using Team8Project.Core.Providers;
 using Team8Project.Models;
 using Team8Project.Models.Magic;
-using Team8Project.Models.Statuses;
 
 namespace Team8Project.Core
 {
@@ -121,12 +120,7 @@ namespace Team8Project.Core
 
         private IHero SetStats(string name, int hp, int dmgStartOfRange, int dmgEndOfRange)
         {
-            IHero hero = new Hero();
-            hero.Name = name;
-            hero.HealthPoints = hp;
-            hero.DmgStartOfRange = dmgStartOfRange;
-            hero.DmgEndOfRange = dmgEndOfRange;
-            return hero;
+            return new Hero(name,hp,dmgStartOfRange,dmgEndOfRange);
         }
 
     }

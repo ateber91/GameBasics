@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Team8Project.Common;
-using Team8Project.Models.Statuses;
 
 namespace Team8Project.Contracts
 {
@@ -13,7 +12,7 @@ namespace Team8Project.Contracts
         IHero Opponent { get; set; }
         HeroClass HeroClass { get; set; }
         IList<IAbility> Abilities { get; set; } 
-        IList<IEffect> AppliedEffects { get; set; }       
+        IList<IEffect> AppliedEffects { get; set; }
         void UseAbility(IAbility ability);
     }
 }

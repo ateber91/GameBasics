@@ -21,5 +21,12 @@ namespace Team8Project.IO
         {
             Console.Clear();
         }
+        public void PrintOnPosition(int row, int col, string message, ConsoleColor color = ConsoleColor.Gray)
+        {
+            Console.SetCursorPosition(col, row);
+            Console.ForegroundColor = color;
+            Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
     }
 }

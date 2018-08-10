@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Team8Project.Static;
 using Team8Project.Contracts;
-using Team8Project.Models.Magic;
 using Team8Project.Common;
-using Team8Project.Models.Statuses;
 
 namespace Team8Project.Models
 {
@@ -27,8 +22,12 @@ namespace Team8Project.Models
         private const int HP_MAX = 500;
 
 
-        public Hero()
+        public Hero(string name, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
+            this.Name = name;
+            this.HealthPoints = healthPoints;
+            this.DmgStartOfRange = dmgStartOfRange;
+            this.DmgEndOfRange = dmgEndOfRange;
             this.Abilities = new List<IAbility>();
             this.AppliedEffects = new List<IEffect>();
 

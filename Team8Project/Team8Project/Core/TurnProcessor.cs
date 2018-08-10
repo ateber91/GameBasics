@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Team8Project.Contracts;
+﻿using Team8Project.Contracts;
 using Team8Project.Core.Providers;
-using Team8Project.Models.Terrains;
 
 namespace Team8Project.Core
 {
@@ -46,10 +40,6 @@ namespace Team8Project.Core
         public void NextTurn()
         {
             this.turnNumeber++;
-
-            //firstHero.AppliedEffects = firstHero.AppliedEffects.Where(e => e.ExpirationTurn != this.turnNumeber).ToList();
-            //secondHero.AppliedEffects = secondHero.AppliedEffects.Where(e => e.ExpirationTurn != this.turnNumeber).ToList();
-
         }
 
         public void SetFirstTurnActiveHero()

@@ -53,6 +53,7 @@
     <Compile Include="Core\GameEngine.cs" />
     <Compile Include="Core\Factory.cs" />
     <Compile Include="Core\CommandProcessor.cs" />
+    <Compile Include="Core\TerrainManager.cs" />
     <Compile Include="IO\ConsolePrinter.cs" />
     <Compile Include="Contracts\IAbility.cs" />
     <Compile Include="Contracts\IDamagingAbility.cs" />
@@ -60,7 +61,6 @@
     <Compile Include="IO\ConsoleReader.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
     <Compile Include="Models\Characters\Hero.cs" />
-    <Compile Include="Common\Target.cs" />
     <Compile Include="Models\Magic\Ability.cs" />
     <Compile Include="Models\Magic\DamagingAbility.cs" />
     <Compile Include="IO\IPrinter.cs" />

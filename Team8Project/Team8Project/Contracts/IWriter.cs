@@ -11,5 +11,6 @@ namespace Team8Project.Contracts
         void ConsoleWriteLine(string message);
         void ConsoleWrite(string message);
         void ConsoleClear();
+        void PrintOnPosition(int row, int col, string message, ConsoleColor color = ConsoleColor.Gray);
     }
 }

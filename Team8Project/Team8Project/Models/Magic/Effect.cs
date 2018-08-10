@@ -60,9 +60,13 @@ namespace Team8Project.Models.Magic
 
         public override string Print()
         {
-            var effect = this.AbilityPower == 0 ? string.Empty : $"{this.AbilityPower.ToString()} dmg/turn";
+            var hotOrDot = this.Type == EffectType.HOT ? "hp/turn" : "dmg/turn";
+
+            var effect = this.AbilityPower == 0 ? string.Empty : $"{this.AbilityPower.ToString()} {hotOrDot}";
+            var target = this.Target == this.Caster ? "caster" : "opponent";
             var sb = new StringBuilder();
-            sb.Append($"{this.Name}  {this.Type} {effect}");
+            sb.Append($"{this.Name} applies {this.Type} {effect} on {target}");
+            sb.Append(base.Print());
             return sb.ToString();
         }
 

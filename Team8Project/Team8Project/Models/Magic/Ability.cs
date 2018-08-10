@@ -119,7 +119,12 @@ namespace Team8Project.Models.Magic
             this.OnCD = true;
         }
 
-        public abstract string Print(); 
+        public virtual string Print()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append((this.OnCD) ? $" On cooldown {this.Cd - this.CDCounter} turns" : "");
+            return sb.ToString();
+        }
     }
 }
 

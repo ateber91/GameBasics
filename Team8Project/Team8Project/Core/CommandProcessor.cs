@@ -51,7 +51,6 @@ namespace Team8Project.Core
                 }
             }
             return this.ListHeros;
-            
         }
 
         public IAbility ProcessCommand(string key)
