@@ -27,8 +27,12 @@ namespace Team8Project.Models
         private const int HP_MAX = 500;
 
 
-        public Hero()
+        public Hero(string name, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
+            this.Name = name;
+            this.HealthPoints = healthPoints;
+            this.DmgStartOfRange = dmgStartOfRange;
+            this.DmgEndOfRange = dmgStartOfRange;
             this.Abilities = new List<IAbility>();
             this.AppliedEffects = new List<IEffect>();
 

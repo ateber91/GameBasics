@@ -122,12 +122,7 @@ namespace Team8Project.Core
 
         private IHero SetStats(string name, int hp, int dmgStartOfRange, int dmgEndOfRange)
         {
-            IHero hero = new Hero();
-            hero.Name = name;
-            hero.HealthPoints = hp;
-            hero.DmgStartOfRange = dmgStartOfRange;
-            hero.DmgEndOfRange = dmgEndOfRange;
-            return hero;
+            return new Hero(name,hp,dmgStartOfRange,dmgEndOfRange);
         }
 
     }
