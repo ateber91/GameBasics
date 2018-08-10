@@ -38,17 +38,18 @@ namespace Team8Project.Models.Terrains
                     hero.DmgEndOfRange += 10;
                     break;
                 case HeroClass.Assasin:
-                    hero.DmgStartOfRange -= 10;
-                    hero.DmgEndOfRange -= 10;
+                    hero.DmgStartOfRange += 10;
+                    hero.DmgEndOfRange += 10;
                     break;
                 case HeroClass.Cleric:
                     hero.HealthPoints -= 100;
                     break;
                 case HeroClass.Mage:
-                    foreach(IDamagingAbility ability in hero.Abilities)
-                    {
-                        ability.AbilityPower+= 20;
-                    }
+                    hero.HealthPoints += 50;
+                    //foreach(IDamagingAbility ability in hero.Abilities)
+                    //{
+                    //    ability.AbilityPower+= 20;
+                    //}
                     break;
                 default:
                     break;
