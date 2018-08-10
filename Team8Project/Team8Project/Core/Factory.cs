@@ -69,7 +69,7 @@ namespace Team8Project.Core
                     hero = this.SetStats("Penka", 180, 10, 12);
                     break;
                 case HeroClass.Assasin:
-                    hero = this.SetStats("Pesho", 200, 25, 20);
+                    hero = this.SetStats("Pesho", 200, 15, 20);
                     break;
                 case HeroClass.Cleric:
                     hero = this.SetStats("Pesho", 160, 8, 10);

@@ -70,7 +70,7 @@ namespace Team8Project.Models
             get { return this.dmgEndOfRange; }
             set
             {
-                Validations.ValidateRangeNumbers(value, this.DmgStartOfRange, HP_MAX, $"The damage ability of your hero can't be less than {HP_MIN} and more than {HP_MAX}");
+                Validations.ValidateRangeNumbers(value, this.DmgStartOfRange, HP_MAX, $"The damage ability of your hero can't be less than {this.DmgStartOfRange} and more than {HP_MAX}");
                 this.dmgEndOfRange = value;
             }
         }

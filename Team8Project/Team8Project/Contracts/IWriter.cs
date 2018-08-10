@@ -10,5 +10,6 @@ namespace Team8Project.Contracts
     {
         void ConsoleWriteLine(string message);
         void ConsoleWrite(string message);
+        void ConsoleClear();
     }
 }

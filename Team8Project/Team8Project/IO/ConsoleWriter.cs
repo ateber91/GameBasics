@@ -17,5 +17,9 @@ namespace Team8Project.IO
         {
             Console.Write(message);
         }
+        public void ConsoleClear()
+        {
+            Console.Clear();
+        }
     }
 }
