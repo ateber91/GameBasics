@@ -20,7 +20,7 @@ namespace Team8Project.Core
         private readonly Factory factory;
         private TurnProcessor turn;
         private EffectManager effect;
-        private ITerrain terrain;
+        private TerrainManager terrainManager;
         private CommandProcessor commandProcessor;
         private List<IHero> listHeros;
 
@@ -33,6 +33,7 @@ namespace Team8Project.Core
             this.Writer = new ConsoleWriter();
             this.commandProcessor = new CommandProcessor();
             this.listHeros = new List<IHero>();
+            this.terrainManager = TerrainManager.Instance;
         }
 
         public IReader Reader { get; set; }
@@ -76,39 +77,35 @@ namespace Team8Project.Core
             //apply effect
             terrain.HeroEffect(turn.ActiveHero);
             terrain.HeroEffect(turn.ActiveHero.Opponent);
-            
-
+            Console.WriteLine("Initial terrain effects applied to both heroes");
 
             //START GAME
             while (true)
             {
-                try
+                if (RandomProvider.Generate(1, 2) == 1)
                 {
-                    if (RandomProvider.Generate(1, 2) == 1)
+                    terrain.ContinuousEffect(turn.ActiveHero);
+                    //TODO: needs message
+                }
+                else
+                {
+                    terrain.ContinuousEffect(turn.ActiveHero.Opponent);
+                    //TODO: needs message
+                }
+
+                for (int i = 1; i <= 2; i++)
+                {
+                    Console.WriteLine($" Turn: {turn.TurnNumeber}. {turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
+
+                    effect.AtTurnStart(turn.ActiveHero); //TODO: PRINT LOGIC FOR EFFECTS
+                    if (turn.ActiveHero.AppliedEffects.Count == 0)
                     {
-                        terrain.ContinuousEffect(turn.ActiveHero);
-                        //TODO: needs message
+                        Console.WriteLine("Applied effects: No effects.");
                     }
                     else
                     {
-                        terrain.ContinuousEffect(turn.ActiveHero.Opponent);
-                        //TODO: needs message
+                        Console.WriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}");
                     }
-                    
-                    this.Writer.PrintOnPosition(0, 60, "Initial terrain effects applied to both heroes");
-                    this.Writer.PrintOnPosition(0, 150, $" Turn: {turn.TurnNumeber}", ConsoleColor.Red);
-
-                    for (int i = 1; i <= 2; i++)
-                    {
-                        effect.AtTurnStart(turn.ActiveHero); //TODO: PRINT LOGIC FOR EFFECTS
-                        if (turn.ActiveHero.AppliedEffects.Count == 0)
-                        {
-                            Console.WriteLine("Applied effects: No effects.");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}");
-                        }
 
                         Console.WriteLine($"{turn.ActiveHero.Name}'s abilities: ");
 
@@ -134,26 +131,18 @@ namespace Team8Project.Core
                         turn.ActiveHero.UseAbility(selectedAbility);
                         Console.WriteLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}. {turn.ActiveHero.Opponent.Name} is left with {turn.ActiveHero.Opponent.HealthPoints} HP");
 
-                        if (turn.ActiveHero.Opponent.HealthPoints < 0)
-                        {
-                            Console.WriteLine($"{turn.ActiveHero.Name.ToUpper()} WON! ");
-                            break;
-                        }
-                        turn.EndTurn();
-                    }
-                    turn.NextTurn();
-                    this.Writer.ConsoleClear();
-                    if (turn.TurnNumeber % 3 == 0)
+                    if (turn.ActiveHero.Opponent.HealthPoints < 0)
                     {
-                        terrain.IsDay = (terrain.IsDay) ? false : true;
-                        Console.WriteLine((terrain.IsDay) ? "Day has come" : "Night has come");
+                        Console.WriteLine($"{turn.ActiveHero.Name.ToUpper()} WON! ");
+                        break;
                     }
+                    turn.EndTurn();
                 }
-                catch (Exception ex)
+                turn.NextTurn();
+                if (turn.TurnNumeber % 3 == 0)
                 {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine("Press any key to continue!");
-                    this.Reader.ConsoleReadKey();
+                    terrain.IsDay = (terrain.IsDay) ? false : true;
+                    Console.WriteLine((terrain.IsDay) ? "Day has come" : "Night has come");
                 }
             }
         }
