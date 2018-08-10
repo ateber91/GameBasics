@@ -12,7 +12,7 @@ namespace Team8Project.Core
 {
     public class Factory
     {
-        private static Factory instance = new Factory();
+        private static Factory instance;
         private IList<IAbility> spellPool;
         private Factory()
         {
@@ -53,7 +53,14 @@ namespace Team8Project.Core
 
         public static Factory Instance
         {
-            get { return instance; }
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Factory();
+                }
+                return instance;
+            }
         }
 
         public IHero CreateHero(HeroClass heroClass)

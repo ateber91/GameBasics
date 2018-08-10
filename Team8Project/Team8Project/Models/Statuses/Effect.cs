@@ -17,7 +17,7 @@ namespace Team8Project.Models.Statuses
         {
             this.Duration = duration;
 
-                  }
+        }
 
         public int Duration
         {
@@ -42,10 +42,20 @@ namespace Team8Project.Models.Statuses
         }
         public override string ToString()
         {
-            return $"applied {this.Type.ToString()}";
+            return $"applies {this.Type.ToString()} duration {this.Duration}turns";
         }
 
-        public override string Print() { return null; }
+        public override string Print()
+        {
+        
+            var effect = this.AbilityPower == 0 ? string.Empty : $"{this.AbilityPower.ToString()} dmg/turn"; 
+            var sb = new StringBuilder();
+
+            sb.Append($"{this.Name}  {this.Type} {effect}");
+
+
+            return sb.ToString();
+        }
 
     }
 }

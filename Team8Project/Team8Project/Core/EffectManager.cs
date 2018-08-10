@@ -7,7 +7,7 @@ namespace Team8Project.Core
 {
     public class EffectManager
     {
-        private static EffectManager instance = new EffectManager();
+        private static EffectManager instance;
         private EffectManager()
         {
         }
@@ -68,6 +68,10 @@ namespace Team8Project.Core
         {
             get
             {
+                if (instance == null)
+                {
+                    instance = new EffectManager();
+                }
                 return instance;
             }
         }
