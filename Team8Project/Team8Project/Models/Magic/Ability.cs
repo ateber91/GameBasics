@@ -18,17 +18,17 @@ namespace Team8Project.Models.Magic
         private HeroClass heroClass;
         private EffectType type;
         private bool onCD = false;
-        private int cd2 = 0;
+        private int cDCounter = 0;
 
-        public int CD2
+        public int CDCounter
         {
             get
             {
-                return this.cd2;
+                return this.cDCounter;
             }
             set
             {
-                this.cd2 = value;
+                this.cDCounter = value;
             }
         }
 
@@ -113,7 +113,11 @@ namespace Team8Project.Models.Magic
             }
         }
 
-        public abstract void Apply();
+        public virtual void Apply()
+        {
+            this.CDCounter = -1;
+            this.OnCD = true;
+        }
 
         public abstract string Print(); 
     }

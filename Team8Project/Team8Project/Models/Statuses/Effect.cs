@@ -38,8 +38,7 @@ namespace Team8Project.Models.Statuses
             {
                 base.Target.AppliedEffects.Add(this);
             }
-            this.CD2 = -1;
-            this.OnCD = true;
+            base.Apply();
         }
         public override string ToString()
         {

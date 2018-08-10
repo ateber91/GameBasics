@@ -11,22 +11,20 @@ namespace Team8Project.Models.Terrains
     public class Jungle: Terrain, ITerrain
     {
         //create an object of SingleObject
-        private static ITerrain instance = new Jungle();
+        private static ITerrain instance;
 
         //make the constructor private so that this class cannot be
         //instantiated
         private Jungle() { }
 
-        //Get the only object available
-        public static ITerrain getInstance()
-        {
-            return instance;
-        }
-
         public static ITerrain Instance
         {
             get
             {
+                if (instance == null)
+                {
+                    instance = new Jungle();
+                }
                 return instance;
             }
         }
@@ -55,7 +53,14 @@ namespace Team8Project.Models.Terrains
         }
         public override void ContinuousEffect(IHero hero)
         {
-            hero.HealthPoints += 10;
+            if(this.IsDay == true)
+            {
+                hero.HealthPoints += 10;
+            }
+            else
+            {
+                hero.HealthPoints -= 2;
+            }
         }
     }
 }

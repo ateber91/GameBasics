@@ -6,22 +6,21 @@ namespace Team8Project.Models.Terrains
     public class Graveyard: Terrain, ITerrain
     {
         //create an object of SingleObject
-        private static ITerrain instance = new Graveyard();
+        private static ITerrain instance;
 
         //make the constructor private so that this class cannot be
         //instantiated
         private Graveyard() { }
 
         //Get the only object available
-        public static ITerrain getInstance()
-        {
-            return instance;
-        }
-
         public static ITerrain Instance
         {
             get
             {
+                if (instance == null)
+                {
+                    instance = new Graveyard();
+                }
                 return instance;
             }
         }
@@ -50,9 +49,16 @@ namespace Team8Project.Models.Terrains
         }
         public override void ContinuousEffect(IHero hero)
         {
-            if (hero.HealthPoints > 30)
+            if (hero.HealthPoints > 20)
             {
-                hero.HealthPoints -= 10;
+                if (this.IsDay == true)
+                {
+                    hero.HealthPoints -= 1;
+                }
+                else
+                {
+                    hero.HealthPoints -= 5;
+                }
             }
         }
     }
