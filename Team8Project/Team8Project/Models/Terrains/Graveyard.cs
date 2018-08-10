@@ -50,9 +50,16 @@ namespace Team8Project.Models.Terrains
         }
         public override void ContinuousEffect(IHero hero)
         {
-            if (hero.HealthPoints > 30)
+            if (hero.HealthPoints > 20)
             {
-                hero.HealthPoints -= 10;
+                if (this.IsDay == true)
+                {
+                    hero.HealthPoints -= 1;
+                }
+                else
+                {
+                    hero.HealthPoints -= 5;
+                }
             }
         }
     }

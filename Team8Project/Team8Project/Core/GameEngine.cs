@@ -125,6 +125,11 @@ namespace Team8Project.Core
                     turn.EndTurn();
                 }
                 turn.NextTurn();
+                if (turn.TurnNumeber % 3 == 0)
+                {
+                    terrain.IsDay = (terrain.IsDay) ? false : true;
+                    Console.WriteLine((terrain.IsDay) ? "Day has come" : "Night has come");
+                }
             }
         }
         private void ProcessCommand(string[] players)

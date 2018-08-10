@@ -10,5 +10,6 @@ namespace Team8Project.Contracts
     {
         void HeroEffect(IHero hero);
         void ContinuousEffect(IHero hero);
+        bool IsDay { get; set; }
     }
 }

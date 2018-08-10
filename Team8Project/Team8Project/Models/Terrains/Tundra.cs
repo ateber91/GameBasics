@@ -47,6 +47,10 @@ namespace Team8Project.Models.Terrains
                     hero.HealthPoints -= 100;
                     break;
                 case HeroClass.Mage:
+                    foreach(IDamagingAbility ability in hero.Abilities)
+                    {
+                        ability.Cd--;
+                    }
                     hero.HealthPoints += 100;
                     break;
                 default:
@@ -55,7 +59,15 @@ namespace Team8Project.Models.Terrains
         }
         public override void ContinuousEffect(IHero hero)
         {
-            if (hero.DmgEndOfRange - 2 >= hero.DmgEndOfRange)
+            if (!this.IsDay)
+            {
+                var result =
+            (from effect in hero.AppliedEffects
+            where effect.Type == EffectType.Incapacitated
+            select effect).ToList();
+                result.ForEach(x => x.Duration++);
+            }
+            else
             {
                 hero.DmgEndOfRange -= 2;
             }
