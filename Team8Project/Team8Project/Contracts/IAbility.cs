@@ -14,6 +14,6 @@ namespace Team8Project.Contracts
         void Apply();
         string Print();
         bool OnCD { get; set; }
-        int CD2 { get; set; }
+        int CDCounter { get; set; }
     }
 }

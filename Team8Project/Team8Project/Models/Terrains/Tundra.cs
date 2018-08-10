@@ -11,22 +11,20 @@ namespace Team8Project.Models.Terrains
     public class Tundra:Terrain
     {
         //create an object of SingleObject
-        private static ITerrain instance = new Tundra();
+        private static ITerrain instance;
 
         //make the constructor private so that this class cannot be
         //instantiated
         private Tundra() { }
 
-        //Get the only object available
-        public static ITerrain getInstance()
-        {
-            return instance;
-        }
-
         public static ITerrain Instance
         {
             get
             {
+                if (instance == null)
+                {
+                    instance = new Tundra();
+                }
                 return instance;
             }
         }
@@ -49,9 +47,8 @@ namespace Team8Project.Models.Terrains
                 case HeroClass.Mage:
                     foreach(IDamagingAbility ability in hero.Abilities)
                     {
-                        ability.Cd--;
+                        ability.AbilityPower+= 20;
                     }
-                    hero.HealthPoints += 100;
                     break;
                 default:
                     break;
@@ -61,11 +58,10 @@ namespace Team8Project.Models.Terrains
         {
             if (!this.IsDay)
             {
-                var result =
-            (from effect in hero.AppliedEffects
-            where effect.Type == EffectType.Incapacitated
-            select effect).ToList();
-                result.ForEach(x => x.Duration++);
+                foreach (var ef in hero.AppliedEffects.Where(x => x.Type == EffectType.Incapacitated))
+                {
+                    ef.Duration++;
+                }
             }
             else
             {

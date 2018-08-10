@@ -24,8 +24,7 @@ namespace Team8Project.Models.Magic
           
             damageDealt = EffectManager.Instance.TransformDamage(damageDealt, this.Caster);
             base.Caster.Opponent.HealthPoints -= damageDealt;
-            this.CD2 = -1;
-            this.OnCD = true;
+            base.Apply();
         }
 
         public override string ToString()
@@ -41,7 +40,7 @@ namespace Team8Project.Models.Magic
 
             var sb = new StringBuilder();
 
-            sb.AppendLine("Spell name: " + this.Name);
+            sb.AppendLine("" + this.Name);
             sb.AppendLine("Spell cooldown " + this.Cd);
 
             return sb.ToString();

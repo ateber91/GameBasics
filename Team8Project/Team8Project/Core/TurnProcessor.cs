@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Team8Project.Contracts;
 using Team8Project.Core.Providers;
+using Team8Project.Models.Terrains;
 
 namespace Team8Project.Core
 {
@@ -16,7 +17,6 @@ namespace Team8Project.Core
 
         private IHero firstHero;
         private IHero secondHero;
-
 
         private TurnProcessor()
         {
@@ -39,6 +39,18 @@ namespace Team8Project.Core
 
         public void EndTurn()
         {
+            ////refreshing cooldowns
+            foreach (IAbility ability in this.ActiveHero.Abilities)
+            {
+                if (ability.OnCD == true)
+                {
+                    ability.CDCounter++;
+                    if (ability.CDCounter == ability.Cd)
+                    {
+                        ability.OnCD = false;
+                    }
+                }
+            }
             this.ActiveHero = ActiveHero.Opponent;
         }
         public void NextTurn()
@@ -50,7 +62,7 @@ namespace Team8Project.Core
             }
             firstHero.AppliedEffects = firstHero.AppliedEffects.Where(e => e.Duration != 0).ToList();
             secondHero.AppliedEffects = secondHero.AppliedEffects.Where(e => e.Duration != 0).ToList();
-
+           
         }
 
         public void SetFirstTurnActiveHero()

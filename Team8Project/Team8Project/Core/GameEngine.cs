@@ -62,10 +62,11 @@ namespace Team8Project.Core
             //choose terrain depending on user choice [0] [1] etc
             //if(userChoice == 0)
             //Get the only object available
-            this.terrain = Jungle.getInstance();
+            this.terrain = Jungle.Instance;
             //apply effect
             terrain.HeroEffect(turn.ActiveHero);
             terrain.HeroEffect(turn.ActiveHero.Opponent);
+            Console.WriteLine("Initial terrain effects applied to both heroes");
 
 
             //START GAME
@@ -94,18 +95,6 @@ namespace Team8Project.Core
                     else
                     {
                         Console.WriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}");
-                    }
-                    ////refreshing cooldowns
-                    foreach (IAbility ability in turn.ActiveHero.Abilities)
-                    {
-                        if (ability.OnCD == true)
-                        {
-                            ability.CD2++;
-                            if (ability.CD2 == ability.Cd)
-                            {
-                                ability.OnCD = false;
-                            }
-                        }
                     }
 
                     Console.WriteLine($"{turn.ActiveHero.Name}'s abilities: ");
