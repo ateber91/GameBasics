@@ -45,12 +45,14 @@
     <Compile Include="Common\EffectType.cs" />
     <Compile Include="Common\HeroClass.cs" />
     <Compile Include="Contracts\IEffect.cs" />
+    <Compile Include="Contracts\IEngine.cs" />
     <Compile Include="Core\EffectManager.cs" />
     <Compile Include="Contracts\IReader.cs" />
     <Compile Include="Contracts\ITerrain.cs" />
     <Compile Include="Contracts\IWriter.cs" />
     <Compile Include="Core\GameEngine.cs" />
     <Compile Include="Core\Factory.cs" />
+    <Compile Include="Core\CommandProcessor.cs" />
     <Compile Include="IO\ConsolePrinter.cs" />
     <Compile Include="Contracts\IAbility.cs" />
     <Compile Include="Contracts\IDamagingAbility.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="Models\Terrains\Terrain.cs" />
     <Compile Include="Core\TurnProcessor.cs" />
     <Compile Include="Models\Terrains\Tundra.cs" />
+    <Compile Include="Models\Validations.cs" />
     <Compile Include="StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

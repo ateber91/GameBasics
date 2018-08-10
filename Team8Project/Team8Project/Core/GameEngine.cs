@@ -9,13 +9,18 @@ using Team8Project.Models.Terrains;
 
 namespace Team8Project.Core
 {
-    public class GameEngine
+    public class GameEngine : IEngine
     {
+        private const string INITIAL_MESSAGE = "Choose a character:\n 1.{0}\n 2.{1}\n 3.{2}\n 4.{3}";
+
+
+
         private static GameEngine instance;
         private readonly Factory factory;
         private TurnProcessor turn;
         private EffectManager effect;
         private ITerrain terrain;
+        private CommandProcessor commandProcessor;
         private List<IHero> listHeros;
 
         private GameEngine()
@@ -25,24 +30,31 @@ namespace Team8Project.Core
             this.effect = EffectManager.Instance;
             this.Reader = new ConsoleReader();
             this.Writer = new ConsoleWriter();
+            this.commandProcessor = new CommandProcessor();
             this.listHeros = new List<IHero>();
         }
 
         public IReader Reader { get; set; }
         public IWriter Writer { get; set; }
-        
-        
+
+
         public void Run()
         {
             //Set Current Game Heroes
 
-            Console.WriteLine($"Choose a character: 1.{HeroClass.Assasin}, 2.{HeroClass.Warrior}, 3.{HeroClass.Mage} 4.{HeroClass.Cleric}");
+            this.Writer.ConsoleWriteLine(string.Format(INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
+            this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
             string[] players = new string[2];
-
+            this.Writer.ConsoleWrite("Player 1: ");
             players[0] = this.Reader.ConsoleReadLine();
+            this.Writer.ConsoleWrite("Player 2: ");
             players[1] = this.Reader.ConsoleReadLine();
-            this.ProcessCommand(players);
-           
+            this.Writer.ConsoleClear();
+
+            this.listHeros = commandProcessor.ProcessCommand(players);
+            turn.FirstHero = this.listHeros[0];
+            turn.SecondHero = this.listHeros[1];
+
             turn.SetFirstTurnActiveHero();
             factory.CreateSpellBook(turn.FirstHero);
             factory.CreateSpellBook(turn.SecondHero);
@@ -106,12 +118,14 @@ namespace Team8Project.Core
                     }
 
                     string selectAbilityCommand = this.Reader.ConsoleReadKey();
-                    var selectedAbility = this.ProcessCommand(selectAbilityCommand);
+                    this.Writer.ConsoleWriteLine("");
+                    var selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
+
                     while (selectedAbility.OnCD == true)
                     {
                         Console.WriteLine("Chosen ability is on cooldown, choose another");
                         selectAbilityCommand = this.Reader.ConsoleReadKey();
-                        selectedAbility = this.ProcessCommand(selectAbilityCommand);
+                        selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
                     }
 
                     turn.ActiveHero.UseAbility(selectedAbility);
@@ -132,45 +146,7 @@ namespace Team8Project.Core
                 }
             }
         }
-        private void ProcessCommand(string[] players)
-        {
-            foreach (var player in players)
-            {
-                switch (player)
-                {
-                    case "1":
-                        this.listHeros.Add(factory.CreateHero(HeroClass.Warrior));
-                        break;
-                    case "2":
-                        this.listHeros.Add(factory.CreateHero(HeroClass.Mage));
-                        break;
-                    case "3":
-                        this.listHeros.Add(factory.CreateHero(HeroClass.Assasin));
-                        break;
-                    case "4":
-                        this.listHeros.Add(factory.CreateHero(HeroClass.Cleric));
-                        break;
-                    default:
-                        throw new ArgumentException("I couldn't create you hero! :(");
-                }
-            }
-            turn.FirstHero = this.listHeros[0];
-            turn.SecondHero = this.listHeros[1];
-        }
-        private IAbility ProcessCommand(string key)
-        {
-            switch (key)
-            {
-                case "1":
-                    return turn.ActiveHero.Abilities[0];
-                case "2":
-                    return turn.ActiveHero.Abilities[1];
-                case "3":
-                    return turn.ActiveHero.Abilities[2];
-                default:
-                    throw new ArgumentException("I couldn't return ability! :(");
-            }
-        }
+        
         public static GameEngine Instance
         {
             get

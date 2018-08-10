@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Team8Project.Contracts
 {
-    public interface IWriter
+    public interface IEngine
     {
-        void ConsoleWriteLine(string message);
-        void ConsoleWrite(string message);
-        void ConsoleClear();
+        void Run();
     }
 }
