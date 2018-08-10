@@ -58,10 +58,12 @@ namespace Team8Project.Models.Terrains
         {
             if (!this.IsDay)
             {
-                foreach (var ef in hero.AppliedEffects.Where(x => x.Type == EffectType.Incapacitated))
-                {
-                    ef.Duration++;
-                }
+                var effects = hero.AppliedEffects;
+
+                effects
+                    .Where(e => e.Type == EffectType.Incapacitated)
+                    .ToList()
+                    .ForEach(e => e.Duration++);
             }
             else
             {
