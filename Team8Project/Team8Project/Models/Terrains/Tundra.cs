@@ -17,10 +17,7 @@ namespace Team8Project.Models.Terrains
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new Tundra();
-                }
+                if (instance == null) { instance = new Tundra(); }
                 return instance;
             }
         }
@@ -71,14 +68,8 @@ namespace Team8Project.Models.Terrains
         {
             StringBuilder sb = new StringBuilder();
 
-            if (!this.IsDay)
-            {
-                sb.AppendLine("Incapacitating effects extended with 1 turn");
-            }
-            else
-            {
-                sb.AppendLine("Hero max damage reduced by 2");
-            }
+            if (!this.IsDay) { sb.AppendLine("Incapacitating effects extended with 1 turn"); }
+            else { sb.AppendLine("Hero max damage reduced by 2"); }
             return sb.ToString();
         }
     }

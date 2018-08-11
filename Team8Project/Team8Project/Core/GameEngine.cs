@@ -45,9 +45,7 @@ namespace Team8Project.Core
 
         public void Run()
         {
-
             Console.SetWindowSize(160, 40);
-
 
             this.Writer.ConsoleWriteLine(string.Format(INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
             this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
@@ -108,17 +106,12 @@ namespace Team8Project.Core
                         this.terrainManager.ChangeDayNight();
                     }
 
-                    if (this.endGame)
-                    {
-                        return;
-                    }
+                    if (this.endGame) { return; }
                     Writer.ConsoleWriteLine("******************************************************************");
-
 
                     this.Writer.ConsoleClear();
                     this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
                     this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
-
                 }
                 catch (Exception ex)
                 {
@@ -141,12 +134,9 @@ namespace Team8Project.Core
             else
             {
                 effect.AtTurnStart(turn.ActiveHero); // checks for statuses : DOT,HOT
-                activeHero.AppliedEffects = activeHero.AppliedEffects.Where(e => e.CurrentStacks != 0).ToList(); //removes expired effects
+                effect.RemoveExpired(activeHero);
 
                 Writer.ConsoleWriteLine($"{turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
-
-                if (turn.ActiveHero.AppliedEffects.Count == 0) { this.Writer.ConsoleWriteLine("Applied effects: No effects."); }
-                else { this.Writer.ConsoleWriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}"); }
 
                 this.Writer.ConsoleWriteLine($"{turn.ActiveHero.Name}'s abilities: ");
 
@@ -156,6 +146,9 @@ namespace Team8Project.Core
                     pos++;
                     Writer.ConsoleWriteLine($"{pos}. {ability.Print()}");
                 }
+
+                if (turn.ActiveHero.AppliedEffects.Count == 0) { this.Writer.ConsoleWriteLine("Applied effects: No effects."); }
+                else { this.Writer.ConsoleWriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}"); }
 
                 string selectAbilityCommand = this.Reader.ConsoleReadKey();
                 this.Writer.ConsoleWriteLine("");
@@ -181,10 +174,7 @@ namespace Team8Project.Core
                             this.Writer.ConsoleClear();
                             this.Writer.ConsoleWriteLine("I told you to choose other options!!! Try again. I will be wathcing you!");
                         }
-                        else
-                        {
-                            break;
-                        }
+                        else { break; }
                     }
 
                     selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
@@ -202,7 +192,6 @@ namespace Team8Project.Core
                 Console.Beep();
                 this.endGame = true;
             }
-
         }
 
         private void printHeader()
@@ -212,7 +201,6 @@ namespace Team8Project.Core
             this.Writer.PrintOnPosition(0, 150, $" Turn: {turn.TurnNumber}", ConsoleColor.Red);
             this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
         }
-
 
         public static GameEngine Instance
         {
