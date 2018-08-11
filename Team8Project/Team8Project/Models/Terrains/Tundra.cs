@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Team8Project.Common;
+﻿using System.Text;
+using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 
 namespace Team8Project.Models.Terrains
 {
-    public class Tundra:Terrain
+    public class Tundra : Terrain
     {
         //create an object of SingleObject
         private static ITerrain instance;
@@ -50,8 +46,6 @@ namespace Team8Project.Models.Terrains
                     //{
                     //    ability.AbilityPower+= 20;
                     //}
-                    break;
-                default:
                     break;
             }
         }

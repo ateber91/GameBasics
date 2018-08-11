@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Team8Project.Common;
+﻿using System.Text;
+using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 
 namespace Team8Project.Models.Terrains
 {
-    public class Jungle: Terrain, ITerrain
+    public class Jungle : Terrain, ITerrain
     {
         //create an object of SingleObject
         private static ITerrain instance;
@@ -21,10 +17,7 @@ namespace Team8Project.Models.Terrains
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new Jungle();
-                }
+                if (instance == null) { instance = new Jungle(); }
                 return instance;
             }
         }
@@ -35,7 +28,7 @@ namespace Team8Project.Models.Terrains
             {
                 case HeroClass.Warrior:
                     hero.HealthPoints += 100;
-                    break; 
+                    break;
                 case HeroClass.Assasin:
                     hero.DmgStartOfRange -= 10;
                     hero.DmgEndOfRange -= 10;
@@ -47,13 +40,11 @@ namespace Team8Project.Models.Terrains
                     hero.DmgStartOfRange += 10;
                     hero.DmgEndOfRange += 10;
                     break;
-                default:
-                    break;
             }
         }
         public override void ContinuousEffect(IHero hero)
         {
-            if(this.IsDay == true)
+            if (this.IsDay == true)
             {
                 hero.HealthPoints += 10;
             }

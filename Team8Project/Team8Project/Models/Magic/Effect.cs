@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Team8Project.Common;
+using Team8Project.Common.Enums;
 using Team8Project.Contracts;
-using Team8Project.Core;
-using Team8Project.Models.Magic;
 
 namespace Team8Project.Models.Magic
 {
-    public class Effect : Ability, IAbility, IEffect
+    public class Effect : Ability, IEffect
     {
         private int currentStacks;
         private int defaultStacks;
@@ -19,7 +14,6 @@ namespace Team8Project.Models.Magic
             : base(name, cd, heroClass, type, abilityPower)
         {
             this.DefaultStacks = defaultStacks;
-
         }
 
         public int CurrentStacks
@@ -61,7 +55,6 @@ namespace Team8Project.Models.Magic
         public override string Print()
         {
             var hotOrDot = this.Type == EffectType.HOT ? "hp/turn" : "dmg/turn";
-
             var effect = this.AbilityPower == 0 ? string.Empty : $"{this.AbilityPower.ToString()} {hotOrDot}";
             var target = this.Target == this.Caster ? "caster" : "opponent";
             var sb = new StringBuilder();

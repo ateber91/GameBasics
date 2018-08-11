@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Team8Project.Contracts;
 using Team8Project.Core.Providers;
 using Team8Project.Models.Terrains;
@@ -21,10 +17,7 @@ namespace Team8Project.Core
 
         public ITerrain Terrain
         {
-            get
-            {
-                return this.terrain;
-            }
+            get { return this.terrain; }
             set
             {
                 this.terrain = value;
@@ -35,39 +28,37 @@ namespace Team8Project.Core
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new TerrainManager();
-                }
+                if (instance == null) { instance = new TerrainManager(); }
                 return instance;
             }
         }
 
         public string TarrainType
         {
-            get
-            {
-                return this.tarrainType;
-            }
+            get { return this.tarrainType; }
             private set
             {
                 this.tarrainType = value;
             }
-                }
+        }
 
         public void SetTerrain()
         {
             Random random = new Random();
+
             int x = random.Next(1, 4);
             switch (x)
             {
-                case 1: this.Terrain = Jungle.Instance;
+                case 1:
+                    this.Terrain = Jungle.Instance;
                     this.TarrainType = "Jungle set as terrain";
                     break;
-                case 2: this.Terrain = Graveyard.Instance;
+                case 2:
+                    this.Terrain = Graveyard.Instance;
                     this.TarrainType = "Graveyard set as terrain";
                     break;
-                case 3: this.Terrain = Tundra.Instance;
+                case 3:
+                    this.Terrain = Tundra.Instance;
                     this.TarrainType = "Tundra set as terrain";
                     break;
                 default:
@@ -97,8 +88,8 @@ namespace Team8Project.Core
 
         public void ChangeDayNight()
         {
-            this.Terrain.IsDay = (this.Terrain.IsDay)? false : true;
-            Console.WriteLine((this.Terrain.IsDay)? "Day has come" : "Night has come");
+            this.Terrain.IsDay = (this.Terrain.IsDay) ? false : true;
+            Console.WriteLine((this.Terrain.IsDay) ? "Day has come" : "Night has come");
         }
     }
 }
