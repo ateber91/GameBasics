@@ -75,34 +75,16 @@ namespace Team8Project.Core
 
         public void CreateSpellBook(IHero hero)
         {
-            hero.Abilities = Spellbook(hero.HeroClass);
-            foreach (var ability in hero.Abilities)
-            {
-                ability.Caster = hero;
-                if (ability.Type == EffectType.Buff || ability.Type == EffectType.HOT || ability.Type == EffectType.Resistance)
-                {
-                    ability.Target = ability.Caster;
-                }
-                else if (ability.Type == EffectType.Damage || ability.Type == EffectType.Debuff
-                    || ability.Type == EffectType.DOT || ability.Type == EffectType.Incapacitated)
-                {
-                    ability.Target = ability.Caster.Opponent;
-                }
-            }
-        }
+            var basicAttack = new DamagingAbility("Basic Attack", 0, hero.HeroClass, EffectType.Damage, 0);
+            hero.Abilities.Add(basicAttack); //add basic attack
 
-        private IList<IAbility> Spellbook(HeroClass heroClass)
-        {
-            var spellBook = new List<IAbility>();
-            spellBook.Add(new DamagingAbility("Basic Attack", 0, heroClass, EffectType.Damage, 0)); //add basic attack
+            var dmgAbilities = this.spellPool.Where(x => x.HeroClass == hero.HeroClass && x.Type == EffectType.Damage).ToList();
+            hero.Abilities.Add(dmgAbilities[RandomProvider.Generate(0, dmgAbilities.Count - 1)]);  //add 2nd spell                                                                                                      //?
 
-            var dmgAbilities = this.spellPool.Where(x => x.HeroClass == heroClass && x.Type == EffectType.Damage).ToList(); //add 2nd spell
-            spellBook.Add(dmgAbilities[RandomProvider.Generate(0, dmgAbilities.Count - 1)]);                                                                                                       //?
+            var effectAbilitues = spellPool.Where(x => x.HeroClass == hero.HeroClass && x.Type != EffectType.Damage).ToList();
+            hero.Abilities.Add(effectAbilitues[RandomProvider.Generate(0, effectAbilitues.Count - 1)]);   //add 3rd spell
 
-            var effectAbilitues = spellPool.Where(x => x.HeroClass == heroClass && x.Type != EffectType.Damage).ToList(); //add 3rd spell
-            spellBook.Add(effectAbilitues[RandomProvider.Generate(0, effectAbilitues.Count - 1)]);
-
-            return spellBook;
+            foreach (var ability in hero.Abilities) { ability.Caster = hero; }
         }
 
         private IHero SetStats(string name, int hp, int dmgStartOfRange, int dmgEndOfRange)
