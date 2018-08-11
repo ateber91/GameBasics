@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Team8Project.Common;
+using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 using Team8Project.Core.Providers;
 using Team8Project.Models;
@@ -53,10 +53,7 @@ namespace Team8Project.Core
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new Factory();
-                }
+                if (instance == null) { instance = new Factory(); }
                 return instance;
             }
         }
@@ -64,23 +61,13 @@ namespace Team8Project.Core
         public IHero CreateHero(HeroClass heroClass)
         {
             IHero hero;
-
             switch (heroClass)
             {
-                case HeroClass.Warrior:
-                    hero = this.SetStats("Pesho", 220, 12, 18);
-                    break;
-                case HeroClass.Mage:
-                    hero = this.SetStats("Penka", 180, 10, 12);
-                    break;
-                case HeroClass.Assasin:
-                    hero = this.SetStats("Gesho", 200, 15, 20);
-                    break;
-                case HeroClass.Cleric:
-                    hero = this.SetStats("Genka", 160, 8, 10);
-                    break;
-                default:
-                    throw new ArgumentException("Invalid hero class");
+                case HeroClass.Warrior: hero = this.SetStats("Pesho", 220, 12, 18); break;
+                case HeroClass.Mage: hero = this.SetStats("Penka", 180, 10, 12); break;
+                case HeroClass.Assasin: hero = this.SetStats("Gesho", 200, 15, 20); break;
+                case HeroClass.Cleric: hero = this.SetStats("Genka", 160, 8, 10); break;
+                default: throw new ArgumentException("Invalid hero class");
             }
             hero.HeroClass = heroClass;
             return hero;
@@ -96,13 +83,13 @@ namespace Team8Project.Core
                 {
                     ability.Target = ability.Caster;
                 }
-                else if (ability.Type == EffectType.Damage || ability.Type == EffectType.Debuff || ability.Type == EffectType.DOT || ability.Type == EffectType.Incapacitated)
+                else if (ability.Type == EffectType.Damage || ability.Type == EffectType.Debuff
+                    || ability.Type == EffectType.DOT || ability.Type == EffectType.Incapacitated)
                 {
                     ability.Target = ability.Caster.Opponent;
                 }
             }
         }
-
 
         private IList<IAbility> Spellbook(HeroClass heroClass)
         {
@@ -120,7 +107,7 @@ namespace Team8Project.Core
 
         private IHero SetStats(string name, int hp, int dmgStartOfRange, int dmgEndOfRange)
         {
-            return new Hero(name,hp,dmgStartOfRange,dmgEndOfRange);
+            return new Hero(name, hp, dmgStartOfRange, dmgEndOfRange);
         }
 
     }

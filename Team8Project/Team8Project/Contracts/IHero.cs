@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Team8Project.Common;
+using Team8Project.Common.Enums;
 
 namespace Team8Project.Contracts
 {

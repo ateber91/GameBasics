@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Linq;
-using Team8Project.Common;
+using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 
 namespace Team8Project.Core
@@ -11,7 +10,6 @@ namespace Team8Project.Core
         private EffectManager()
         {
         }
-
         //TODO : MESSAGES
         public int TransformDamage(int damage, IHero activeHero)
         {
@@ -62,19 +60,13 @@ namespace Team8Project.Core
                         effect.CurrentStacks--;
                         break;
                 }
-
             }
         }
-
-
         public static EffectManager Instance
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new EffectManager();
-                }
+                if (instance == null) { instance = new EffectManager(); }
                 return instance;
             }
         }

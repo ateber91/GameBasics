@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Team8Project.Models
+namespace Team8Project.Common
 {
     public class Validations
     {
