@@ -10,7 +10,7 @@ namespace Team8Project.Contracts
         bool OnCD { get; set; }
         int CDCounter { get; set; }
         IHero Caster { get; set; }
-        IHero Target { get; set; }
+      //  IHero Target { get; set; }
         HeroClass HeroClass { get; }
         EffectType Type { get; set; }
         void Apply();

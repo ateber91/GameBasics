@@ -9,7 +9,5 @@
         Resistance = 4, // Takes 0 damage
         Buff = 5,// Possitive application
         Debuff = 6 //Negative application
-       
-
     }
 }

@@ -11,7 +11,6 @@ namespace Team8Project.Models.Magic
         private int cd;
         private int abilityPower;
         private IHero caster;
-        private IHero target;
         private HeroClass heroClass;
         private EffectType type;
         private bool onCD = false;
@@ -19,30 +18,7 @@ namespace Team8Project.Models.Magic
         private const int MIN_NAME_LEN = 1;
         private const int MAX_NAME_LEN = 60;
 
-        public int CDCounter
-        {
-            get
-            {
-                return this.cDCounter;
-            }
-            set
-            {
-                //TODO: Validation (Needs to be discussed with Georgi Z)
-                this.cDCounter = value;
-            }
-        }
 
-        public bool OnCD
-        {
-            get
-            {
-                return this.onCD;
-            }
-            set
-            {
-                this.onCD = value;
-            }
-        }
 
 
         public Ability(string name, int cd, HeroClass heroClass, EffectType type, int abilityPower)
@@ -71,6 +47,30 @@ namespace Team8Project.Models.Magic
             {
                 //TODO: Validation (Needs to be discussed with Georgi Z)
                 this.cd = value;
+            }
+        }
+        public int CDCounter
+        {
+            get
+            {
+                return this.cDCounter;
+            }
+            set
+            {
+                //TODO: Validation (Needs to be discussed with Georgi Z)
+                this.cDCounter = value;
+            }
+        }
+
+        public bool OnCD
+        {
+            get
+            {
+                return this.onCD;
+            }
+            set
+            {
+                this.onCD = value;
             }
         }
         public IHero Caster
@@ -109,14 +109,6 @@ namespace Team8Project.Models.Magic
             }
         }
 
-        public IHero Target
-        {
-            get { return target; }
-            set
-            {
-                target = value;
-            }
-        }
 
         public virtual void Apply()
         {
