@@ -58,14 +58,14 @@ namespace Team8Project.Models.Terrains
         {
             StringBuilder sb = new StringBuilder();
 
-            if (this.IsDay)
-            {
-                sb.AppendLine("'s healthpoints increased by 10");
-            }
-            else
-            {
-                sb.AppendLine("'s healthpoints reduced by 2");
-            }
+            //if (this.IsDay)
+            //{
+            //    sb.AppendLine("'s healthpoints increased by 10");
+            //}
+            //else
+            //{
+            //    sb.AppendLine("'s healthpoints reduced by 2");
+            //}
             return sb.ToString();
         }
     }

@@ -97,7 +97,7 @@ namespace Team8Project.Core
                 if (ability.OnCD == true)
                 {
                     ability.CDCounter++;
-                    if (ability.CDCounter == ability.Cd)
+                    if (ability.CDCounter >= ability.Cd)
                     {
                         ability.OnCD = false;
                     }

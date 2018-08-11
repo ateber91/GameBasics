@@ -147,37 +147,43 @@ namespace Team8Project.Core
                     Writer.ConsoleWriteLine($"{pos}. {ability.Print()}");
                 }
 
+
                 if (turn.ActiveHero.AppliedEffects.Count == 0) { this.Writer.ConsoleWriteLine("Applied effects: No effects."); }
                 else { this.Writer.ConsoleWriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}"); }
 
+                //string selectAbilityCommand = this.Reader.ConsoleReadKey();
+                //this.Writer.ConsoleWriteLine("");
+                //var selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
+
+
                 string selectAbilityCommand = this.Reader.ConsoleReadKey();
-                this.Writer.ConsoleWriteLine("");
-                var selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
+                var selectedAbility = this.commandProcessor.ProcessCommand(selectAbilityCommand);
 
-                while (selectedAbility.OnCD == true)
+                if(selectedAbility.OnCD == true)
                 {
-                    //TODO: Ali: Zabiva vyvejdaneto na komandi sled kato vleze v cooldown i se opitash pak da izberesh 3. ---- Fixnah go no s mnogo grozen kod :(
                     log.AppendLine("Chosen ability is on cooldown, choose another");
-
                     this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
                     this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
-                    while (true)
+                    while (selectedAbility.OnCD == true)
                     {
                         selectAbilityCommand = this.Reader.ConsoleReadKey();
-                        if (selectAbilityCommand == "3" && turn.ActiveHero.Abilities[2].OnCD == true)
-                        {
-                            this.Writer.ConsoleClear();
-                            this.Writer.ConsoleWriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
-                        }
-                        else if (selectAbilityCommand == "2" && turn.ActiveHero.Abilities[1].OnCD == true)
-                        {
-                            this.Writer.ConsoleClear();
-                            this.Writer.ConsoleWriteLine("I told you to choose other options!!! Try again. I will be wathcing you!");
-                        }
-                        else { break; }
+//<<<<<<< HEAD
+//                        if (selectAbilityCommand == "3" && turn.ActiveHero.Abilities[2].OnCD == true)
+//                        {
+//                            this.Writer.ConsoleClear();
+//                            this.Writer.ConsoleWriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
+//                        }
+//                        else if (selectAbilityCommand == "2" && turn.ActiveHero.Abilities[1].OnCD == true)
+//                        {
+//                            this.Writer.ConsoleClear();
+//                            this.Writer.ConsoleWriteLine("I told you to choose other options!!! Try again. I will be wathcing you!");
+//                        }
+//                        else { break; }
+//=======
+                        this.Writer.ConsoleClear();
+                        this.Writer.ConsoleWriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
+                        selectedAbility = this.commandProcessor.ProcessCommand(selectAbilityCommand);
                     }
-
-                    selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
                 }
 
                 turn.ActiveHero.UseAbility(selectedAbility);
@@ -208,6 +214,18 @@ namespace Team8Project.Core
             {
                 if (instance == null) { instance = new GameEngine(); }
                 return instance;
+            }
+        }
+
+        public StringBuilder Log
+        {
+            get
+            {
+                return this.log;
+            }
+            set
+            {
+                this.log = value;
             }
         }
     }
