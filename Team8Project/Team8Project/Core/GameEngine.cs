@@ -85,6 +85,8 @@ namespace Team8Project.Core
                 {
                     this.printHeader();
 
+                    this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero);
+
                     Act(turn.ActiveHero); //first hero move
                     turn.EndAct();
                     this.Writer.ConsoleClear();
@@ -103,6 +105,12 @@ namespace Team8Project.Core
                     Writer.ConsoleWriteLine("------------------------------------------------------------------");
 
                     turn.NextTurn();
+
+                    turn.NextTurn();
+                    if (turn.TurnNumber % 3 == 0)
+                    {
+                        this.terrainManager.ChangeDayNight();
+                    }
 
                     if (this.endGame)
                     {
