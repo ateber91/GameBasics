@@ -27,6 +27,7 @@ namespace Team8Project.Core
         private CommandProcessor commandProcessor;
         private List<IHero> listHeros;
         private StringBuilder log;
+        private  bool endGame = false;
 
         private GameEngine()
         {
@@ -82,15 +83,6 @@ namespace Team8Project.Core
             {
                 try
                 {
-                    if (turn.ActiveHero.Opponent.HealthPoints < 0)
-                    {
-                        this.Writer.ConsoleClear();
-                        Console.Beep();
-                        this.Writer.PrintOnPosition(0, 0, $"{turn.ActiveHero.Name.ToUpper()} WON!", ConsoleColor.Green);
-                        Console.Beep();
-                        break;
-                    }
-
                     this.printHeader();
 
                     Act(turn.ActiveHero); //first hero move
@@ -100,6 +92,10 @@ namespace Team8Project.Core
                     this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
                     this.printHeader();
 
+                    if (this.endGame)
+                    {
+                        return;
+                    }
                     Act(turn.ActiveHero); //second hero move
                     turn.EndAct();
                     this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
@@ -107,6 +103,11 @@ namespace Team8Project.Core
                     Writer.ConsoleWriteLine("------------------------------------------------------------------");
 
                     turn.NextTurn();
+
+                    if (this.endGame)
+                    {
+                        return;
+                    }
                     Writer.ConsoleWriteLine("******************************************************************");
 
 
@@ -163,6 +164,7 @@ namespace Team8Project.Core
                     this.Writer.ConsoleClear();
                     this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
                     this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
+
                 }
                 catch (Exception ex)
                 {
@@ -220,12 +222,12 @@ namespace Team8Project.Core
                         if (selectAbilityCommand == "3" && turn.ActiveHero.Abilities[2].OnCD == true)
                         {
                             this.Writer.ConsoleClear();
-                            this.Writer.ConsoleWriteLine("I told you to choose other options!!! Try again. I am wathcing you!");
+                            this.Writer.ConsoleWriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
                         }
                         else if (selectAbilityCommand == "2" && turn.ActiveHero.Abilities[1].OnCD == true)
                         {
                             this.Writer.ConsoleClear();
-                            this.Writer.ConsoleWriteLine("I told you to choose other options!!! Try again. I am wathcing you!");
+                            this.Writer.ConsoleWriteLine("I told you to choose other options!!! Try again. I will be wathcing you!");
                         }
                         else
                         {
@@ -237,8 +239,18 @@ namespace Team8Project.Core
                 }
 
                 turn.ActiveHero.UseAbility(selectedAbility);
+
                 log.AppendLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}.");
             }
+            if (turn.ActiveHero.Opponent.HealthPoints < 0)
+            {
+                this.Writer.ConsoleClear();
+                Console.Beep();
+                this.Writer.PrintOnPosition(0, 0, $"{turn.ActiveHero.Name.ToUpper()} WON!", ConsoleColor.Green);
+                Console.Beep();
+                this.endGame = true;
+            }
+
         }
 
         private void printHeader()
