@@ -50,14 +50,14 @@ namespace Team8Project.Core
 
             Console.SetWindowSize(160, 40);
 
-            
+
             this.Writer.ConsoleWriteLine(string.Format(INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
             this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
             string[] players = new string[2];
 
             //while (true)
             //{
-            
+
             this.Writer.ConsoleWrite("Player 1: ");
             players[0] = this.Reader.ConsoleReadKey();
             this.Writer.ConsoleWriteLine("");
@@ -92,7 +92,7 @@ namespace Team8Project.Core
                     }
 
                     this.printHeader();
-                    
+
                     Act(turn.ActiveHero); //first hero move
                     turn.EndAct();
                     this.Writer.ConsoleClear();
@@ -171,7 +171,7 @@ namespace Team8Project.Core
                     this.Reader.ConsoleReadKey();
                 }
 
-               
+
             }
         }
 
@@ -209,18 +209,35 @@ namespace Team8Project.Core
 
                 while (selectedAbility.OnCD == true)
                 {
-                    //TODO: Ali: Zabiva vyvejdaneto na komandi sled kato vleze v cooldown i se opitash pak da izberesh 3.
+                    //TODO: Ali: Zabiva vyvejdaneto na komandi sled kato vleze v cooldown i se opitash pak da izberesh 3. ---- Fixnah go no s mnogo grozen kod :(
                     log.AppendLine("Chosen ability is on cooldown, choose another");
-                    selectAbilityCommand = this.Reader.ConsoleReadKey();
+
+                    this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
+                    this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
+                    while (true)
+                    {
+                        selectAbilityCommand = this.Reader.ConsoleReadKey();
+                        if (selectAbilityCommand == "3" && turn.ActiveHero.Abilities[2].OnCD == true)
+                        {
+                            this.Writer.ConsoleClear();
+                            this.Writer.ConsoleWriteLine("I told you to choose other options!!! Try again. I am wathcing you!");
+                        }
+                        else if (selectAbilityCommand == "2" && turn.ActiveHero.Abilities[1].OnCD == true)
+                        {
+                            this.Writer.ConsoleClear();
+                            this.Writer.ConsoleWriteLine("I told you to choose other options!!! Try again. I am wathcing you!");
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
                     selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
                 }
 
                 turn.ActiveHero.UseAbility(selectedAbility);
                 log.AppendLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}.");
-
-                
-
-        
             }
         }
 
