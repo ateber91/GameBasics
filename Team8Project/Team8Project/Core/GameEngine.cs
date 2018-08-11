@@ -45,9 +45,7 @@ namespace Team8Project.Core
 
         public void Run()
         {
-
             Console.SetWindowSize(160, 40);
-
 
             this.Writer.ConsoleWriteLine(string.Format(INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
             this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
@@ -108,17 +106,12 @@ namespace Team8Project.Core
                         this.terrainManager.ChangeDayNight();
                     }
 
-                    if (this.endGame)
-                    {
-                        return;
-                    }
+                    if (this.endGame) { return; }
                     Writer.ConsoleWriteLine("******************************************************************");
-
 
                     this.Writer.ConsoleClear();
                     this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
                     this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
-
                 }
                 catch (Exception ex)
                 {
@@ -141,12 +134,9 @@ namespace Team8Project.Core
             else
             {
                 effect.AtTurnStart(turn.ActiveHero); // checks for statuses : DOT,HOT
-                activeHero.AppliedEffects = activeHero.AppliedEffects.Where(e => e.CurrentStacks != 0).ToList(); //removes expired effects
+                effect.RemoveExpired(activeHero);
 
                 Writer.ConsoleWriteLine($"{turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
-
-                if (turn.ActiveHero.AppliedEffects.Count == 0) { this.Writer.ConsoleWriteLine("Applied effects: No effects."); }
-                else { this.Writer.ConsoleWriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}"); }
 
                 this.Writer.ConsoleWriteLine($"{turn.ActiveHero.Name}'s abilities: ");
 
@@ -157,41 +147,18 @@ namespace Team8Project.Core
                     Writer.ConsoleWriteLine($"{pos}. {ability.Print()}");
                 }
 
+
+                if (turn.ActiveHero.AppliedEffects.Count == 0) { this.Writer.ConsoleWriteLine("Applied effects: No effects."); }
+                else { this.Writer.ConsoleWriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}"); }
+
                 //string selectAbilityCommand = this.Reader.ConsoleReadKey();
                 //this.Writer.ConsoleWriteLine("");
                 //var selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
 
-                //while (selectedAbility.OnCD == true)
-                //{
-                //    //TODO: Ali: Zabiva vyvejdaneto na komandi sled kato vleze v cooldown i se opitash pak da izberesh 3. ---- Fixnah go no s mnogo grozen kod :(
-                //    log.AppendLine("Chosen ability is on cooldown, choose another");
-
-                //    this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
-                //    this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
-                //    while (true)
-                //    {
-                //        selectAbilityCommand = this.Reader.ConsoleReadKey();
-                //        if (selectAbilityCommand == "3" && turn.ActiveHero.Abilities[2].OnCD == true)
-                //        {
-                //            this.Writer.ConsoleClear();
-                //            this.Writer.ConsoleWriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
-                //        }
-                //        else if (selectAbilityCommand == "2" && turn.ActiveHero.Abilities[1].OnCD == true)
-                //        {
-                //            this.Writer.ConsoleClear();
-                //            this.Writer.ConsoleWriteLine("I told you to choose other options!!! Try again. I will be wathcing you!");
-                //        }
-                //        else
-                //        {
-                //            break;
-                //        }
-                //    }
-
-                //    selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
-                //}
 
                 string selectAbilityCommand = this.Reader.ConsoleReadKey();
                 var selectedAbility = this.commandProcessor.ProcessCommand(selectAbilityCommand);
+
                 if(selectedAbility.OnCD == true)
                 {
                     log.AppendLine("Chosen ability is on cooldown, choose another");
@@ -200,6 +167,19 @@ namespace Team8Project.Core
                     while (selectedAbility.OnCD == true)
                     {
                         selectAbilityCommand = this.Reader.ConsoleReadKey();
+//<<<<<<< HEAD
+//                        if (selectAbilityCommand == "3" && turn.ActiveHero.Abilities[2].OnCD == true)
+//                        {
+//                            this.Writer.ConsoleClear();
+//                            this.Writer.ConsoleWriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
+//                        }
+//                        else if (selectAbilityCommand == "2" && turn.ActiveHero.Abilities[1].OnCD == true)
+//                        {
+//                            this.Writer.ConsoleClear();
+//                            this.Writer.ConsoleWriteLine("I told you to choose other options!!! Try again. I will be wathcing you!");
+//                        }
+//                        else { break; }
+//=======
                         this.Writer.ConsoleClear();
                         this.Writer.ConsoleWriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
                         selectedAbility = this.commandProcessor.ProcessCommand(selectAbilityCommand);
@@ -218,7 +198,6 @@ namespace Team8Project.Core
                 Console.Beep();
                 this.endGame = true;
             }
-
         }
 
         private void printHeader()
@@ -228,7 +207,6 @@ namespace Team8Project.Core
             this.Writer.PrintOnPosition(0, 150, $" Turn: {turn.TurnNumber}", ConsoleColor.Red);
             this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
         }
-
 
         public static GameEngine Instance
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 
@@ -61,6 +62,11 @@ namespace Team8Project.Core
                         break;
                 }
             }
+        }
+
+        public void RemoveExpired(IHero activeHero)
+        {
+            activeHero.AppliedEffects = activeHero.AppliedEffects.Where(e => e.CurrentStacks != 0).ToList(); 
         }
         public static EffectManager Instance
         {

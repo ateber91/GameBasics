@@ -19,10 +19,7 @@ namespace Team8Project.Models.Terrains
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new Tundra();
-                }
+                if (instance == null) { instance = new Tundra(); }
                 return instance;
             }
         }
@@ -40,14 +37,14 @@ namespace Team8Project.Models.Terrains
                     GameEngine.Instance.Log.AppendLine(hero.Name + "'s health points decreased by 50");
                     break;
                 case HeroClass.Cleric:
-                    foreach (var ability in hero.Abilities.OfType<IDamagingAbility>())
+                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
                     {
                         ability.AbilityPower -= 2;
                     }
                     GameEngine.Instance.Log.AppendLine(hero.Name + "'s damaging abilities decreased by 2");
                     break;
                 case HeroClass.Mage:
-                    foreach (var ability in hero.Abilities.OfType<IDamagingAbility>())
+                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
                     {
                         ability.AbilityPower += 5;
                     }
@@ -73,9 +70,9 @@ namespace Team8Project.Models.Terrains
             }
             else
             {
-                foreach (var ability in hero.Abilities.OfType<IEffect>())
+                foreach (var ability in hero.Abilities.Where(x=>x.Type==EffectType.Damage))
                 {
-                    if(ability.OnCD == true)
+                    if (ability.OnCD == true)
                     {
                         ability.OnCD = false;
                         GameEngine.Instance.Log.AppendLine(ability.Name + "'s cooldown changed");
@@ -97,6 +94,7 @@ namespace Team8Project.Models.Terrains
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+
 
             if (!this.IsDay)
             {
