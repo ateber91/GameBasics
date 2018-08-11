@@ -34,13 +34,13 @@ namespace Team8Project.Core
             {
                 switch (player)
                 {
-                    case "1":
+                    case "2":
                         this.listHeros.Add(this.factory.CreateHero(HeroClass.Warrior));
                         break;
-                    case "2":
+                    case "3":
                         this.listHeros.Add(this.factory.CreateHero(HeroClass.Mage));
                         break;
-                    case "3":
+                    case "1":
                         this.listHeros.Add(this.factory.CreateHero(HeroClass.Assasin));
                         break;
                     case "4":

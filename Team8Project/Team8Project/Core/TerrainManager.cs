@@ -12,6 +12,7 @@ namespace Team8Project.Core
     public class TerrainManager
     {
         private static TerrainManager instance;
+        private string tarrainType;
         private ITerrain terrain;
 
         private TerrainManager()
@@ -42,19 +43,32 @@ namespace Team8Project.Core
             }
         }
 
+        public string TarrainType
+        {
+            get
+            {
+                return this.tarrainType;
+            }
+            private set
+            {
+                this.tarrainType = value;
+            }
+                }
+
         public void SetTerrain()
         {
-            int x = RandomProvider.Generate(1, 3);
+            Random random = new Random();
+            int x = random.Next(1, 4);
             switch (x)
             {
                 case 1: this.Terrain = Jungle.Instance;
-                    Console.WriteLine("Jungle set as terrain");
+                    this.TarrainType = "Jungle set as terrain";
                     break;
                 case 2: this.Terrain = Graveyard.Instance;
-                    Console.WriteLine("Graveyard set as terrain");
+                    this.TarrainType = "Graveyard set as terrain";
                     break;
                 case 3: this.Terrain = Tundra.Instance;
-                    Console.WriteLine("Tundra set as terrain");
+                    this.TarrainType = "Tundra set as terrain";
                     break;
                 default:
                     break;
@@ -65,7 +79,6 @@ namespace Team8Project.Core
         {
             this.Terrain.HeroEffect(activeHero);
             this.Terrain.HeroEffect(activeHero.Opponent);
-            Console.WriteLine("Initial terrain effects applied to both heroes");
         }
 
         public void ApplyContinuousEffect(IHero activeHero)

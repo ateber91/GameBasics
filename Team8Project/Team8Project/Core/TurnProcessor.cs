@@ -5,7 +5,7 @@ namespace Team8Project.Core
 {
     public class TurnProcessor
     {
-        private int turnNumeber = 1;
+        private int turnNumber = 1;
         private static TurnProcessor instance;
         private IHero activeHero;
         private IHero firstHero;
@@ -14,10 +14,10 @@ namespace Team8Project.Core
         private TurnProcessor()
         {
         }
-        public int TurnNumeber
+        public int TurnNumber
         {
-            get { return this.turnNumeber; }
-            private set { this.turnNumeber = value; }
+            get { return this.turnNumber; }
+            private set { this.turnNumber = value; }
         }
 
 
@@ -28,7 +28,7 @@ namespace Team8Project.Core
         }
         public void NextTurn()
         {
-            this.turnNumeber++;
+            this.turnNumber++;
         }
 
         public void SetFirstTurnActiveHero()

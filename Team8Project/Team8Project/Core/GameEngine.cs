@@ -14,6 +14,8 @@ namespace Team8Project.Core
     public class GameEngine : IEngine
     {
         private const string INITIAL_MESSAGE = "Choose a character:\n 1.{0}\n 2.{1}\n 3.{2}\n 4.{3}";
+        private const int LOG_ROW_POS = 12;
+        private const int LOG_COL_POS = 0;
 
 
 
@@ -24,6 +26,7 @@ namespace Team8Project.Core
         private TerrainManager terrainManager;
         private CommandProcessor commandProcessor;
         private List<IHero> listHeros;
+        private StringBuilder log;
 
         private GameEngine()
         {
@@ -34,6 +37,7 @@ namespace Team8Project.Core
             this.Writer = new ConsoleWriter();
             this.commandProcessor = new CommandProcessor();
             this.listHeros = new List<IHero>();
+            this.log = new StringBuilder();
             this.terrainManager = TerrainManager.Instance;
         }
 
@@ -46,18 +50,19 @@ namespace Team8Project.Core
 
             Console.SetWindowSize(160, 40);
 
-
+            
             this.Writer.ConsoleWriteLine(string.Format(INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
             this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
             string[] players = new string[2];
 
             //while (true)
             //{
-
+            
             this.Writer.ConsoleWrite("Player 1: ");
-            players[0] = this.Reader.ConsoleReadLine();
+            players[0] = this.Reader.ConsoleReadKey();
+            this.Writer.ConsoleWriteLine("");
             this.Writer.ConsoleWrite("Player 2: ");
-            players[1] = this.Reader.ConsoleReadLine();
+            players[1] = this.Reader.ConsoleReadKey();
             this.Writer.ConsoleClear();
             //}
             this.listHeros = commandProcessor.ProcessCommand(players);
@@ -77,16 +82,28 @@ namespace Team8Project.Core
             {
                 try
                 {
+                    if (turn.ActiveHero.Opponent.HealthPoints < 0)
+                    {
+                        this.Writer.ConsoleClear();
+                        Console.Beep();
+                        this.Writer.PrintOnPosition(0, 0, $"{turn.ActiveHero.Name.ToUpper()} WON!", ConsoleColor.Green);
+                        Console.Beep();
+                        break;
+                    }
 
-
-                    this.Writer.PrintOnPosition(0, 60, "Initial terrain effects applied to both heroes");
-                    this.Writer.PrintOnPosition(0, 150, $" Turn: {turn.TurnNumeber}", ConsoleColor.Red);
-
+                    this.printHeader();
+                    
                     Act(turn.ActiveHero); //first hero move
                     turn.EndAct();
-                    Writer.ConsoleWriteLine("------------------------------------------------------------------");
+                    this.Writer.ConsoleClear();
+                    this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
+                    this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
+                    this.printHeader();
+
                     Act(turn.ActiveHero); //second hero move
                     turn.EndAct();
+                    this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
+                    this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
                     Writer.ConsoleWriteLine("------------------------------------------------------------------");
 
                     turn.NextTurn();
@@ -144,6 +161,8 @@ namespace Team8Project.Core
                     //                        this.terrainManager.ChangeDayNight();
                     //                    }
                     this.Writer.ConsoleClear();
+                    this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
+                    this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
                 }
                 catch (Exception ex)
                 {
@@ -151,6 +170,8 @@ namespace Team8Project.Core
                     Console.WriteLine("Press any key to continue!");
                     this.Reader.ConsoleReadKey();
                 }
+
+               
             }
         }
 
@@ -159,7 +180,7 @@ namespace Team8Project.Core
             //checks for status incapacitated
             if ((turn.ActiveHero.AppliedEffects.Any(x => x.Type == EffectType.Incapacitated)))
             {
-                Writer.ConsoleWriteLine($"{turn.ActiveHero.HeroClass} {turn.ActiveHero.Name} is incapacitated!. Cannot act!");
+                log.AppendLine($"{turn.ActiveHero.HeroClass} {turn.ActiveHero.Name} is incapacitated!. Cannot act!");
 
                 turn.ActiveHero.AppliedEffects.Remove(turn.ActiveHero.AppliedEffects.First(x => x.Type == EffectType.Incapacitated));
             }
@@ -170,10 +191,10 @@ namespace Team8Project.Core
 
                 Writer.ConsoleWriteLine($"{turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
 
-                if (turn.ActiveHero.AppliedEffects.Count == 0) { Writer.ConsoleWriteLine("Applied effects: No effects."); }
-                else { Writer.ConsoleWriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}"); }
+                if (turn.ActiveHero.AppliedEffects.Count == 0) { this.Writer.ConsoleWriteLine("Applied effects: No effects."); }
+                else { this.Writer.ConsoleWriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}"); }
 
-                Writer.ConsoleWriteLine($"{turn.ActiveHero.Name}'s abilities: ");
+                this.Writer.ConsoleWriteLine($"{turn.ActiveHero.Name}'s abilities: ");
 
                 int pos = 0;
                 foreach (var ability in turn.ActiveHero.Abilities)
@@ -188,21 +209,29 @@ namespace Team8Project.Core
 
                 while (selectedAbility.OnCD == true)
                 {
-                    Console.WriteLine("Chosen ability is on cooldown, choose another");
+                    //TODO: Ali: Zabiva vyvejdaneto na komandi sled kato vleze v cooldown i se opitash pak da izberesh 3.
+                    log.AppendLine("Chosen ability is on cooldown, choose another");
                     selectAbilityCommand = this.Reader.ConsoleReadKey();
                     selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
                 }
 
                 turn.ActiveHero.UseAbility(selectedAbility);
-                Console.WriteLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}.");
+                log.AppendLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}.");
 
-                if (turn.ActiveHero.Opponent.HealthPoints < 0)
-                {
-                    Console.WriteLine($"{turn.ActiveHero.Name.ToUpper()} WON! ");
-                    return;
-                }
+                
+
+        
             }
         }
+
+        private void printHeader()
+        {
+            this.Writer.PrintOnPosition(0, 0, this.terrainManager.TarrainType);
+            this.Writer.PrintOnPosition(0, 60, "Initial terrain effects applied to both heroes");
+            this.Writer.PrintOnPosition(0, 150, $" Turn: {turn.TurnNumber}", ConsoleColor.Red);
+            this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
+        }
+
 
         public static GameEngine Instance
         {

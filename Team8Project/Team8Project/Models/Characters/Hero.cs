@@ -51,7 +51,6 @@ namespace Team8Project.Models
             get { return this.healthPoints; }
             set
             {
-                Validations.ValidateRangeNumbers(value, HP_MIN, HP_MAX, $"Your hero health points can be between {HP_MIN} and {HP_MAX}");
                 this.healthPoints = value;
             }
         }
