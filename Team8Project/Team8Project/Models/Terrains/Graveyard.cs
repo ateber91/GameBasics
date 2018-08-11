@@ -1,6 +1,8 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using Team8Project.Common;
 using Team8Project.Contracts;
+using Team8Project.Core;
 
 namespace Team8Project.Models.Terrains
 {
@@ -31,18 +33,36 @@ namespace Team8Project.Models.Terrains
             switch (hero.HeroClass)
             {
                 case HeroClass.Warrior:
-                    hero.HealthPoints -= 50;
+                    foreach (var ability in hero.Abilities.OfType<IDamagingAbility>())
+                    {
+                        ability.AbilityPower -= 10;
+                        GameEngine.Instance.Log.AppendLine("DECREASED ALL OF WARRIORS DAMAGING ABILITY ATTACK POWER BY 2");
+                    }
                     break;
                 case HeroClass.Assasin:
-                    hero.DmgStartOfRange += 5;
-                    hero.DmgEndOfRange += 5;
+                    var effects = hero.Abilities;
+
+                    effects
+                        .Where(e => e.Type == EffectType.DOT)
+                        .ToList()
+                        .ForEach(e => e.AbilityPower += 5);
+                    GameEngine.Instance.Log.AppendLine("INCRESED ALL OF ASSASINS DOTS BY 5");
                     break;
                 case HeroClass.Cleric:
-                    hero.HealthPoints += 50;
+                    var effects2 = hero.Abilities;
+
+                    effects2
+                        .Where(e => e.Type == EffectType.HOT)
+                        .ToList()
+                        .ForEach(e => e.AbilityPower-=5);
+                    GameEngine.Instance.Log.AppendLine("DECREASED ALL OF CLERICS HOTS BY 5");
                     break;
                 case HeroClass.Mage:
-                    hero.DmgStartOfRange -= 5;
-                    hero.DmgEndOfRange -= 5;
+                    foreach (var ability in hero.Abilities.OfType<IEffect>())
+                    {
+                        ability.Cd++;
+                        GameEngine.Instance.Log.AppendLine("INCREASED ALL OF MAGE'S EFFECT ABILITIES COOLDOWNS BY 1");
+                    }
                     break;
                 default:
                     break;
@@ -50,15 +70,30 @@ namespace Team8Project.Models.Terrains
         }
         public override void ContinuousEffect(IHero hero)
         {
-            if (hero.HealthPoints > 20)
+            if (this.IsDay == true)
             {
-                if (this.IsDay == true)
+                if (hero.AppliedEffects.Count != 0)
                 {
-                    hero.HealthPoints -= 1;
+                    var effects = hero.AppliedEffects;
+
+                    effects
+                        .Where(e => e.Type == EffectType.DOT)
+                        .ToList()
+                        .ForEach(e => e.CurrentStacks++);
+                    GameEngine.Instance.Log.AppendLine("INCREASSED DURATION OF ALL APPLIED DOT EFFECTS");
                 }
-                else
+            }
+            else
+            {
+                if (hero.AppliedEffects.Count != 0)
                 {
-                    hero.HealthPoints -= 5;
+                    var effects = hero.AppliedEffects;
+
+                    effects
+                        .Where(e => e.Type == EffectType.HOT)
+                        .ToList()
+                        .ForEach(e => e.CurrentStacks++);
+                    GameEngine.Instance.Log.AppendLine("DECREASED DURATION OF ALL APPLIED HOT EFFECTS");
                 }
             }
         }
@@ -66,14 +101,14 @@ namespace Team8Project.Models.Terrains
         {
             StringBuilder sb = new StringBuilder();
 
-            if (this.IsDay)
-            {
-                sb.AppendLine("'s healthpoints increased by 1");
-            }
-            else
-            {
-                sb.AppendLine("'s healthpoints reduced by 5");
-            }
+            //if (this.IsDay)
+            //{
+            //    sb.AppendLine("'s healthpoints increased by 1");
+            //}
+            //else
+            //{
+            //    sb.AppendLine("'s healthpoints reduced by 5");
+            //}
             return sb.ToString();
         }
     }
