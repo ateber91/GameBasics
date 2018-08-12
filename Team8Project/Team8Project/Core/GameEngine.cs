@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 using Team8Project.Core.Contracts;
@@ -99,8 +100,6 @@ namespace Team8Project.Core
                     this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
 
                     turn.NextTurn();
-
-                    turn.NextTurn();
                     if (turn.TurnNumber % 3 == 0)
                     {
                         this.terrainManager.ChangeDayNight();
@@ -195,6 +194,7 @@ namespace Team8Project.Core
                 this.Writer.ConsoleClear();
                 Console.Beep();
                 this.Writer.PrintOnPosition(0, 0, $"{turn.ActiveHero.Name.ToUpper()} WON!", ConsoleColor.Green);
+                Thread.Sleep(5000);
                 Console.Beep();
                 this.endGame = true;
             }

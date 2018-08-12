@@ -36,7 +36,6 @@ namespace Team8Project.Models.Magic
             var sb = new StringBuilder();
             sb.Append($"{this.Name} {this.Caster.DmgStartOfRange + this.AbilityPower} - {this.Caster.DmgEndOfRange + this.AbilityPower} dmg");
             sb.Append(base.Print());
-            //todo: add cd
             return sb.ToString();
         }
     }
