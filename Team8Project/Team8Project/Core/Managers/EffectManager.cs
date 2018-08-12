@@ -52,12 +52,12 @@ namespace Team8Project.Core
                 {
                     case EffectType.DOT:
                         activeHero.HealthPoints -= effect.AbilityPower;
-                        Console.WriteLine($"{activeHero.Name} takes {effect.AbilityPower}dmg from {effect.Name}");
+                        GameEngine.Instance.Log.AppendLine($"{activeHero.Name} takes {effect.AbilityPower}dmg from {effect.Name}");
                         effect.CurrentStacks--;
                         break;
                     case EffectType.HOT:
                         activeHero.HealthPoints += effect.AbilityPower;
-                        Console.WriteLine($"{activeHero.Name} heals {effect.AbilityPower} hp from {effect.Name}");
+                        GameEngine.Instance.Log.AppendLine($"{activeHero.Name} heals {effect.AbilityPower} hp from {effect.Name}");
                         effect.CurrentStacks--;
                         break;
                 }

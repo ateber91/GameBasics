@@ -82,7 +82,10 @@ namespace Team8Project.Core
 
                     this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero, this.turn.ActiveHero.Opponent);
                     //TODO: FIX printing!
+                    this.Writer.ConsoleClear();
+                    this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
                     this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
+                    this.printHeader();
 
                     Act(turn.ActiveHero); //first hero move
                     turn.EndAct();
@@ -135,6 +138,10 @@ namespace Team8Project.Core
             else
             {
                 effect.AtTurnStart(turn.ActiveHero); // checks for statuses : DOT,HOT
+                this.Writer.ConsoleClear();
+                this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
+                this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
+                this.printHeader();
                 effect.RemoveExpired(activeHero);
 
                 Writer.ConsoleWriteLine($"{turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
@@ -163,24 +170,11 @@ namespace Team8Project.Core
                 if(selectedAbility.OnCD == true)
                 {
                     log.AppendLine("Chosen ability is on cooldown, choose another");
-                    this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
                     this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
+                    Console.SetCursorPosition(2, 9);
                     while (selectedAbility.OnCD == true)
                     {
                         selectAbilityCommand = this.Reader.ConsoleReadKey();
-//<<<<<<< HEAD
-//                        if (selectAbilityCommand == "3" && turn.ActiveHero.Abilities[2].OnCD == true)
-//                        {
-//                            this.Writer.ConsoleClear();
-//                            this.Writer.ConsoleWriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
-//                        }
-//                        else if (selectAbilityCommand == "2" && turn.ActiveHero.Abilities[1].OnCD == true)
-//                        {
-//                            this.Writer.ConsoleClear();
-//                            this.Writer.ConsoleWriteLine("I told you to choose other options!!! Try again. I will be wathcing you!");
-//                        }
-//                        else { break; }
-//=======
                         this.Writer.ConsoleClear();
                         this.Writer.ConsoleWriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
                         selectedAbility = this.commandProcessor.ProcessCommand(selectAbilityCommand);
@@ -189,7 +183,7 @@ namespace Team8Project.Core
 
                 turn.ActiveHero.UseAbility(selectedAbility);
 
-                log.AppendLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}.");
+                this.Log.AppendLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}.");
             }
             if (turn.ActiveHero.Opponent.HealthPoints < 0)
             {

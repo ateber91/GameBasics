@@ -9,14 +9,10 @@ namespace Team8Project.Models.Terrains
 {
     public class Graveyard: Terrain, ITerrain
     {
-        //create an object of SingleObject
         private static ITerrain instance;
-
-        //make the constructor private so that this class cannot be
-        //instantiated
+        
         private Graveyard() { }
-
-        //Get the only object available
+        
         public static ITerrain Instance
         {
             get
@@ -83,6 +79,10 @@ namespace Team8Project.Models.Terrains
                         .ForEach(e => e.CurrentStacks++);
                     GameEngine.Instance.Log.AppendLine(hero.Name + "'s duration of all applied DOT effects increased by 1");
                 }
+                else
+                {
+                    GameEngine.Instance.Log.AppendLine("No applied statuses to be affected");
+                }
             }
             else
             {
@@ -96,21 +96,11 @@ namespace Team8Project.Models.Terrains
                         .ForEach(e => e.CurrentStacks--);
                     GameEngine.Instance.Log.AppendLine(hero.Name + "'s duration of all applied HOT effects decreased by 1");
                 }
+                else
+                {
+                    GameEngine.Instance.Log.AppendLine("No applied statuses to be affected");
+                }
             }
-        }
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            //if (this.IsDay)
-            //{
-            //    sb.AppendLine("'s healthpoints increased by 1");
-            //}
-            //else
-            //{
-            //    sb.AppendLine("'s healthpoints reduced by 5");
-            //}
-            return sb.ToString();
         }
     }
 }

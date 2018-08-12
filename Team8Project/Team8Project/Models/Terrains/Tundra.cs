@@ -62,7 +62,7 @@ namespace Team8Project.Models.Terrains
                     {
                         ability.OnCD = true;
                         ability.CDCounter = ability.Cd - 1;
-                        GameEngine.Instance.Log.AppendLine(ability.Name + "'s cooldown changed");
+                        GameEngine.Instance.Log.AppendLine(ability.Name + "'s is now on cooldown");
                     }
                 }
             }
@@ -78,23 +78,11 @@ namespace Team8Project.Models.Terrains
                         .ForEach(e => e.CurrentStacks++);
                     GameEngine.Instance.Log.AppendLine("'s incapacitating effects' duration increased by 1");
                 }
+                else
+                {
+                    GameEngine.Instance.Log.AppendLine("He was safe");
+                }
             }
-        }
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-
-
-            if (!this.IsDay)
-            {
-                //sb.AppendLine("Incapacitating effects extended with 1 turn");
-            }
-            else
-            {
-                //sb.AppendLine("Hero max damage reduced by 2");
-            }
-            return sb.ToString();
         }
     }
 }

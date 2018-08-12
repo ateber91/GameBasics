@@ -8,11 +8,8 @@ namespace Team8Project.Models.Terrains
 {
     public class Jungle : Terrain, ITerrain
     {
-        //create an object of SingleObject
         private static ITerrain instance;
-
-        //make the constructor private so that this class cannot be
-        //instantiated
+        
         private Jungle() { }
 
         public static ITerrain Instance
@@ -54,29 +51,22 @@ namespace Team8Project.Models.Terrains
         }
         public override void ContinuousEffect(IHero hero)
         {
-            if (this.IsDay == false)
+            if (this.IsDay == true)
             {
                 foreach (var ability in hero.Abilities.Skip(3))
                 {
                     ability.AbilityPower += 5;
                 }
-                GameEngine.Instance.Log.AppendLine(hero.Name + "'s abilities power increased by 5");
+                GameEngine.Instance.Log.AppendLine(hero.Name + "'s damaging abilities power increased by 5");
             }
-        }
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            //if (this.IsDay)
-            //{
-            //    sb.AppendLine("'s healthpoints increased by 10");
-            //}
-            //else
-            //{
-            //    sb.AppendLine("'s healthpoints reduced by 2");
-            //}
-            return sb.ToString();
+            else
+            {
+                foreach (var ability in hero.Abilities.Skip(3))
+                {
+                    ability.AbilityPower -= 2;
+                }
+                GameEngine.Instance.Log.AppendLine(hero.Name + "'s damaging abilities power decreased by 2");
+            }
         }
     }
 }
