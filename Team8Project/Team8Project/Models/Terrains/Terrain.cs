@@ -14,7 +14,7 @@ namespace Team8Project.Models.Terrains
                 this.isDay = value;
             }
         }
-        public abstract void HeroEffect(IHero hero);
-        public abstract void ContinuousEffect(IHero hero);
+        public abstract string HeroEffect(IHero hero);
+        public abstract string ContinuousEffect(IHero hero);
     }
 }

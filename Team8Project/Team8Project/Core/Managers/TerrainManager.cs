@@ -8,7 +8,6 @@ namespace Team8Project.Core
     public class TerrainManager
     {
         private static TerrainManager instance;
-        private string tarrainType;
         private ITerrain terrain;
 
         private TerrainManager()
@@ -33,15 +32,6 @@ namespace Team8Project.Core
             }
         }
 
-        public string TarrainType
-        {
-            get { return this.tarrainType; }
-            private set
-            {
-                this.tarrainType = value;
-            }
-        }
-
         public void SetTerrain()
         {
             Random random = new Random();
@@ -51,50 +41,43 @@ namespace Team8Project.Core
             {
                 case 1:
                     this.Terrain = Jungle.Instance;
-                    this.TarrainType = "Jungle set as terrain";
                     break;
                 case 2:
                     this.Terrain = Graveyard.Instance;
-                    this.TarrainType = "Graveyard set as terrain";
                     break;
                 case 3:
                     this.Terrain = Tundra.Instance;
-                    this.TarrainType = "Tundra set as terrain";
                     break;
                 default:
                     break;
             }
         }
 
-        public void ApplyInitialEffects(IHero activeHero)
+        public string ApplyInitialEffects(IHero activeHero)
         {
-            GameEngine.Instance.Log.AppendLine("Initial terrain effect applied to " + activeHero.Name);
-            this.Terrain.HeroEffect(activeHero);
-
-            GameEngine.Instance.Log.AppendLine("Initial terrain effect applied to " + activeHero.Opponent.Name);
-            this.Terrain.HeroEffect(activeHero.Opponent);
+            return $"Initial terrain effect applied to {activeHero.Name} - {this.Terrain.HeroEffect(activeHero)}\nInitial terrain effect applied to {activeHero.Opponent.Name} - {this.Terrain.HeroEffect(activeHero.Opponent)}";
         }
 
-        public void ApplyContinuousEffect(IHero active, IHero opponent)
+        public string ApplyContinuousEffect(IHero active)
         {
             int x = RandomProvider.Generate(1, 3);
             if (x == 1)
             {
-                this.Terrain.ContinuousEffect(active);
+                return this.Terrain.ContinuousEffect(active);
             }
             else if (x == 2)
             {
-                this.Terrain.ContinuousEffect(opponent);            }
+                return this.Terrain.ContinuousEffect(active.Opponent);            }
             else
             {
-                GameEngine.Instance.Log.AppendLine("Terrain was merciful");
+                return "Terrain didn't affect any heros this turn.";
             }
         }
 
-        public void ChangeDayNight()
+        public string ChangeDayNight()
         {
             this.Terrain.IsDay = (this.Terrain.IsDay) ? false : true;
-            Console.WriteLine((this.Terrain.IsDay) ? "Day has come" : "Night has come");
+            return (this.Terrain.IsDay) ? "Day has come" : "Night has come";
         }
     }
 }

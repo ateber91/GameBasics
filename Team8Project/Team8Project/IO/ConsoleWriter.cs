@@ -5,7 +5,7 @@ namespace Team8Project.IO
 {
     public class ConsoleWriter : IWriter
     {
-        public void ConsoleWriteLine(string message)
+        public void WriteLine(string message)
         {
             Console.WriteLine(message);
         }

@@ -22,9 +22,10 @@ namespace Team8Project.Models
         private const int HP_MIN = 1;
         private const int HP_MAX = 500;
 
-        public Hero(string name, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
+        public Hero(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
             this.Name = name;
+            this.HeroClass = heroClass;
             this.HealthPoints = healthPoints;
             this.DmgStartOfRange = dmgStartOfRange;
             this.DmgEndOfRange = dmgEndOfRange;

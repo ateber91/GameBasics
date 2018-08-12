@@ -24,35 +24,33 @@ namespace Team8Project.Models.Terrains
             }
         }
 
-        public override void HeroEffect(IHero hero)
+        public override string HeroEffect(IHero hero)
         {
             switch (hero.HeroClass)
             {
                 case HeroClass.Warrior:
                     hero.HealthPoints -= 25;
-                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s healthpoints decreased by 25");
-                    break;
+                    return $"{hero.Name}'s health points decreased by 25";
                 case HeroClass.Assasin:
                     hero.HealthPoints -= 50;
-                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s health points decreased by 50");
-                    break;
+                    return $"{hero.Name}'s health points decreased by 50";
                 case HeroClass.Cleric:
                     foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
                     {
                         ability.AbilityPower -= 2;
                     }
-                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s damaging abilities decreased by 2");
-                    break;
+                    return $"{hero.Name}'s damaging abilities decreased by 2";
                 case HeroClass.Mage:
                     foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
                     {
                         ability.AbilityPower += 5;
                     }
-                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s damaging abilities power increased by 5");
-                    break;
+                    return $"{hero.Name}'s damaging abilities power increased by 5";
+                default:
+                    return string.Empty;
             }
         }
-        public override void ContinuousEffect(IHero hero)
+        public override string ContinuousEffect(IHero hero)
         {
             if (this.IsDay == false)
             {
@@ -62,9 +60,9 @@ namespace Team8Project.Models.Terrains
                     {
                         ability.OnCD = true;
                         ability.CDCounter = ability.Cd - 1;
-                        GameEngine.Instance.Log.AppendLine(ability.Name + "'s is now on cooldown");
                     }
                 }
+             return $"{hero.Name}'s available abilities are on cool down";
             }
             else
             {
@@ -74,9 +72,11 @@ namespace Team8Project.Models.Terrains
                     if (stuns != null)
                     {
                         hero.AppliedEffects[hero.AppliedEffects.IndexOf(stuns)].CurrentStacks--;
-                        GameEngine.Instance.Log.AppendLine(hero.Name + "'s duration of all applied incapacitating effects increased by 1");
+                        return $"{hero.Name}'s duration of all applied incapacitating effects increased by 1";
                     }
+                    return string.Empty;
                 }
+                return string.Empty;
             }
         }
     }

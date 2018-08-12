@@ -60,17 +60,14 @@ namespace Team8Project.Core
 
         public IHero CreateHero(HeroClass heroClass)
         {
-            IHero hero;
             switch (heroClass)
             {
-                case HeroClass.Warrior: hero = this.SetStats("Pesho", 200, 12, 18); break;
-                case HeroClass.Mage: hero = this.SetStats("Penka", 200, 10, 12); break;
-                case HeroClass.Assasin: hero = this.SetStats("Gesho", 200, 15, 20); break;
-                case HeroClass.Cleric: hero = this.SetStats("Genka", 200, 8, 10); break;
+                case HeroClass.Warrior: return new Hero("Pesho", heroClass, 150, 12, 18); 
+                case HeroClass.Mage: return new Hero("Penka", heroClass, 120, 10, 12); 
+                case HeroClass.Assasin: return new Hero("Gesho", heroClass, 150, 15, 20); 
+                case HeroClass.Cleric: return new Hero("Genka", heroClass, 100, 8, 10); 
                 default: throw new ArgumentException("Invalid hero class");
             }
-            hero.HeroClass = heroClass;
-            return hero;
         }
 
         public void CreateSpellBook(IHero hero)
@@ -86,11 +83,5 @@ namespace Team8Project.Core
 
             foreach (var ability in hero.Abilities) { ability.Caster = hero; }
         }
-
-        private IHero SetStats(string name, int hp, int dmgStartOfRange, int dmgEndOfRange)
-        {
-            return new Hero(name, hp, dmgStartOfRange, dmgEndOfRange);
-        }
-
     }
 }

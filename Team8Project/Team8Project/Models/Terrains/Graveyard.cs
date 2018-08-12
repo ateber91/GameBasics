@@ -7,7 +7,7 @@ using Team8Project.Core;
 
 namespace Team8Project.Models.Terrains
 {
-    public class Graveyard : Terrain, ITerrain
+    public class Graveyard : Terrain
     {
         private static ITerrain instance;
 
@@ -25,7 +25,7 @@ namespace Team8Project.Models.Terrains
             }
         }
 
-        public override void HeroEffect(IHero hero)
+        public override string HeroEffect(IHero hero)
         {
             switch (hero.HeroClass)
             {
@@ -34,34 +34,30 @@ namespace Team8Project.Models.Terrains
                     {
                         ability.AbilityPower -= 10;
                     }
-                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s damaging abilities decreased by 10");
-                    break;
+                    return $"{hero.Name}'s damaging abilities decreased by 10";
                 case HeroClass.Assasin:
                     foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.DOT))
                     {
                         ability.AbilityPower += 5;
                     }
-                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s DOT abilities power increased by 5");
-                    break;
+                    return $"{hero.Name}'s DOT abilities power increased by 5";
                 case HeroClass.Cleric:
                     foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.HOT))
                     {
                         ability.AbilityPower -= 5;
                     }
-                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s HOT abilities power decreased by 5");
-                    break;
+                    return $"{hero.Name}'s HOT abilities power decreased by 5";
                 case HeroClass.Mage:
                     foreach (var ability in hero.Abilities.OfType<IEffect>())
                     {
                         ability.Cd++;
                     }
-                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s cooldowns on effect abilities increased by 1");
-                    break;
+                    return $"{hero.Name}'s cooldowns on effect abilities increased by 1";
                 default:
-                    break;
+                    return string.Empty;
             }
         }
-        public override void ContinuousEffect(IHero hero)
+        public override string ContinuousEffect(IHero hero)
         {
             if (hero.AppliedEffects.Count != 0)
             {
@@ -70,20 +66,23 @@ namespace Team8Project.Models.Terrains
                     var dot = hero.AppliedEffects.FirstOrDefault(e => e.Type == EffectType.DOT);
                     if (dot != null)
                     {
-                        hero.AppliedEffects[hero.AppliedEffects.IndexOf(dot)].CurrentStacks--;
-                        GameEngine.Instance.Log.AppendLine(hero.Name + "'s duration of all applied DOT effects increased by 1");
+                        hero.AppliedEffects[hero.AppliedEffects.IndexOf(dot)].CurrentStacks++;
+                        return $"{hero.Name}'s duration of all applied DOT effects increased by 1";
                     }
+                    return string.Empty;
                 }
                 else
                 {
                     var hot = hero.AppliedEffects.FirstOrDefault(e => e.Type == EffectType.HOT);
                     if (hot != null)
                     {
-                        hero.AppliedEffects[hero.AppliedEffects.IndexOf(hot)].CurrentStacks++;
-                        GameEngine.Instance.Log.AppendLine(hero.Name + "'s duration of all applied HOT effects decreased by 1");
+                        hero.AppliedEffects[hero.AppliedEffects.IndexOf(hot)].CurrentStacks--;
+                        return $"{hero.Name}'s duration of all applied HOT effects decreased by 1";
                     }
+                    return string.Empty;
                 }
             }
+            return string.Empty;
         }
     }
 }

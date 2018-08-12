@@ -48,8 +48,8 @@ namespace Team8Project.Core
         {
             Console.SetWindowSize(160, 40);
 
-            this.Writer.ConsoleWriteLine(string.Format(INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
-            this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
+            this.Writer.WriteLine(string.Format(INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
+            this.Writer.WriteLine(new String('-', Console.WindowWidth));
             string[] players = new string[2];
 
             //while (true)
@@ -57,7 +57,7 @@ namespace Team8Project.Core
 
             this.Writer.ConsoleWrite("Player 1: ");
             players[0] = this.Reader.ConsoleReadKey();
-            this.Writer.ConsoleWriteLine("");
+            this.Writer.WriteLine("");
             this.Writer.ConsoleWrite("Player 2: ");
             players[1] = this.Reader.ConsoleReadKey();
             this.Writer.ConsoleClear();
@@ -71,7 +71,7 @@ namespace Team8Project.Core
             factory.CreateSpellBook(turn.SecondHero);
 
             this.terrainManager.SetTerrain();
-            this.terrainManager.ApplyInitialEffects(turn.ActiveHero);
+            log.AppendLine(this.terrainManager.ApplyInitialEffects(turn.ActiveHero));
 
 
             //START GAME
@@ -79,11 +79,18 @@ namespace Team8Project.Core
             {
                 try
                 {
+
                     this.printHeader();
+                    this.Log.Append($"Turn {this.turn.TurnNumber}: ");
 
-                    this.Log.AppendLine($"Turn {this.turn.TurnNumber} :");
+                    if (turn.TurnNumber % 3 == 0)
+                    {
+                        this.Log.AppendLine(this.terrainManager.ChangeDayNight());
+                    }
+                   
+                    string continiousEffect = this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero);
+                    if (continiousEffect != string.Empty) { this.Log.AppendLine(continiousEffect); }
 
-                    this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero, this.turn.ActiveHero.Opponent);
                     //TODO: FIX printing!
                     this.Writer.ConsoleClear();
                     this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
@@ -108,13 +115,10 @@ namespace Team8Project.Core
                     turn.UpdateCooldowns(turn.ActiveHero);
 
                     turn.NextTurn();
-                    if (turn.TurnNumber % 3 == 0)
-                    {
-                        this.terrainManager.ChangeDayNight();
-                    }
+
+                 
 
                     if (this.endGame) { return; }
-                    Writer.ConsoleWriteLine("******************************************************************");
 
                     this.Writer.ConsoleClear();
                     this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
@@ -122,8 +126,10 @@ namespace Team8Project.Core
                 }
                 catch (Exception ex)
                 {
+                    this.Writer.ConsoleClear();
                     Console.WriteLine(ex.Message);
                     Console.WriteLine("Press any key to continue!");
+                    this.Log.Remove((this.Log.Length - 1), 1);
                     this.Reader.ConsoleReadKey();
                 }
             }
@@ -147,20 +153,20 @@ namespace Team8Project.Core
                 this.printHeader();
                 effect.RemoveExpired(activeHero);
 
-                Writer.ConsoleWriteLine($"{turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
+                Writer.WriteLine($"{turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
 
-                this.Writer.ConsoleWriteLine($"{turn.ActiveHero.Name}'s abilities: ");
+                this.Writer.WriteLine($"{turn.ActiveHero.Name}'s abilities: ");
 
                 int pos = 0;
                 foreach (var ability in turn.ActiveHero.Abilities)
                 {
                     pos++;
-                    Writer.ConsoleWriteLine($"{pos}. {ability.Print()}");
+                    Writer.WriteLine($"{pos}. {ability.Print()}");
                 }
 
 
-                if (turn.ActiveHero.AppliedEffects.Count == 0) { this.Writer.ConsoleWriteLine("Applied effects: No effects."); }
-                else { this.Writer.ConsoleWriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}"); }
+                if (turn.ActiveHero.AppliedEffects.Count == 0) { this.Writer.WriteLine("Applied effects: No effects."); }
+                else { this.Writer.WriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}"); }
 
                 //string selectAbilityCommand = this.Reader.ConsoleReadKey();
                 //this.Writer.ConsoleWriteLine("");
@@ -179,7 +185,7 @@ namespace Team8Project.Core
                     {
                         selectAbilityCommand = this.Reader.ConsoleReadKey();
                         this.Writer.ConsoleClear();
-                        this.Writer.ConsoleWriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
+                        this.Writer.WriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
                         selectedAbility = this.commandProcessor.ProcessCommand(selectAbilityCommand);
                     }
                 }
@@ -201,10 +207,9 @@ namespace Team8Project.Core
 
         private void printHeader()
         {
-            this.Writer.PrintOnPosition(0, 0, this.terrainManager.TarrainType);
-            this.Writer.PrintOnPosition(0, 60, "Initial terrain effects applied to both heroes");
+            this.Writer.PrintOnPosition(0, 0, $"{this.terrainManager.Terrain.GetType().Name} set as terrain");
             this.Writer.PrintOnPosition(0, 150, $" Turn: {turn.TurnNumber}", ConsoleColor.Red);
-            this.Writer.ConsoleWriteLine(new String('-', Console.WindowWidth));
+            this.Writer.WriteLine(new String('-', Console.WindowWidth));
         }
 
         public static GameEngine Instance
