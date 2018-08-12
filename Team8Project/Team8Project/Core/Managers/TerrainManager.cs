@@ -34,10 +34,9 @@ namespace Team8Project.Core
 
         public void SetTerrain()
         {
-            Random random = new Random();
+            int t = RandomProvider.Generate(1, 3);
 
-            int x = random.Next(1, 4);
-            switch (x)
+            switch (t)
             {
                 case 1:
                     this.Terrain = Jungle.Instance;

@@ -77,9 +77,6 @@ namespace Team8Project.Core
             //START GAME
             while (true)
             {
-                //try
-                //{
-
                 this.printHeader();
                 this.Log.AppendLine($"Turn {this.turn.TurnNumber}: ");
 
@@ -91,7 +88,6 @@ namespace Team8Project.Core
                 string continiousEffect = this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero);
                 if (continiousEffect != string.Empty) { this.Log.AppendLine(continiousEffect); }
 
-                //TODO: FIX printing!
                 this.Writer.ConsoleClear();
                 this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
                 this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
@@ -116,22 +112,9 @@ namespace Team8Project.Core
 
                 turn.NextTurn();
 
-
-
-
-
                 this.Writer.ConsoleClear();
                 this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
                 this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
-                //   }
-                //catch (Exception ex)
-                //{
-                //    this.Writer.ConsoleClear();
-                //    Console.WriteLine(ex.Message);
-                //    Console.WriteLine("Press any key to continue!");
-                //    this.Log.Remove((this.Log.Length - 1), 1);
-                //    this.Reader.ConsoleReadKey();
-                //}
             }
         }
 
@@ -151,7 +134,7 @@ namespace Team8Project.Core
                 this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
                 this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
                 this.printHeader();
-                effect.RemoveExpired(activeHero);
+                effect.RemoveExpired(activeHero); 
 
                 Writer.WriteLine($"{turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
 
@@ -167,13 +150,9 @@ namespace Team8Project.Core
 
                 if (turn.ActiveHero.AppliedEffects.Count == 0) { this.Writer.WriteLine("Applied effects: No effects."); }
                 else { this.Writer.WriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}"); }
-
-                //string selectAbilityCommand = this.Reader.ConsoleReadKey();
-                //this.Writer.ConsoleWriteLine("");
-                //var selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
-
-
+                
                 var selectAbilityCommand = this.Reader.ConsoleReadKey();
+                //Checks if the commnad is valid.
                 if (int.Parse(selectAbilityCommand) < 1 || int.Parse(selectAbilityCommand) > 3)
                 {
                     this.Writer.WriteLine(" Invalid command");
@@ -182,7 +161,6 @@ namespace Team8Project.Core
                         selectAbilityCommand = this.Reader.ConsoleReadKey();
                         this.Writer.ConsoleClear();
                         this.Writer.WriteLine("Invalid command, I told you to choose other option!!! Try again. I will be wathcing you!");
-                        
                     }
                 }
                 

@@ -42,7 +42,6 @@ namespace Team8Project.Models.Magic
             get { return this.cd; }
             set
             {
-                //TODO: Validation (Needs to be discussed with Georgi Z)
                 this.cd = value;
             }
         }
@@ -54,7 +53,6 @@ namespace Team8Project.Models.Magic
             }
             set
             {
-                //TODO: Validation (Needs to be discussed with Georgi Z)
                 this.cDCounter = value;
             }
         }

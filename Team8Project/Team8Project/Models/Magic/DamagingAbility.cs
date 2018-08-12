@@ -18,12 +18,12 @@ namespace Team8Project.Models.Magic
 
         public override void Apply()
         {
-            var heroDmg = RandomProvider.Generate(this.Caster.DmgStartOfRange, base.Caster.DmgEndOfRange);
-            this.damageDealt = heroDmg + base.AbilityPower;
+            var heroDmg = RandomProvider.Generate(this.Caster.DmgStartOfRange, base.Caster.DmgEndOfRange); // calculate hero dmg
+            this.damageDealt = heroDmg + base.AbilityPower; // adds ability power
 
-            damageDealt = EffectManager.Instance.TransformDamage(damageDealt, this.Caster);
-            base.Caster.Opponent.HealthPoints -= damageDealt;
-            base.Apply();
+            damageDealt = EffectManager.Instance.TransformDamage(damageDealt, this.Caster); //transfroms dmg based on effects on self and opponent
+            base.Caster.Opponent.HealthPoints -= damageDealt; //deals dmg to hp
+            base.Apply(); //cd applied
         }
 
         public override string ToString()
