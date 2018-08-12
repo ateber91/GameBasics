@@ -118,7 +118,7 @@ namespace Team8Project.Core
 
 
 
-                if (this.endGame) { return; }
+
 
                 this.Writer.ConsoleClear();
                 this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
