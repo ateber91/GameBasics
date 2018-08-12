@@ -44,7 +44,7 @@ namespace Team8Project.Core
                 case "1": return turn.ActiveHero.Abilities[0];
                 case "2": return turn.ActiveHero.Abilities[1];
                 case "3": return turn.ActiveHero.Abilities[2];
-                default: throw new ArgumentException("I couldn't select abillity! :(");
+                default: throw new ArgumentException("I couldn't select ab! :(");
             }
         }
     }

@@ -77,61 +77,61 @@ namespace Team8Project.Core
             //START GAME
             while (true)
             {
-                try
+                //try
+                //{
+
+                this.printHeader();
+                this.Log.AppendLine($"Turn {this.turn.TurnNumber}: ");
+
+                if (turn.TurnNumber % 3 == 0)
                 {
-
-                    this.printHeader();
-                    this.Log.Append($"Turn {this.turn.TurnNumber}: ");
-
-                    if (turn.TurnNumber % 3 == 0)
-                    {
-                        this.Log.AppendLine(this.terrainManager.ChangeDayNight());
-                    }
-                   
-                    string continiousEffect = this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero);
-                    if (continiousEffect != string.Empty) { this.Log.AppendLine(continiousEffect); }
-
-                    //TODO: FIX printing!
-                    this.Writer.ConsoleClear();
-                    this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
-                    this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
-                    this.printHeader();
-
-                    Act(turn.ActiveHero); //first hero move
-                    turn.EndAct();
-                    this.Writer.ConsoleClear();
-                    this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
-                    this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
-                    this.printHeader();
-
-                    if (this.endGame)
-                    {
-                        return;
-                    }
-                    Act(turn.ActiveHero); //second hero move
-                    turn.EndAct();
-                    this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
-                    this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
-                    turn.UpdateCooldowns(turn.ActiveHero);
-
-                    turn.NextTurn();
-
-                 
-
-                    if (this.endGame) { return; }
-
-                    this.Writer.ConsoleClear();
-                    this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
-                    this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
+                    this.Log.AppendLine(this.terrainManager.ChangeDayNight());
                 }
-                catch (Exception ex)
+
+                string continiousEffect = this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero);
+                if (continiousEffect != string.Empty) { this.Log.AppendLine(continiousEffect); }
+
+                //TODO: FIX printing!
+                this.Writer.ConsoleClear();
+                this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
+                this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
+                this.printHeader();
+
+                Act(turn.ActiveHero); //first hero move
+                turn.EndAct();
+                this.Writer.ConsoleClear();
+                this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
+                this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
+                this.printHeader();
+
+                if (this.endGame)
                 {
-                    this.Writer.ConsoleClear();
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine("Press any key to continue!");
-                    this.Log.Remove((this.Log.Length - 1), 1);
-                    this.Reader.ConsoleReadKey();
+                    return;
                 }
+                Act(turn.ActiveHero); //second hero move
+                turn.EndAct();
+                this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
+                this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
+                turn.UpdateCooldowns(turn.ActiveHero);
+
+                turn.NextTurn();
+
+
+
+                if (this.endGame) { return; }
+
+                this.Writer.ConsoleClear();
+                this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
+                this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
+                //   }
+                //catch (Exception ex)
+                //{
+                //    this.Writer.ConsoleClear();
+                //    Console.WriteLine(ex.Message);
+                //    Console.WriteLine("Press any key to continue!");
+                //    this.Log.Remove((this.Log.Length - 1), 1);
+                //    this.Reader.ConsoleReadKey();
+                //}
             }
         }
 
@@ -173,10 +173,22 @@ namespace Team8Project.Core
                 //var selectedAbility = commandProcessor.ProcessCommand(selectAbilityCommand);
 
 
-                string selectAbilityCommand = this.Reader.ConsoleReadKey();
+                var selectAbilityCommand = this.Reader.ConsoleReadKey();
+                if (int.Parse(selectAbilityCommand) < 1 || int.Parse(selectAbilityCommand) > 3)
+                {
+                    this.Writer.WriteLine(" Invalid command");
+                    while (int.Parse(selectAbilityCommand) < 1 || int.Parse(selectAbilityCommand) > 3)
+                    {
+                        selectAbilityCommand = this.Reader.ConsoleReadKey();
+                        this.Writer.ConsoleClear();
+                        this.Writer.WriteLine("Invalid command, I told you to choose other option!!! Try again. I will be wathcing you!");
+                        
+                    }
+                }
+                
                 var selectedAbility = this.commandProcessor.ProcessCommand(selectAbilityCommand);
 
-                if(selectedAbility.OnCD == true)
+                if (selectedAbility.OnCD == true)
                 {
                     log.AppendLine("Chosen ability is on cooldown, choose another");
                     this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
