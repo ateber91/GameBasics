@@ -81,6 +81,8 @@ namespace Team8Project.Core
                 {
                     this.printHeader();
 
+                    this.Log.AppendLine($"Turn {this.turn.TurnNumber} :");
+
                     this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero, this.turn.ActiveHero.Opponent);
                     //TODO: FIX printing!
                     this.Writer.ConsoleClear();

@@ -80,12 +80,10 @@ namespace Team8Project.Core
             int x = RandomProvider.Generate(1, 3);
             if (x == 1)
             {
-                GameEngine.Instance.Log.AppendLine("Continuous terrain effect applied to " + active.Name);
                 this.Terrain.ContinuousEffect(active);
             }
             else if (x == 2)
             {
-                GameEngine.Instance.Log.AppendLine("Continuous terrain effect applied to " + opponent.Name);
                 this.Terrain.ContinuousEffect(opponent);            }
             else
             {

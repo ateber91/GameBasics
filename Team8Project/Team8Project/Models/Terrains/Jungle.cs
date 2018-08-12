@@ -26,8 +26,8 @@ namespace Team8Project.Models.Terrains
             switch (hero.HeroClass)
             {
                 case HeroClass.Warrior:
-                    hero.HealthPoints += 100;
-                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s healthpoints increased by 100");
+                    hero.HealthPoints += 50;
+                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s healthpoints increased by 50");
                     break;
                 case HeroClass.Assasin:
                     foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
@@ -44,8 +44,8 @@ namespace Team8Project.Models.Terrains
                     GameEngine.Instance.Log.AppendLine(hero.Name + "'s HOT abilities increased by 2");
                     break;
                 case HeroClass.Mage:
-                    hero.HealthPoints -= 50;
-                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s healthpoints decreased by 50");
+                    hero.HealthPoints -= 25;
+                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s healthpoints decreased by 25");
                     break;
             }
         }
