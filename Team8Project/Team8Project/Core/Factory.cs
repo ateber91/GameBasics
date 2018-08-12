@@ -63,10 +63,10 @@ namespace Team8Project.Core
             IHero hero;
             switch (heroClass)
             {
-                case HeroClass.Warrior: hero = this.SetStats("Pesho", 220, 12, 18); break;
-                case HeroClass.Mage: hero = this.SetStats("Penka", 180, 10, 12); break;
+                case HeroClass.Warrior: hero = this.SetStats("Pesho", 200, 12, 18); break;
+                case HeroClass.Mage: hero = this.SetStats("Penka", 200, 10, 12); break;
                 case HeroClass.Assasin: hero = this.SetStats("Gesho", 200, 15, 20); break;
-                case HeroClass.Cleric: hero = this.SetStats("Genka", 160, 8, 10); break;
+                case HeroClass.Cleric: hero = this.SetStats("Genka", 200, 8, 10); break;
                 default: throw new ArgumentException("Invalid hero class");
             }
             hero.HeroClass = heroClass;

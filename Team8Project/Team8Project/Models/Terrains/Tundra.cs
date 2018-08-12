@@ -70,17 +70,12 @@ namespace Team8Project.Models.Terrains
             {
                 if (hero.AppliedEffects.Count != 0)
                 {
-                    var effects = hero.AppliedEffects;
-
-                    effects
-                        .Where(e => e.Type == EffectType.Incapacitated)
-                        .ToList()
-                        .ForEach(e => e.CurrentStacks++);
-                    GameEngine.Instance.Log.AppendLine("'s incapacitating effects' duration increased by 1");
-                }
-                else
-                {
-                    GameEngine.Instance.Log.AppendLine("He was safe");
+                    var stuns = hero.AppliedEffects.FirstOrDefault(e => e.Type == EffectType.Incapacitated);
+                    if (stuns != null)
+                    {
+                        hero.AppliedEffects[hero.AppliedEffects.IndexOf(stuns)].CurrentStacks--;
+                        GameEngine.Instance.Log.AppendLine(hero.Name + "'s duration of all applied incapacitating effects increased by 1");
+                    }
                 }
             }
         }

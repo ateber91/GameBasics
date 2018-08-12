@@ -7,12 +7,12 @@ using Team8Project.Core;
 
 namespace Team8Project.Models.Terrains
 {
-    public class Graveyard: Terrain, ITerrain
+    public class Graveyard : Terrain, ITerrain
     {
         private static ITerrain instance;
-        
+
         private Graveyard() { }
-        
+
         public static ITerrain Instance
         {
             get
@@ -37,21 +37,17 @@ namespace Team8Project.Models.Terrains
                     GameEngine.Instance.Log.AppendLine(hero.Name + "'s damaging abilities decreased by 10");
                     break;
                 case HeroClass.Assasin:
-                    var effects = hero.Abilities;
-
-                    effects
-                        .Where(e => e.Type == EffectType.DOT)
-                        .ToList()
-                        .ForEach(e => e.AbilityPower += 5);
+                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.DOT))
+                    {
+                        ability.AbilityPower += 5;
+                    }
                     GameEngine.Instance.Log.AppendLine(hero.Name + "'s DOT abilities power increased by 5");
                     break;
                 case HeroClass.Cleric:
-                    var effects2 = hero.Abilities;
-
-                    effects2
-                        .Where(e => e.Type == EffectType.HOT)
-                        .ToList()
-                        .ForEach(e => e.AbilityPower-=5);
+                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.HOT))
+                    {
+                        ability.AbilityPower -= 5;
+                    }
                     GameEngine.Instance.Log.AppendLine(hero.Name + "'s HOT abilities power decreased by 5");
                     break;
                 case HeroClass.Mage:
@@ -67,38 +63,25 @@ namespace Team8Project.Models.Terrains
         }
         public override void ContinuousEffect(IHero hero)
         {
-            if (!this.IsDay == true)
+            if (hero.AppliedEffects.Count != 0)
             {
-                if (hero.AppliedEffects.Count != 0)
+                if (this.IsDay == false)
                 {
-                    var effects = hero.AppliedEffects;
-
-                    effects
-                        .Where(e => e.Type == EffectType.DOT)
-                        .ToList()
-                        .ForEach(e => e.CurrentStacks++);
-                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s duration of all applied DOT effects increased by 1");
+                    var dot = hero.AppliedEffects.FirstOrDefault(e => e.Type == EffectType.DOT);
+                    if (dot != null)
+                    {
+                        hero.AppliedEffects[hero.AppliedEffects.IndexOf(dot)].CurrentStacks--;
+                        GameEngine.Instance.Log.AppendLine(hero.Name + "'s duration of all applied DOT effects increased by 1");
+                    }
                 }
                 else
                 {
-                    GameEngine.Instance.Log.AppendLine("No applied statuses to be affected");
-                }
-            }
-            else
-            {
-                if (hero.AppliedEffects.Count != 0)
-                {
-                    var effects = hero.AppliedEffects;
-
-                    effects
-                        .Where(e => e.Type == EffectType.HOT)
-                        .ToList()
-                        .ForEach(e => e.CurrentStacks--);
-                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s duration of all applied HOT effects decreased by 1");
-                }
-                else
-                {
-                    GameEngine.Instance.Log.AppendLine("No applied statuses to be affected");
+                    var hot = hero.AppliedEffects.FirstOrDefault(e => e.Type == EffectType.HOT);
+                    if (hot != null)
+                    {
+                        hero.AppliedEffects[hero.AppliedEffects.IndexOf(hot)].CurrentStacks++;
+                        GameEngine.Instance.Log.AppendLine(hero.Name + "'s duration of all applied HOT effects decreased by 1");
+                    }
                 }
             }
         }
