@@ -68,21 +68,28 @@ namespace Team8Project.Core
 
         public void ApplyInitialEffects(IHero activeHero)
         {
+            GameEngine.Instance.Log.AppendLine("Initial terrain effect applied to " + activeHero.Name);
             this.Terrain.HeroEffect(activeHero);
+
+            GameEngine.Instance.Log.AppendLine("Initial terrain effect applied to " + activeHero.Opponent.Name);
             this.Terrain.HeroEffect(activeHero.Opponent);
         }
 
-        public void ApplyContinuousEffect(IHero activeHero)
+        public void ApplyContinuousEffect(IHero active, IHero opponent)
         {
-            if (RandomProvider.Generate(1, 2) == 1)
+            int x = RandomProvider.Generate(1, 3);
+            if (x == 1)
             {
-                this.Terrain.ContinuousEffect(activeHero);
-                Console.WriteLine(activeHero.Name + this.Terrain.ToString());
+                GameEngine.Instance.Log.AppendLine("Continuous terrain effect applied to " + active.Name);
+                this.Terrain.ContinuousEffect(active);
             }
+            else if (x == 2)
+            {
+                GameEngine.Instance.Log.AppendLine("Continuous terrain effect applied to " + opponent.Name);
+                this.Terrain.ContinuousEffect(opponent);            }
             else
             {
-                this.Terrain.ContinuousEffect(activeHero.Opponent);
-                Console.WriteLine(activeHero.Opponent.Name + this.Terrain.ToString());
+                GameEngine.Instance.Log.AppendLine("Terrain was merciful");
             }
         }
 

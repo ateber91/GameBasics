@@ -54,8 +54,19 @@ namespace Team8Project.Models.Terrains
         }
         public override void ContinuousEffect(IHero hero)
         {
-            //TODO FIX!
-            if (this.IsDay)
+            if (this.IsDay == false)
+            {
+                foreach (var ability in hero.Abilities.Skip(1))
+                {
+                    if (ability.OnCD == false)
+                    {
+                        ability.OnCD = true;
+                        ability.CDCounter = ability.Cd - 1;
+                        GameEngine.Instance.Log.AppendLine(ability.Name + "'s cooldown changed");
+                    }
+                }
+            }
+            else
             {
                 if (hero.AppliedEffects.Count != 0)
                 {
@@ -66,27 +77,6 @@ namespace Team8Project.Models.Terrains
                         .ToList()
                         .ForEach(e => e.CurrentStacks++);
                     GameEngine.Instance.Log.AppendLine("'s incapacitating effects' duration increased by 1");
-                }
-            }
-            else
-            {
-                foreach (var ability in hero.Abilities.Where(x=>x.Type==EffectType.Damage))
-                {
-                    if (ability.OnCD == true)
-                    {
-                        ability.OnCD = false;
-                        GameEngine.Instance.Log.AppendLine(ability.Name + "'s cooldown changed");
-                    }
-                    else
-                    {
-                        var effects = hero.Abilities;
-
-                        effects
-                            .Where(e => e.Type == EffectType.HOT)
-                            .ToList()
-                            .ForEach(e => e.AbilityPower--);
-                        GameEngine.Instance.Log.AppendLine(ability.Name + "'s HOT abilities heal decreased by 1");
-                    }
                 }
             }
         }

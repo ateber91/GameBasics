@@ -14,12 +14,9 @@ namespace Team8Project.Models.Magic
         private HeroClass heroClass;
         private EffectType type;
         private bool onCD = false;
-        private int cDCounter = 0;
+        private int cDCounter;
         private const int MIN_NAME_LEN = 1;
         private const int MAX_NAME_LEN = 60;
-
-
-
 
         public Ability(string name, int cd, HeroClass heroClass, EffectType type, int abilityPower)
         {

@@ -80,7 +80,9 @@ namespace Team8Project.Core
                 {
                     this.printHeader();
 
-                    this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero);
+                    this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero, this.turn.ActiveHero.Opponent);
+                    //TODO: FIX printing!
+                    this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
 
                     Act(turn.ActiveHero); //first hero move
                     turn.EndAct();
@@ -97,8 +99,7 @@ namespace Team8Project.Core
                     turn.EndAct();
                     this.Writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
                     this.Writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, log.ToString());
-
-                    turn.NextTurn();
+                    turn.UpdateCooldowns(turn.ActiveHero);
 
                     turn.NextTurn();
                     if (turn.TurnNumber % 3 == 0)

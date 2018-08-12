@@ -1,6 +1,8 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
+using Team8Project.Core;
 
 namespace Team8Project.Models.Terrains
 {
@@ -28,29 +30,37 @@ namespace Team8Project.Models.Terrains
             {
                 case HeroClass.Warrior:
                     hero.HealthPoints += 100;
+                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s healthpoints increased by 100");
                     break;
                 case HeroClass.Assasin:
-                    hero.DmgStartOfRange -= 10;
-                    hero.DmgEndOfRange -= 10;
+                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
+                    {
+                        ability.AbilityPower += 5;
+                    }
+                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s damaging abilities power increased by 5");
                     break;
                 case HeroClass.Cleric:
-                    hero.HealthPoints -= 100;
+                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.HOT))
+                    {
+                        ability.AbilityPower += 2;
+                    }
+                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s HOT abilities increased by 2");
                     break;
                 case HeroClass.Mage:
-                    hero.DmgStartOfRange += 10;
-                    hero.DmgEndOfRange += 10;
+                    hero.HealthPoints -= 50;
+                    GameEngine.Instance.Log.AppendLine(hero.Name + "'s healthpoints decreased by 50");
                     break;
             }
         }
         public override void ContinuousEffect(IHero hero)
         {
-            if (this.IsDay == true)
+            if (this.IsDay == false)
             {
-                hero.HealthPoints += 10;
-            }
-            else
-            {
-                hero.HealthPoints -= 2;
+                foreach (var ability in hero.Abilities.Skip(3))
+                {
+                    ability.AbilityPower += 5;
+                }
+                GameEngine.Instance.Log.AppendLine(hero.Name + "'s abilities power increased by 5");
             }
         }
 

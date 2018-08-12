@@ -23,7 +23,6 @@ namespace Team8Project.Core
 
         public void EndAct()
         {
-            this.UpdateCooldowns();
             this.ActiveHero = ActiveHero.Opponent;
         }
         public void NextTurn()
@@ -89,15 +88,25 @@ namespace Team8Project.Core
             }
         }
 
-        private void UpdateCooldowns()
+        public void UpdateCooldowns(IHero activeHero)
         {
-            ////refreshing cooldowns
-            foreach (IAbility ability in this.ActiveHero.Abilities)
+            foreach (IAbility ability in activeHero.Abilities)
             {
                 if (ability.OnCD == true)
                 {
                     ability.CDCounter++;
-                    if (ability.CDCounter >= ability.Cd)
+                    if (ability.CDCounter == ability.Cd)
+                    {
+                        ability.OnCD = false;
+                    }
+                }
+            }
+            foreach (IAbility ability in activeHero.Opponent.Abilities)
+            {
+                if (ability.OnCD == true)
+                {
+                    ability.CDCounter++;
+                    if (ability.CDCounter == ability.Cd)
                     {
                         ability.OnCD = false;
                     }

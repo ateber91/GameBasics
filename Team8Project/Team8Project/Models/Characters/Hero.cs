@@ -22,7 +22,6 @@ namespace Team8Project.Models
         private const int HP_MIN = 1;
         private const int HP_MAX = 500;
 
-
         public Hero(string name, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
             this.Name = name;
@@ -31,7 +30,6 @@ namespace Team8Project.Models
             this.DmgEndOfRange = dmgEndOfRange;
             this.Abilities = new List<IAbility>();
             this.AppliedEffects = new List<IEffect>();
-
         }
 
         public string Name
