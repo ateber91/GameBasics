@@ -1,6 +1,7 @@
 # Team-8
 
-Team 8 - Georgi Zlatarev, Ali Teber, Georgi Ivanov - C# .NET Module 1 Teamwork project 
+Team 8 - Georgi Zlatarev, Ali Teber, Georgi Ivanov - C# .NET Module 1 Teamwork project. 
+https://gitlab.com/ivanovg94/Team-8
 
 Game basics:
 One on One turn based battle between two players on one PC.
