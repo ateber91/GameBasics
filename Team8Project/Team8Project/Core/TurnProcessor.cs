@@ -1,19 +1,23 @@
 ﻿using Team8Project.Contracts;
 using Team8Project.Core.Providers;
+using Team8Project.Data;
 
 namespace Team8Project.Core
 {
     public class TurnProcessor
     {
         private int turnNumber = 1;
-        private static TurnProcessor instance;
         private IHero activeHero;
         private IHero firstHero;
         private IHero secondHero;
+        private readonly IDataContainer data;
 
-        private TurnProcessor()
+        public TurnProcessor(IDataContainer data)
         {
+            this.data = data;
+           
         }
+
         public int TurnNumber
         {
             get { return this.turnNumber; }
@@ -36,30 +40,21 @@ namespace Team8Project.Core
             var res = RandomProvider.Generate(1, 2);
             if (res == 1)
             {
-                this.ActiveHero = this.FirstHero;
+                this.ActiveHero = this.firstHero;
             }
             else
             {
-                this.ActiveHero = this.SecondHero;
+                this.ActiveHero = this.secondHero;
             }
         }
 
         private void SetRelationship()
         {
-            this.FirstHero.Opponent = this.SecondHero;
-            this.SecondHero.Opponent = this.FirstHero;
-        }
+            this.firstHero = this.data.ListHeros[0];
+            this.secondHero = this.data.ListHeros[1];
 
-        public static TurnProcessor Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new TurnProcessor();
-                }
-                return instance;
-            }
+            this.firstHero.Opponent = this.secondHero;
+            this.secondHero.Opponent = this.firstHero;
         }
 
         public IHero ActiveHero
@@ -68,23 +63,6 @@ namespace Team8Project.Core
             set
             {
                 activeHero = value;
-            }
-        }
-
-        public IHero FirstHero
-        {
-            get { return firstHero; }
-            set
-            {
-                firstHero = value;
-            }
-        }
-        public IHero SecondHero
-        {
-            get { return secondHero; }
-            set
-            {
-                secondHero = value;
             }
         }
 

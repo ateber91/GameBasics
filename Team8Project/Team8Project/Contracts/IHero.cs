@@ -14,5 +14,8 @@ namespace Team8Project.Contracts
         IList<IAbility> Abilities { get; set; } 
         IList<IEffect> AppliedEffects { get; set; }
         void UseAbility(IAbility ability);
+        void InitializeJungle();
+        void InitializeGraveyard();
+        void InitializeTundra();
     }
 }

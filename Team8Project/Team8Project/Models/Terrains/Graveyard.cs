@@ -9,54 +9,13 @@ namespace Team8Project.Models.Terrains
 {
     public class Graveyard : Terrain
     {
-        private static ITerrain instance;
+        public Graveyard() { }
 
-        private Graveyard() { }
-
-        public static ITerrain Instance
+        public override void ApplyInitialEffect(IHero hero)
         {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new Graveyard();
-                }
-                return instance;
-            }
+            hero.InitializeGraveyard();
         }
 
-        public override string HeroEffect(IHero hero)
-        {
-            switch (hero.HeroClass)
-            {
-                case HeroClass.Warrior:
-                    foreach (var ability in hero.Abilities.OfType<IDamagingAbility>())
-                    {
-                        ability.AbilityPower -= 10;
-                    }
-                    return $"{hero.Name}'s damaging abilities decreased by 10";
-                case HeroClass.Assasin:
-                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.DOT))
-                    {
-                        ability.AbilityPower += 5;
-                    }
-                    return $"{hero.Name}'s DOT abilities power increased by 5";
-                case HeroClass.Cleric:
-                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.HOT))
-                    {
-                        ability.AbilityPower -= 5;
-                    }
-                    return $"{hero.Name}'s HOT abilities power decreased by 5";
-                case HeroClass.Mage:
-                    foreach (var ability in hero.Abilities.OfType<IEffect>())
-                    {
-                        ability.Cd++;
-                    }
-                    return $"{hero.Name}'s cooldowns on effect abilities increased by 1";
-                default:
-                    return string.Empty;
-            }
-        }
         public override string ContinuousEffect(IHero hero)
         {
             if (hero.AppliedEffects.Count != 0)

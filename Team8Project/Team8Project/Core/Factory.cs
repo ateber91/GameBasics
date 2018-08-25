@@ -9,11 +9,10 @@ using Team8Project.Models.Magic;
 
 namespace Team8Project.Core
 {
-    public class Factory
+    public class Factory : IFactory
     {
-        private static Factory instance;
         private IList<IAbility> spellPool;
-        private Factory()
+        public Factory()
         {
             PopulateSpellPool();
         }
@@ -47,15 +46,6 @@ namespace Team8Project.Core
                 new Effect("Curse",2,HeroClass.Cleric,EffectType.Debuff,2,20),
                 new Effect("Bless",2,HeroClass.Cleric,EffectType.Buff,2,20),
             };
-        }
-
-        public static Factory Instance
-        {
-            get
-            {
-                if (instance == null) { instance = new Factory(); }
-                return instance;
-            }
         }
 
         public IHero CreateHero(HeroClass heroClass)

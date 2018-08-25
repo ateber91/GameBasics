@@ -10,10 +10,12 @@ namespace Team8Project.Models.Magic
     public class DamagingAbility : Ability, IDamagingAbility
     {
         private int damageDealt;
+        private EffectManager effectManager;
 
         public DamagingAbility(string name, int cd, HeroClass heroClass, EffectType type, int abilityPower)
             : base(name, cd, heroClass, type, abilityPower)
         {
+            
         }
 
         public override void Apply()
@@ -21,7 +23,7 @@ namespace Team8Project.Models.Magic
             var heroDmg = RandomProvider.Generate(this.Caster.DmgStartOfRange, base.Caster.DmgEndOfRange); // calculate hero dmg
             this.damageDealt = heroDmg + base.AbilityPower; // adds ability power
 
-            damageDealt = EffectManager.Instance.TransformDamage(damageDealt, this.Caster); //transfroms dmg based on effects on self and opponent
+            damageDealt = this.effectManager.TransformDamage(damageDealt, this.Caster); //transfroms dmg based on effects on self and opponent
             base.Caster.Opponent.HealthPoints -= damageDealt; //deals dmg to hp
             base.Apply(); //cd applied
         }

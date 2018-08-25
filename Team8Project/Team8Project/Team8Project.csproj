@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,7 +49,11 @@
     <Compile Include="Common\Enums\HeroClass.cs" />
     <Compile Include="Contracts\IEffect.cs" />
     <Compile Include="Core\Contracts\IEngine.cs" />
+    <Compile Include="Core\IFactory.cs" />
     <Compile Include="Core\Managers\EffectManager.cs" />
+    <Compile Include="Core\Managers\IEffectManager.cs" />
+    <Compile Include="Data\DataContainer.cs" />
+    <Compile Include="Data\IDataContainer.cs" />
     <Compile Include="IO\Contracts\IReader.cs" />
     <Compile Include="Contracts\ITerrain.cs" />
     <Compile Include="IO\Contracts\IWriter.cs" />
@@ -59,7 +66,11 @@
     <Compile Include="Contracts\IHero.cs" />
     <Compile Include="IO\ConsoleReader.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
+    <Compile Include="Models\Characters\Assasin.cs" />
+    <Compile Include="Models\Characters\Cleric.cs" />
     <Compile Include="Models\Characters\Hero.cs" />
+    <Compile Include="Models\Characters\Mage.cs" />
+    <Compile Include="Models\Characters\Warrior.cs" />
     <Compile Include="Models\Magic\Ability.cs" />
     <Compile Include="Models\Magic\DamagingAbility.cs" />
     <Compile Include="Core\Providers\RandomProvider.cs" />
@@ -70,12 +81,14 @@
     <Compile Include="Core\TurnProcessor.cs" />
     <Compile Include="Models\Terrains\Tundra.cs" />
     <Compile Include="Common\Validations.cs" />
+    <Compile Include="Module\GameModule.cs" />
     <Compile Include="StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="ClassDiagram.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
