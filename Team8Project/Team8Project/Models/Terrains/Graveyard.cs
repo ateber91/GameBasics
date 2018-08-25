@@ -66,7 +66,7 @@ namespace Team8Project.Models.Terrains
                     var dot = hero.AppliedEffects.FirstOrDefault(e => e.Type == EffectType.DOT);
                     if (dot != null)
                     {
-                        hero.AppliedEffects[hero.AppliedEffects.IndexOf(dot)].CurrentStacks++;
+                        hero.AppliedEffects[hero.AppliedEffects.IndexOf(dot)].CurrentStacks++;                       
                         return $"{hero.Name}'s duration of all applied DOT effects increased by 1";
                     }
                     return string.Empty;

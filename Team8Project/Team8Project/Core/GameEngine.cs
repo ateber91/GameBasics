@@ -11,6 +11,7 @@ using Team8Project.IO.Contracts;
 
 namespace Team8Project.Core
 {
+
     public class GameEngine : IEngine
     {
         private const string INITIAL_MESSAGE = "Choose a character:\n 1.{0}\n 2.{1}\n 3.{2}\n 4.{3}";
