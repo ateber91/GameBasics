@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Text;
+using Team8Project.Common;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 
@@ -21,6 +22,7 @@ namespace Team8Project.Models.Magic
             get { return this.currentStacks; }
             set
             {
+                Validations.ValidateRangeNumbers(value, MIN_CD, MAX_CD, $"Current stacks value is out of range {MIN_CD} - {MAX_CD}");
                 this.currentStacks = value;
             }
         }
@@ -30,6 +32,7 @@ namespace Team8Project.Models.Magic
             get { return defaultStacks; }
             set
             {
+                Validations.ValidateRangeNumbers(value, MIN_CD, MAX_CD, $"Default stacks value is out of range {MIN_CD} - {MAX_CD}");
                 defaultStacks = value;
             }
         }

@@ -1,4 +1,6 @@
-﻿using Team8Project.Contracts;
+﻿using System;
+using Team8Project.Common;
+using Team8Project.Contracts;
 using Team8Project.Core.Providers;
 using Team8Project.Data;
 
@@ -11,6 +13,8 @@ namespace Team8Project.Core
         private IHero firstHero;
         private IHero secondHero;
         private readonly IDataContainer data;
+        private const int MIN_TURN = 0;
+        private const int MAX_TURN = 1000;
 
         public TurnProcessor(IDataContainer data)
         {
@@ -21,7 +25,11 @@ namespace Team8Project.Core
         public int TurnNumber
         {
             get { return this.turnNumber; }
-            private set { this.turnNumber = value; }
+            private set
+            {
+                Validations.ValidateRangeNumbers(value, MIN_TURN, MAX_TURN, $"Turns less than {MIN_TURN} or more than {MAX_TURN}");
+                this.turnNumber = value;
+            }
         }
 
 
@@ -62,7 +70,7 @@ namespace Team8Project.Core
             get { return this.activeHero; }
             set
             {
-                activeHero = value;
+                activeHero = value ?? throw new ArgumentNullException();
             }
         }
 

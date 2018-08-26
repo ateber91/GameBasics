@@ -35,7 +35,10 @@ namespace Team8Project.Models
 
         public string Name
         {
-            get => this.name;
+            get
+            {
+                return this.name;
+            }
             private set
             {
                 if (string.IsNullOrEmpty(value))
@@ -83,7 +86,7 @@ namespace Team8Project.Models
         public IHero Opponent
         {
             get { return this.oppopnent; }
-            set { this.oppopnent = value; }
+            set { this.oppopnent = value ?? throw new ArgumentNullException(); }
         }
 
         public HeroClass HeroClass
