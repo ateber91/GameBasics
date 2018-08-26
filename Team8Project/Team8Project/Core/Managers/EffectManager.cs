@@ -2,16 +2,19 @@
 using System.Linq;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
+using Team8Project.Data;
 
 namespace Team8Project.Core
 {
-    public class EffectManager
+    public class EffectManager : IEffectManager
     {
-        private static EffectManager instance;
-        private EffectManager()
+        private IDataContainer data;
+
+        public EffectManager(IDataContainer data)
         {
+            this.data = data;
         }
-        //TODO : MESSAGES
+
         public int TransformDamage(int damage, IHero activeHero)
         {
             foreach (var effect in activeHero.AppliedEffects)
@@ -52,12 +55,12 @@ namespace Team8Project.Core
                 {
                     case EffectType.DOT:
                         activeHero.HealthPoints -= effect.AbilityPower;
-                        GameEngine.Instance.Log.AppendLine($"{activeHero.Name} takes {effect.AbilityPower}dmg from {effect.Name}");
+                        this.data.Log.AppendLine($"{activeHero.Name} takes {effect.AbilityPower}dmg from {effect.Name}");
                         effect.CurrentStacks--;
                         break;
                     case EffectType.HOT:
                         activeHero.HealthPoints += effect.AbilityPower;
-                        GameEngine.Instance.Log.AppendLine($"{activeHero.Name} heals {effect.AbilityPower} hp from {effect.Name}");
+                        this.data.Log.AppendLine($"{activeHero.Name} heals {effect.AbilityPower} hp from {effect.Name}");
                         effect.CurrentStacks--;
                         break;
                 }
@@ -67,14 +70,6 @@ namespace Team8Project.Core
         public void RemoveExpired(IHero activeHero)
         {
             activeHero.AppliedEffects = activeHero.AppliedEffects.Where(e => e.CurrentStacks != 0).ToList(); 
-        }
-        public static EffectManager Instance
-        {
-            get
-            {
-                if (instance == null) { instance = new EffectManager(); }
-                return instance;
-            }
         }
     }
 }

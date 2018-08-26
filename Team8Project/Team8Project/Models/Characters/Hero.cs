@@ -106,6 +106,15 @@ namespace Team8Project.Models
             ability.Apply();
         }
 
+        public virtual void InitializeJungle()
+        {
+        }
+        public virtual void InitializeGraveyard()
+        {
+        }
+        public virtual void InitializeTundra()
+        {
+        }
 
 
 

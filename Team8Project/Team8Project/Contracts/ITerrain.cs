@@ -2,7 +2,7 @@
 {
     public interface ITerrain
     {
-        string HeroEffect(IHero hero);
+        void ApplyInitialEffect(IHero hero);
         string ContinuousEffect(IHero hero);
         bool IsDay { get; set; }
     }

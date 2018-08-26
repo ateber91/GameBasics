@@ -8,48 +8,14 @@ namespace Team8Project.Models.Terrains
 {
     public class Tundra : Terrain
     {
-        //create an object of SingleObject
-        private static ITerrain instance;
 
-        //make the constructor private so that this class cannot be
-        //instantiated
-        private Tundra() { }
-
-        public static ITerrain Instance
+        public Tundra() { }
+        
+        public override void ApplyInitialEffect(IHero hero)
         {
-            get
-            {
-                if (instance == null) { instance = new Tundra(); }
-                return instance;
-            }
+            hero.InitializeTundra();
         }
 
-        public override string HeroEffect(IHero hero)
-        {
-            switch (hero.HeroClass)
-            {
-                case HeroClass.Warrior:
-                    hero.HealthPoints -= 25;
-                    return $"{hero.Name}'s health points decreased by 25";
-                case HeroClass.Assasin:
-                    hero.HealthPoints -= 50;
-                    return $"{hero.Name}'s health points decreased by 50";
-                case HeroClass.Cleric:
-                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
-                    {
-                        ability.AbilityPower -= 2;
-                    }
-                    return $"{hero.Name}'s damaging abilities decreased by 2";
-                case HeroClass.Mage:
-                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
-                    {
-                        ability.AbilityPower += 5;
-                    }
-                    return $"{hero.Name}'s damaging abilities power increased by 5";
-                default:
-                    return string.Empty;
-            }
-        }
         public override string ContinuousEffect(IHero hero)
         {
             if (this.IsDay == false)

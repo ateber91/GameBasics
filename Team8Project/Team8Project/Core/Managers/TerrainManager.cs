@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Autofac;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Team8Project.Contracts;
 using Team8Project.Core.Providers;
 using Team8Project.Models.Terrains;
@@ -7,11 +11,12 @@ namespace Team8Project.Core
 {
     public class TerrainManager
     {
-        private static TerrainManager instance;
         private ITerrain terrain;
+        private readonly IComponentContext context;
 
-        private TerrainManager()
+        public TerrainManager(IComponentContext context)
         {
+            this.context = context;
         }
 
         public ITerrain Terrain
@@ -23,50 +28,37 @@ namespace Team8Project.Core
             }
         }
 
-        public static TerrainManager Instance
-        {
-            get
-            {
-                if (instance == null) { instance = new TerrainManager(); }
-                return instance;
-            }
-        }
-
         public void SetTerrain()
         {
-            int t = RandomProvider.Generate(1, 3);
+            var terrainNames = new List<string>();
 
-            switch (t)
+            var terrainTypes = Assembly.GetExecutingAssembly().DefinedTypes
+                .Where(typeInfo =>
+                    typeInfo.ImplementedInterfaces.Contains(typeof(ITerrain)) && typeInfo.IsAbstract == false)
+                .ToList();
+
+            foreach (var terrainType in terrainTypes)
             {
-                case 1:
-                    this.Terrain = Jungle.Instance;
-                    break;
-                case 2:
-                    this.Terrain = Graveyard.Instance;
-                    break;
-                case 3:
-                    this.Terrain = Tundra.Instance;
-                    break;
-                default:
-                    break;
+                terrainNames.Add(terrainType.Name.ToLower());
             }
-        }
 
-        public string ApplyInitialEffects(IHero activeHero)
-        {
-            return $"Initial terrain effect applied to {activeHero.Name} - {this.Terrain.HeroEffect(activeHero)}\nInitial terrain effect applied to {activeHero.Opponent.Name} - {this.Terrain.HeroEffect(activeHero.Opponent)}";
+            int t = RandomProvider.Generate(0, terrainNames.Count - 1);
+
+            this.Terrain = this.context.ResolveNamed<ITerrain>(terrainNames[t]);
         }
 
         public string ApplyContinuousEffect(IHero active)
         {
             int x = RandomProvider.Generate(1, 3);
+
             if (x == 1)
             {
                 return this.Terrain.ContinuousEffect(active);
             }
             else if (x == 2)
             {
-                return this.Terrain.ContinuousEffect(active.Opponent);            }
+                return this.Terrain.ContinuousEffect(active.Opponent);
+            }
             else
             {
                 return "Terrain didn't affect any heros this turn.";
