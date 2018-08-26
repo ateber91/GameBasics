@@ -58,6 +58,9 @@
     <Compile Include="Core\Commands\CreateHero\CreateWarriorCommand.cs" />
     <Compile Include="Core\Commands\ICommand.cs" />
     <Compile Include="Core\Commands\ICommandProvider.cs" />
+    <Compile Include="Core\Commands\SelectAbility\SelectBasicAbilityCommand.cs" />
+    <Compile Include="Core\Commands\SelectAbility\SelectDamageAbilityCommand.cs" />
+    <Compile Include="Core\Commands\SelectAbility\SelectEffectAbilityCommand.cs" />
     <Compile Include="Core\Contracts\IEngine.cs" />
     <Compile Include="Core\IFactory.cs" />
     <Compile Include="Data\DataContainer.cs" />

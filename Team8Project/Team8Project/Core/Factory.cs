@@ -51,7 +51,6 @@ namespace Team8Project.Core
         {
             return new Assasin(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
         }
-
         public IHero CreateWarrior(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
             return new Warrior(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
@@ -60,7 +59,6 @@ namespace Team8Project.Core
         {
             return new Mage(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
         }
-
         public IHero CreateCleric(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
             return new Cleric(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);

@@ -9,9 +9,11 @@ namespace Team8Project.Data
 {
     public class DataContainer : IDataContainer
     {
-        public StringBuilder Log { get; set; }
+        private IAbility selectedAbility;
 
+        public StringBuilder Log { get; set; }
         public IList<IHero> ListHeros { get; set; }
+        public IAbility SelectedAbility { get; set; }
 
         public DataContainer()
         {

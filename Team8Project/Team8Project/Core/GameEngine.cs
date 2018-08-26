@@ -51,7 +51,6 @@ namespace Team8Project.Core
             while (true)
             {
                 this.renderer.UpdataScreen();
-                //   this.data.Log.AppendLine($"Turn {this.turn.TurnNumber}: ");
 
                 if (turn.TurnNumber % 3 == 0)
                 {
@@ -67,15 +66,11 @@ namespace Team8Project.Core
 
                 Act(turn.ActiveHero); //first hero move
                 turn.EndAct();
-                //   this.renderer.UpdataScreen();
                 if (this.endGame) { return; }
                 Act(turn.ActiveHero); //second hero move
                 turn.EndAct();
-                //    this.renderer.UpdataScreen();
-
                 turn.UpdateCooldowns(turn.ActiveHero);
                 turn.NextTurn();
-                // this.renderer.UpdataScreen();
             }
         }
 
@@ -85,7 +80,6 @@ namespace Team8Project.Core
             renderer.InitialScreen();
 
             string[] players = new string[2];
-
             this.writer.ConsoleWrite("Player 1: ");
             players[0] = this.reader.ConsoleReadKey();
             this.writer.WriteLine("");
@@ -116,13 +110,14 @@ namespace Team8Project.Core
                 this.renderer.UpdataScreen();
                 this.renderer.UpdateActiveHero();
 
-                var selectedAbilityCommand = this.checker.CheckIfabilityInputIsValid(this.reader.ConsoleReadKey());
+                var selectAbilityKey = this.checker.CheckIfabilityInputIsValid(this.reader.ConsoleReadKey()); //read from input
 
-                var selectedAbility = this.checker.CheckIfAbilityIsReadyForUse(this.commandProcessor.ProcessCommand(selectedAbilityCommand));
+                this.commandProcessor.ProcessCommand(selectAbilityKey); // execute command
+                this.checker.SetAbilityThatIsReadyForUse();
 
-                turn.ActiveHero.UseAbility(selectedAbility);
+                turn.ActiveHero.UseAbility(this.data.SelectedAbility);
 
-                this.data.Log.AppendLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}.");
+                this.data.Log.AppendLine($"{turn.ActiveHero.Name} uses {this.data.SelectedAbility.Name} and {this.data.SelectedAbility.ToString()}.");
             }
 
             this.endGame = this.checker.CheckIfGameIsOver();

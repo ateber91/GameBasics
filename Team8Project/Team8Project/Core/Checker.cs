@@ -20,7 +20,7 @@ namespace Team8Project.Core
         private readonly CommandProcessor processor;
         private readonly IDataContainer data;
 
-        public Checker(IReader reader, IWriter writer,TurnProcessor turn, CommandProcessor processor, IDataContainer data)
+        public Checker(IReader reader, IWriter writer, TurnProcessor turn, CommandProcessor processor, IDataContainer data)
         {
             this.reader = reader;
             this.writer = writer;
@@ -29,23 +29,23 @@ namespace Team8Project.Core
             this.data = data;
         }
 
-        public IAbility CheckIfAbilityIsReadyForUse(IAbility selectedAbility)
+        public void SetAbilityThatIsReadyForUse()
         {
+            var selectedAbility = this.data.SelectedAbility;
+
             if (selectedAbility.OnCD == true)
             {
                 this.data.Log.AppendLine("Chosen ability is on cooldown, choose another");
                 this.writer.PrintOnPosition(Constants.LOG_ROW_POS, Constants.LOG_COL_POS, this.data.Log.ToString());
                 Console.SetCursorPosition(2, 9);
-                while (selectedAbility.OnCD == true)
+                while (this.data.SelectedAbility.OnCD == true)
                 {
-                    //     selectedAbilityCommand = this.reader.ConsoleReadKey();
                     var selectedAbilityCommand = this.CheckIfabilityInputIsValid(this.reader.ConsoleReadKey());
                     this.writer.ConsoleClear();
                     this.writer.WriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
-                    selectedAbility = this.processor.ProcessCommand(selectedAbilityCommand);
+                    this.processor.ProcessCommand(selectedAbilityCommand);
                 }
             }
-            return selectedAbility;
         }
 
 
