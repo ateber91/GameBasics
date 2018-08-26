@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Team8Project.Core.Providers
+namespace Team8Project.Common.Providers
 {
     public static class RandomProvider
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
-using Team8Project.Core.Providers;
+using Team8Project.Common.Providers;
 using Team8Project.Models;
 using Team8Project.Models.Characters;
 using Team8Project.Models.Magic;

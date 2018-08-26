@@ -1,7 +1,7 @@
 ﻿using System;
 using Team8Project.Common;
 using Team8Project.Contracts;
-using Team8Project.Core.Providers;
+using Team8Project.Common.Providers;
 using Team8Project.Data;
 
 namespace Team8Project.Core
@@ -17,7 +17,6 @@ namespace Team8Project.Core
         public TurnProcessor(IDataContainer data)
         {
             this.data = data;
-           
         }
 
         public int TurnNumber
@@ -40,7 +39,7 @@ namespace Team8Project.Core
             this.turnNumber++;
         }
 
-        public void SetFirstTurnActiveHero()
+        public void SetFirstTurn()
         {
             SetRelationship();
             var res = RandomProvider.Generate(1, 2);

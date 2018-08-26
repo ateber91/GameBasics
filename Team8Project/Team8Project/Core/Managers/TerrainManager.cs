@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Team8Project.Contracts;
-using Team8Project.Core.Providers;
+using Team8Project.Common.Providers;
 using Team8Project.Models.Terrains;
 
 namespace Team8Project.Core

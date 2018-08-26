@@ -49,6 +49,7 @@
     <Compile Include="Common\Enums\EffectType.cs" />
     <Compile Include="Common\Enums\HeroClass.cs" />
     <Compile Include="Contracts\IEffect.cs" />
+    <Compile Include="Core\Checker.cs" />
     <Compile Include="Core\Commands\Command.cs" />
     <Compile Include="Core\Commands\CommandProvider.cs" />
     <Compile Include="Core\Commands\CreateHero\CreateAssasinCommand.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Core\IFactory.cs" />
     <Compile Include="Data\DataContainer.cs" />
     <Compile Include="Data\IDataContainer.cs" />
+    <Compile Include="IO\ConsoleRenderer.cs" />
     <Compile Include="IO\Contracts\IReader.cs" />
     <Compile Include="Contracts\ITerrain.cs" />
     <Compile Include="IO\Contracts\IWriter.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="Contracts\IHero.cs" />
     <Compile Include="IO\ConsoleReader.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
+    <Compile Include="IO\Contracts\IRender.cs" />
     <Compile Include="Models\Characters\Assasin.cs" />
     <Compile Include="Models\Characters\Cleric.cs" />
     <Compile Include="Models\Characters\Hero.cs" />
@@ -80,7 +83,7 @@
     <Compile Include="Models\Characters\Warrior.cs" />
     <Compile Include="Models\Magic\Ability.cs" />
     <Compile Include="Models\Magic\DamagingAbility.cs" />
-    <Compile Include="Core\Providers\RandomProvider.cs" />
+    <Compile Include="Common\Providers\RandomProvider.cs" />
     <Compile Include="Models\Magic\EffectAbilities\Buff.cs" />
     <Compile Include="Models\Magic\EffectAbilities\Debuff.cs" />
     <Compile Include="Models\Magic\EffectAbilities\Dot.cs" />
