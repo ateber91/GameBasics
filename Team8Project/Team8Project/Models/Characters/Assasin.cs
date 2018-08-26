@@ -10,7 +10,8 @@ namespace Team8Project.Models.Characters
 {
     public class Assasin : Hero, IHero
     {
-        public Assasin(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange) : base(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange)
+        public Assasin(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange) 
+            : base(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange)
         {
         }
 

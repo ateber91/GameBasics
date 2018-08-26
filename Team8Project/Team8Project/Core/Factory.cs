@@ -11,18 +11,13 @@ namespace Team8Project.Core
 {
     public class Factory : IFactory
     {
-        private IList<IAbility> spellPool;
-
-
-        private Factory()
-
+        public Factory()
         {
-            PopulateSpellPool();
         }
 
-        private void PopulateSpellPool()
+        private IList<IAbility> PopulateSpellPool()
         {
-            this.spellPool = new List<IAbility>()
+            return new List<IAbility>()
             {
                 new DamagingAbility("Heroic Attack",1, HeroClass.Warrior,EffectType.Damage,15),
                 new DamagingAbility("Blade Storm", 1,HeroClass.Warrior,EffectType.Damage, 18),
@@ -65,13 +60,14 @@ namespace Team8Project.Core
 
         public void CreateSpellBook(IHero hero)
         {
+            var spellPool = PopulateSpellPool().Where(x => x.HeroClass == hero.HeroClass);
             var basicAttack = new DamagingAbility("Basic Attack", 0, hero.HeroClass, EffectType.Damage, 0);
             hero.Abilities.Add(basicAttack); //add basic attack
 
-            var dmgAbilities = this.spellPool.Where(x => x.HeroClass == hero.HeroClass && x.Type == EffectType.Damage).ToList();
+            var dmgAbilities = spellPool.Where(x => x.Type == EffectType.Damage).ToList();
             hero.Abilities.Add(dmgAbilities[RandomProvider.Generate(0, dmgAbilities.Count - 1)]);  //add 2nd spell                                                                                                      //?
 
-            var effectAbilitues = spellPool.Where(x => x.HeroClass == hero.HeroClass && x.Type != EffectType.Damage).ToList();
+            var effectAbilitues = spellPool.Where(x => x.Type != EffectType.Damage).ToList();
             hero.Abilities.Add(effectAbilitues[RandomProvider.Generate(0, effectAbilitues.Count - 1)]);   //add 3rd spell
 
             foreach (var ability in hero.Abilities) { ability.Caster = hero; }

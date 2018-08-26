@@ -10,7 +10,7 @@ namespace Team8Project.Models.Magic
     public class DamagingAbility : Ability, IDamagingAbility
     {
         private int damageDealt;
-        private EffectManager effectManager;
+       private EffectManager effectManager;
 
         public DamagingAbility(string name, int cd, HeroClass heroClass, EffectType type, int abilityPower)
             : base(name, cd, heroClass, type, abilityPower)
