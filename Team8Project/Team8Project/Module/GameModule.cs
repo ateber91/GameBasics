@@ -22,7 +22,6 @@ namespace Team8Project.Module
             builder.RegisterType<GameEngine>().As<IEngine>().SingleInstance();
             builder.RegisterType<Factory>().As<IFactory>().SingleInstance();
             builder.RegisterType<TurnProcessor>().AsSelf().SingleInstance();
-            builder.RegisterType<EffectManager>().As<IEffectManager>().SingleInstance();
             builder.RegisterType<TerrainManager>().AsSelf().SingleInstance();
             builder.RegisterType<CommandProcessor>().AsSelf().SingleInstance();
             builder.RegisterType<DataContainer>().As<IDataContainer>().SingleInstance();
@@ -30,11 +29,14 @@ namespace Team8Project.Module
             builder.RegisterType<ConsoleWriter>().As<IWriter>().SingleInstance();
             builder.RegisterType<CommandProvider>().As<ICommandProvider>().SingleInstance();
 
+
             RegisterDynamicTerrains(builder);
             RegisterDynamicCommands(builder);
-
             base.Load(builder);
         }
+
+
+
 
         private static void RegisterDynamicTerrains(ContainerBuilder builder)
         {
@@ -70,7 +72,7 @@ namespace Team8Project.Module
             {
                 builder.RegisterType(commandType.AsType())
                   .Named<ICommand>(
-                    commandType.Name.ToLower().Replace("command",""));
+                    commandType.Name.ToLower().Replace("command", ""));
             }
         }
     }

@@ -100,6 +100,9 @@ namespace Team8Project.Models
             }
         }
 
+        public bool IsIncapacitated { get; set; }
+        public bool HasRessistance { get; set; }
+
         public void UseAbility(IAbility ability)
         {
             ability.Apply();

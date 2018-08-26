@@ -7,6 +7,8 @@ using Team8Project.Core.Providers;
 using Team8Project.Models;
 using Team8Project.Models.Characters;
 using Team8Project.Models.Magic;
+using Team8Project.Models.Magic.EffectAbilities;
+
 namespace Team8Project.Core
 {
     public class Factory : IFactory
@@ -31,18 +33,18 @@ namespace Team8Project.Core
                 new DamagingAbility("Smite",1, HeroClass.Cleric,EffectType.Damage,15),
                 new DamagingAbility("Holy Fire", 1, HeroClass.Cleric,EffectType.Damage, 18),
                 new DamagingAbility("Penance", 1, HeroClass.Cleric,EffectType.Damage, 17),
-                new Effect("Poison",2,HeroClass.Assasin,EffectType.DOT,2,8),
-                new Effect("Critical",2,HeroClass.Assasin,EffectType.Buff,1,20),
-                new Effect("Evasion",2,HeroClass.Assasin,EffectType.Resistance,1,0),
-                new Effect("Bleed",2,HeroClass.Warrior,EffectType.DOT,2,10),
-                new Effect("Block",2,HeroClass.Warrior,EffectType.Resistance,1,0),
-                new Effect("Stun",2,HeroClass.Warrior,EffectType.Incapacitated,1,0),
-                new Effect("Ice Barrier",2,HeroClass.Mage,EffectType.Resistance,1,0),
-                new Effect("Burn",2,HeroClass.Mage,EffectType.DOT,2,9),
-                new Effect("Freeze",2,HeroClass.Mage,EffectType.Incapacitated,1,0),
-                new Effect("Regeneration",2,HeroClass.Cleric,EffectType.HOT,2,15),
-                new Effect("Curse",2,HeroClass.Cleric,EffectType.Debuff,2,20),
-                new Effect("Bless",2,HeroClass.Cleric,EffectType.Buff,2,20),
+                new Dot("Poison",2,HeroClass.Assasin,EffectType.DOT,2,8),
+                new Buff("Critical",2,HeroClass.Assasin,EffectType.Buff,1,20),
+                new Resistance("Evasion",2,HeroClass.Assasin,EffectType.Resistance,1,0),
+                new Dot("Bleed",2,HeroClass.Warrior,EffectType.DOT,2,10),
+                new Resistance("Block",2,HeroClass.Warrior,EffectType.Resistance,1,0),
+                new Incapacitation("Stun",2,HeroClass.Warrior,EffectType.Incapacitated,1,0),
+                new Resistance("Ice Barrier",2,HeroClass.Mage,EffectType.Resistance,1,0),
+                new Dot("Burn",2,HeroClass.Mage,EffectType.DOT,2,9),
+                new Incapacitation("Freeze",2,HeroClass.Mage,EffectType.Incapacitated,1,0),
+                new Hot("Regeneration",2,HeroClass.Cleric,EffectType.HOT,2,15),
+                new Debuff("Curse",2,HeroClass.Cleric,EffectType.Debuff,2,10),
+                new Buff("Bless",2,HeroClass.Cleric,EffectType.Buff,2,20),
             };
         }
         public IHero CreateAssasin(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
@@ -54,7 +56,6 @@ namespace Team8Project.Core
         {
             return new Warrior(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
         }
-
         public IHero CreateMage(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
             return new Mage(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
@@ -65,17 +66,7 @@ namespace Team8Project.Core
             return new Cleric(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
         }
 
-        //public IHero CreateHero(HeroClass heroClass)
-        //{
-        //switch (heroClass)
-        //{
-        //  case HeroClass.Warrior: return new Hero("Pesho", heroClass, 150, 12, 18);
-        //    case HeroClass.Mage: return new Hero("Penka", heroClass, 120, 10, 12);
-        //    case HeroClass.Assasin: return new Hero("Gesho", heroClass, 150, 15, 20);
-        //    case HeroClass.Cleric: return new Hero("Genka", heroClass, 100, 8, 10);
-        //    default: throw new ArgumentException("Invalid hero class");
-        //}
-        //        }
+
 
         public void CreateSpellBook(IHero hero)
         {

@@ -10,6 +10,7 @@ using Team8Project.Core.Contracts;
 using Team8Project.Data;
 using Team8Project.IO;
 using Team8Project.IO.Contracts;
+using Team8Project.Models.Magic.EffectAbilities;
 
 namespace Team8Project.Core
 {
@@ -18,7 +19,7 @@ namespace Team8Project.Core
     {
         private readonly IFactory factory;
         private TurnProcessor turn;
-        private IEffectManager effect;
+        //  private IEffectManager effect;
         private readonly IReader reader;
         private readonly IWriter writer;
         private readonly IDataContainer data;
@@ -26,12 +27,12 @@ namespace Team8Project.Core
         private CommandProcessor commandProcessor;
         private bool endGame = false;
 
-        public GameEngine(IFactory factory, TurnProcessor turn, IEffectManager effect, IReader reader, IWriter writer, CommandProcessor commandProcessor, IDataContainer data,
+        public GameEngine(IFactory factory, TurnProcessor turn, /*IEffectManager effect,*/ IReader reader, IWriter writer, CommandProcessor commandProcessor, IDataContainer data,
             TerrainManager terrainManager)
         {
             this.factory = factory;
             this.turn = turn;
-            this.effect = effect;
+            //    this.effect = effect;
             this.reader = reader;
             this.writer = writer;
             this.commandProcessor = commandProcessor;
@@ -57,26 +58,19 @@ namespace Team8Project.Core
                 string continiousEffect = this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero);
                 if (continiousEffect != string.Empty) { this.data.Log.AppendLine(continiousEffect); }
 
-                
+
                 this.UpdataLog();
 
                 Act(turn.ActiveHero); //first hero move
                 turn.EndAct();
-                
                 this.UpdataLog();
-
-                if (this.endGame)
-                {
-                    return;
-                }
+                if (this.endGame) { return; }
                 Act(turn.ActiveHero); //second hero move
                 turn.EndAct();
-
                 this.UpdataLog();
 
                 turn.UpdateCooldowns(turn.ActiveHero);
                 turn.NextTurn();
-
                 this.UpdataLog();
             }
         }
@@ -109,24 +103,26 @@ namespace Team8Project.Core
             /*this.data.Log.AppendLine(*/
 
             this.terrainManager.Terrain.ApplyInitialEffect(turn.ActiveHero);
-            
         }
 
         private void Act(IHero activeHero)
         {
             //checks for status incapacitated
-            if ((turn.ActiveHero.AppliedEffects.Any(x => x.Type == EffectType.Incapacitated)))
+            if (turn.ActiveHero.IsIncapacitated)
             {
-                this.data.Log.AppendLine($"{turn.ActiveHero.HeroClass} {turn.ActiveHero.Name} is incapacitated!. Cannot act!");
-
-                turn.ActiveHero.AppliedEffects.Remove(turn.ActiveHero.AppliedEffects.First(x => x.Type == EffectType.Incapacitated));
+                var effect = this.turn.ActiveHero.AppliedEffects.FirstOrDefault(e => e.Type == EffectType.Incapacitated);
+                this.data.Log.AppendLine(effect.Affect());
             }
             else
             {
-                effect.AtTurnStart(turn.ActiveHero); // checks for statuses : DOT,HOT
+                foreach (var effect in turn.ActiveHero.AppliedEffects.ToList())
+                {
+                    var resultToBeLogged = effect.Affect();
+                    if (resultToBeLogged != string.Empty) { this.data.Log.AppendLine(resultToBeLogged); }
+                }
 
                 this.UpdataLog();
-                effect.RemoveExpired(activeHero);
+                // effect.RemoveExpired(activeHero);
 
                 writer.WriteLine($"{turn.ActiveHero.HeroClass.ToString()} { turn.ActiveHero.Name} is active. HP: {turn.ActiveHero.HealthPoints}");
                 this.writer.WriteLine($"{turn.ActiveHero.Name}'s abilities: ");
@@ -141,7 +137,7 @@ namespace Team8Project.Core
 
                 if (turn.ActiveHero.AppliedEffects.Count == 0) { this.writer.WriteLine("Applied effects: No effects."); }
                 else { this.writer.WriteLine($"Applied effects: {string.Join(", ", turn.ActiveHero.AppliedEffects)}"); }
-                
+
                 var selectAbilityCommand = this.reader.ConsoleReadKey();
                 //Checks if the commnad is valid.
                 if (int.Parse(selectAbilityCommand) < 1 || int.Parse(selectAbilityCommand) > 3)
@@ -154,7 +150,7 @@ namespace Team8Project.Core
                         this.writer.WriteLine("Invalid command, I told you to choose other option!!! Try again. I will be wathcing you!");
                     }
                 }
-                
+
                 var selectedAbility = this.commandProcessor.ProcessCommand(selectAbilityCommand);
                 
                 if (selectedAbility.OnCD == true)
@@ -175,15 +171,9 @@ namespace Team8Project.Core
 
                 this.data.Log.AppendLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}.");
             }
-            if (turn.ActiveHero.Opponent.HealthPoints < 0)
-            {
-                this.writer.ConsoleClear();
-                Console.Beep();
-                this.writer.PrintOnPosition(0, 0, $"{turn.ActiveHero.Name.ToUpper()} WON!", ConsoleColor.Green);
-                Thread.Sleep(5000);
-                Console.Beep();
-                this.endGame = true;
-            }
+
+            CheckIfGameIsOver();
+
         }
 
         private void UpdataLog()
@@ -195,6 +185,18 @@ namespace Team8Project.Core
             this.writer.PrintOnPosition(0, 0, $"{this.terrainManager.Terrain.GetType().Name} set as terrain");
             this.writer.PrintOnPosition(0, 150, $" Turn: {turn.TurnNumber}", ConsoleColor.Red);
             this.writer.WriteLine(new String('-', Console.WindowWidth));
+        }
+        private void CheckIfGameIsOver()
+        {
+            if (turn.ActiveHero.Opponent.HealthPoints < 0)
+            {
+                this.writer.ConsoleClear();
+                Console.Beep();
+                this.writer.PrintOnPosition(0, 0, $"{turn.ActiveHero.Name.ToUpper()} WON!", ConsoleColor.Green);
+                Thread.Sleep(5000);
+                Console.Beep();
+                this.endGame = true;
+            }
         }
     }
 }

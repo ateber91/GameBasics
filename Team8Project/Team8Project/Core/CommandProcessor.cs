@@ -25,18 +25,11 @@ namespace Team8Project.Core
             {
                 { "1", "CreateAssasin"},
                 { "2", "CreateWarrior"},
-                { "3", "Mage"},
-                { "4", "Cleric"},
-            };
-            this.heroSelection = new Dictionary<string, string>()
-            {
-                { "1", "CreateAssasin"},
-                { "2", "CreateWarrior"},
-                { "3", "Mage"},
-                { "4", "Cleric"},
+                { "3", "CreateMage"},
+                { "4", "CreateCleric"},
             };
         }
-   
+
 
         public void ProcessCommand(string[] players)
         {

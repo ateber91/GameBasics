@@ -59,8 +59,6 @@
     <Compile Include="Core\Commands\ICommandProvider.cs" />
     <Compile Include="Core\Contracts\IEngine.cs" />
     <Compile Include="Core\IFactory.cs" />
-    <Compile Include="Core\Managers\EffectManager.cs" />
-    <Compile Include="Core\Managers\IEffectManager.cs" />
     <Compile Include="Data\DataContainer.cs" />
     <Compile Include="Data\IDataContainer.cs" />
     <Compile Include="IO\Contracts\IReader.cs" />
@@ -83,7 +81,13 @@
     <Compile Include="Models\Magic\Ability.cs" />
     <Compile Include="Models\Magic\DamagingAbility.cs" />
     <Compile Include="Core\Providers\RandomProvider.cs" />
-    <Compile Include="Models\Magic\Effect.cs" />
+    <Compile Include="Models\Magic\EffectAbilities\Buff.cs" />
+    <Compile Include="Models\Magic\EffectAbilities\Debuff.cs" />
+    <Compile Include="Models\Magic\EffectAbilities\Dot.cs" />
+    <Compile Include="Models\Magic\EffectAbilities\Effect.cs" />
+    <Compile Include="Models\Magic\EffectAbilities\Hot.cs" />
+    <Compile Include="Models\Magic\EffectAbilities\Incapacitation.cs" />
+    <Compile Include="Models\Magic\EffectAbilities\Resistance.cs" />
     <Compile Include="Models\Terrains\Graveyard.cs" />
     <Compile Include="Models\Terrains\Jungle.cs" />
     <Compile Include="Models\Terrains\Terrain.cs" />

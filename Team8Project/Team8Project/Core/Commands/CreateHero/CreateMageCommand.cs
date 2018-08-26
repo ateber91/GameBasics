@@ -18,7 +18,7 @@ namespace Team8Project.Core.Commands.CreateHero
         public override void Execute()
         {
             string name = "Pesho";
-            HeroClass heroClass = HeroClass.Assasin;
+            HeroClass heroClass = HeroClass.Mage;
             int healthPoints = 150;
             int dmgStartOfRange = 12;
             int dmgEndOfRange = 18;
