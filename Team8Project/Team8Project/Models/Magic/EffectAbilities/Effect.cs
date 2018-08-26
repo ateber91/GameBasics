@@ -1,21 +1,33 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 
-namespace Team8Project.Models.Magic
+namespace Team8Project.Models.Magic.EffectAbilities
 {
-    public class Effect : Ability, IEffect
+    public abstract class Effect : Ability, IEffect
     {
         private int currentStacks;
         private int defaultStacks;
+        private IHero target;
 
-        public Effect(string name, int cd, /*IHero caster, */HeroClass heroClass, EffectType type, int defaultStacks, int abilityPower)
-            : base(name, cd, /*caster,*/ heroClass, type, abilityPower)
+        public Effect(string name, int cd, HeroClass heroClass, EffectType type, int defaultStacks, int abilityPower)
+            : base(name, cd, heroClass, type, abilityPower)
         {
             this.DefaultStacks = defaultStacks;
         }
 
+        protected IHero Target
+        {
+            get { return target; }
+            set
+            {
+                target = value;
+            }
+        }
         public int CurrentStacks
         {
             get { return this.currentStacks; }
@@ -36,7 +48,6 @@ namespace Team8Project.Models.Magic
 
         public override void Apply()
         {
-            var target = GetTarget();
 
             if (target.AppliedEffects.Contains(this))
             {
@@ -50,11 +61,13 @@ namespace Team8Project.Models.Magic
             base.Apply();
         }
 
-        private IHero GetTarget()
+        public abstract string Affect();
+        public virtual void Expire()
         {
-            if (this.Type == EffectType.Buff || this.Type == EffectType.HOT || this.Type == EffectType.Resistance) { return this.Caster; }
-            return this.Caster.Opponent;
+            this.Target.AppliedEffects.Remove(this);
         }
+
+
 
         public override string ToString()
         {
@@ -63,15 +76,8 @@ namespace Team8Project.Models.Magic
 
         public override string Print()
         {
-            var hotOrDot = this.Type == EffectType.HOT ? "hp/turn" : "dmg/turn";
-            var effect = this.AbilityPower == 0 ? string.Empty : $"{this.AbilityPower.ToString()} {hotOrDot}";
-            var target = this.GetTarget() == this.Caster ? "caster" : "opponent";
-            var sb = new StringBuilder();
-            sb.Append($"{this.Name} applies {this.Type} {effect} on {target}");
-            sb.Append(base.Print());
-            return sb.ToString();
-        }
+            return base.Print();
 
+        }
     }
 }
-

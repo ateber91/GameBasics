@@ -21,17 +21,25 @@ namespace Team8Project.Module
             builder.RegisterType<GameEngine>().As<IEngine>().SingleInstance();
             builder.RegisterType<Factory>().As<IFactory>().SingleInstance();
             builder.RegisterType<TurnProcessor>().AsSelf().SingleInstance();
-            builder.RegisterType<EffectManager>().As<IEffectManager>().SingleInstance();
+          //  builder.RegisterType<EffectManager>().As<IEffectManager>().SingleInstance();
             builder.RegisterType<TerrainManager>().AsSelf().SingleInstance();
             builder.RegisterType<CommandProcessor>().AsSelf().SingleInstance();
             builder.RegisterType<DataContainer>().As<IDataContainer>().SingleInstance();
             builder.RegisterType<ConsoleReader>().As<IReader>().SingleInstance();
             builder.RegisterType<ConsoleWriter>().As<IWriter>().SingleInstance();
 
-            RegisterDynamicCommands(builder);
 
+            RegisterDynamicCommands(builder);
+         //   RegisterCommands(builder);
             base.Load(builder);
         }
+
+
+        //public void RegisterCommands(ContainerBuilder builder)
+        //{
+        //    builder.RegisterType<BuffEffectCommand>().Named<ICommand>("Buff").PropertiesAutowired();
+        //}
+
 
         private static void RegisterDynamicCommands(ContainerBuilder builder)
         {

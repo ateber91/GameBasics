@@ -4,5 +4,7 @@
     {
         int CurrentStacks { get; set; }
         int DefaultStacks { get; set; }
+        string Affect();
+        void Expire();
     }
 }
