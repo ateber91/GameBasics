@@ -151,25 +151,27 @@ namespace Team8Project.Core
                     }
                 }
 
-                var selectedAbility = this.commandProcessor.ProcessCommand(selectAbilityCommand);
+
+                this.commandProcessor.ProcessCommand(selectAbilityCommand);
                 
-                if (selectedAbility.OnCD == true)
+
+                if (this.data.SelectedAbility.OnCD == true)
                 {
                     this.data.Log.AppendLine("Chosen ability is on cooldown, choose another");
                     this.writer.PrintOnPosition(Constants.LOG_ROW_POS, Constants.LOG_COL_POS, this.data.Log.ToString());
                     Console.SetCursorPosition(2, 9);
-                    while (selectedAbility.OnCD == true)
+                    while (this.data.SelectedAbility.OnCD == true)
                     {
                         selectAbilityCommand = this.reader.ConsoleReadKey();
                         this.writer.ConsoleClear();
                         this.writer.WriteLine("I told you to choose other option!!! Try again. I will be wathcing you!");
-                        selectedAbility = this.commandProcessor.ProcessCommand(selectAbilityCommand);
+                        this.commandProcessor.ProcessCommand(selectAbilityCommand);
                     }
                 }
 
-                turn.ActiveHero.UseAbility(selectedAbility);
+                turn.ActiveHero.UseAbility(this.data.SelectedAbility);
 
-                this.data.Log.AppendLine($"{turn.ActiveHero.Name} uses {selectedAbility.Name} and {selectedAbility.ToString()}.");
+                this.data.Log.AppendLine($"{turn.ActiveHero.Name} uses {this.data.SelectedAbility.Name} and {this.data.SelectedAbility.ToString()}.");
             }
 
             CheckIfGameIsOver();

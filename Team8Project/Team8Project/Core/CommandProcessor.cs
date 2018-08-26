@@ -14,6 +14,7 @@ namespace Team8Project.Core
         private readonly IDataContainer data;
         private readonly ICommandProvider commandProvider;
         private Dictionary<string, string> heroSelection;
+        private Dictionary<string, string> abilitySelection;
 
         public CommandProcessor(IFactory factory, TurnProcessor turn, IDataContainer data, ICommandProvider commandProvider)
         {
@@ -28,6 +29,12 @@ namespace Team8Project.Core
                 { "3", "CreateMage"},
                 { "4", "CreateCleric"},
             };
+            this.abilitySelection = new Dictionary<string, string>()
+            {
+                { "1", "SelectBasicAbility"},
+                { "2", "SelectDamageAbility"},
+                { "3", "SelectEffectAbility"}
+            };
         }
 
 
@@ -40,15 +47,10 @@ namespace Team8Project.Core
             }
         }
 
-        public IAbility ProcessCommand(string key)
+        public void ProcessCommand(string key)
         {
-            switch (key)
-            {
-                case "1": return turn.ActiveHero.Abilities[0];
-                case "2": return turn.ActiveHero.Abilities[1];
-                case "3": return turn.ActiveHero.Abilities[2];
-                default: throw new ArgumentException("I couldn't select ability! :(");
-            }
+            var command = this.commandProvider.GetCommand(abilitySelection[key].ToLower());
+            command.Execute();
         }
     }
 }
