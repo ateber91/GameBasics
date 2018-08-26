@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
+using Team8Project.Core.Commands;
 using Team8Project.Data;
 
 namespace Team8Project.Core
@@ -11,12 +12,29 @@ namespace Team8Project.Core
         private IFactory factory;
         private TurnProcessor turn;
         private readonly IDataContainer data;
+        private readonly ICommandProvider commandProvider;
+        private Dictionary<string, string> heroSelection;
 
-        public CommandProcessor(IFactory factory, TurnProcessor turn, IDataContainer data)
+        public CommandProcessor(IFactory factory, TurnProcessor turn, IDataContainer data, ICommandProvider commandProvider)
         {
             this.factory = factory;
             this.turn = turn;
             this.data = data;
+            this.commandProvider = commandProvider;
+            this.heroSelection = new Dictionary<string, string>()
+            {
+                { "1", "CreateAssasin"},
+                { "2", "CreateWarrior"},
+                { "3", "Mage"},
+                { "4", "Cleric"},
+            };
+            this.heroSelection = new Dictionary<string, string>()
+            {
+                { "1", "CreateAssasin"},
+                { "2", "CreateWarrior"},
+                { "3", "Mage"},
+                { "4", "Cleric"},
+            };
         }
    
 
@@ -24,16 +42,9 @@ namespace Team8Project.Core
         {
             foreach (var player in players)
             {
-                switch (player)
-                {
-                    case "1": this.data.ListHeros.Add(this.factory.CreateHero(HeroClass.Assasin)); break;
-                    case "2": this.data.ListHeros.Add(this.factory.CreateHero(HeroClass.Warrior)); break;
-                    case "3": this.data.ListHeros.Add(this.factory.CreateHero(HeroClass.Mage)); break;
-                    case "4": this.data.ListHeros.Add(this.factory.CreateHero(HeroClass.Cleric)); break;
-                    default: throw new ArgumentException("I couldn't create you hero! :(");
-                }
+                var command = this.commandProvider.GetCommand(heroSelection[player].ToLower());
+                command.Execute();
             }
-           
         }
 
         public IAbility ProcessCommand(string key)
