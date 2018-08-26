@@ -5,7 +5,7 @@ using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 using Team8Project.Core.Providers;
 using Team8Project.Models;
-
+using Team8Project.Models.Characters;
 using Team8Project.Models.Magic;
 using Team8Project.Models.Magic.EffectAbilities;
 
@@ -47,18 +47,26 @@ namespace Team8Project.Core
                 new Buff("Bless",2,HeroClass.Cleric,EffectType.Buff,2,20),
             };
         }
-
-        public IHero CreateHero(HeroClass heroClass)
+        public IHero CreateAssasin(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
-            switch (heroClass)
-            {
-                case HeroClass.Warrior: return new Hero("Pesho", heroClass, 150, 14, 20);
-                case HeroClass.Mage: return new Hero("Penka", heroClass, 120, 10, 18);
-                case HeroClass.Assasin: return new Hero("Gesho", heroClass, 150, 15, 22);
-                case HeroClass.Cleric: return new Hero("Genka", heroClass, 100, 12, 15);
-                default: throw new ArgumentException("Invalid hero class");
-            }
+            return new Assasin(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
         }
+
+        public IHero CreateWarrior(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
+        {
+            return new Warrior(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
+        }
+        public IHero CreateMage(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
+        {
+            return new Mage(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
+        }
+
+        public IHero CreateCleric(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
+        {
+            return new Cleric(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
+        }
+
+
 
         public void CreateSpellBook(IHero hero)
         {

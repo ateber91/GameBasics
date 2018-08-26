@@ -1,4 +1,6 @@
-﻿using Team8Project.Contracts;
+﻿using System;
+using Team8Project.Common;
+using Team8Project.Contracts;
 using Team8Project.Core.Providers;
 using Team8Project.Data;
 
@@ -21,7 +23,11 @@ namespace Team8Project.Core
         public int TurnNumber
         {
             get { return this.turnNumber; }
-            private set { this.turnNumber = value; }
+            private set
+            {
+                Validations.ValidateRangeNumbers(value, Constants.MIN_TURN, Constants.MAX_TURN, $"Turns less than {Constants.MIN_TURN} or more than {Constants.MAX_TURN}");
+                this.turnNumber = value;
+            }
         }
 
 
@@ -62,7 +68,7 @@ namespace Team8Project.Core
             get { return this.activeHero; }
             set
             {
-                activeHero = value;
+                activeHero = value ?? throw new ArgumentNullException();
             }
         }
 

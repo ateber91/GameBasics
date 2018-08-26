@@ -11,6 +11,7 @@ using Team8Project.IO.Contracts;
 using Team8Project.IO;
 using System.Reflection;
 using Team8Project.Contracts;
+using Team8Project.Core.Commands;
 
 namespace Team8Project.Module
 {
@@ -21,27 +22,23 @@ namespace Team8Project.Module
             builder.RegisterType<GameEngine>().As<IEngine>().SingleInstance();
             builder.RegisterType<Factory>().As<IFactory>().SingleInstance();
             builder.RegisterType<TurnProcessor>().AsSelf().SingleInstance();
-          //  builder.RegisterType<EffectManager>().As<IEffectManager>().SingleInstance();
             builder.RegisterType<TerrainManager>().AsSelf().SingleInstance();
             builder.RegisterType<CommandProcessor>().AsSelf().SingleInstance();
             builder.RegisterType<DataContainer>().As<IDataContainer>().SingleInstance();
             builder.RegisterType<ConsoleReader>().As<IReader>().SingleInstance();
             builder.RegisterType<ConsoleWriter>().As<IWriter>().SingleInstance();
+            builder.RegisterType<CommandProvider>().As<ICommandProvider>().SingleInstance();
 
 
+            RegisterDynamicTerrains(builder);
             RegisterDynamicCommands(builder);
-         //   RegisterCommands(builder);
             base.Load(builder);
         }
 
 
-        //public void RegisterCommands(ContainerBuilder builder)
-        //{
-        //    builder.RegisterType<BuffEffectCommand>().Named<ICommand>("Buff").PropertiesAutowired();
-        //}
 
 
-        private static void RegisterDynamicCommands(ContainerBuilder builder)
+        private static void RegisterDynamicTerrains(ContainerBuilder builder)
         {
 
             Assembly currentAssembly = Assembly.GetExecutingAssembly();
@@ -57,6 +54,25 @@ namespace Team8Project.Module
                 builder.RegisterType(terrainType.AsType())
                   .Named<ITerrain>(
                     terrainType.Name.ToLower());
+            }
+        }
+
+        private static void RegisterDynamicCommands(ContainerBuilder builder)
+        {
+
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
+
+            var commandTypes = currentAssembly.DefinedTypes
+                .Where(typeInfo =>
+                    typeInfo.ImplementedInterfaces.Contains(typeof(ICommand)) && typeInfo.IsAbstract == false)
+                .ToList();
+
+            // register in autofac
+            foreach (var commandType in commandTypes)
+            {
+                builder.RegisterType(commandType.AsType())
+                  .Named<ICommand>(
+                    commandType.Name.ToLower().Replace("command", ""));
             }
         }
     }

@@ -10,14 +10,14 @@
   <Class Name="Team8Project.Core.CommandProcessor" Collapsed="true">
     <Position X="8.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAIAAAAAAAAAAAAAAAAABAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Core\CommandProcessor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Team8Project.Core.Factory" Collapsed="true">
     <Position X="8.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAIAAAAAACAAIAAAABAAAAAQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Core\Factory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -25,7 +25,7 @@
   <Class Name="Team8Project.Core.GameEngine" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="10.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAiAAAAAAgAAYAAAAAIABAAAAAAAABCRAQAAAQAkI=</HashCode>
+      <HashCode>AAAAiAAAAAAgAAIAAAAAAAAAAAAAAAABCRAQAAAQAkI=</HashCode>
       <FileName>Core\GameEngine.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -78,7 +78,7 @@
   <Class Name="Team8Project.Models.Hero" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="12.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAgIAQAAQAIAAEAEAADQAQQCsJAEAAAAAAAAAiAICAE=</HashCode>
+      <HashCode>IAgIAQAAQAIAAEAEAADAAQQCsAAEAAAAAAAAAgAICAE=</HashCode>
       <FileName>Models\Characters\Hero.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -86,7 +86,7 @@
   <Class Name="Team8Project.Models.Magic.Ability" Collapsed="true">
     <Position X="1.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAoIAAACABAAAAAAAQAACAQBAAgFAAQAAQAEAAAMCAA=</HashCode>
+      <HashCode>AAoIAAACABAAAAAAAAAACAQAAAgFAAQAAQAEAAAMCAA=</HashCode>
       <FileName>Models\Magic\Ability.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -110,14 +110,14 @@
   <Class Name="Team8Project.Models.Terrains.Graveyard" Collapsed="true">
     <Position X="0.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAABAAAAAQAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Models\Terrains\Graveyard.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Team8Project.Models.Terrains.Jungle" Collapsed="true">
     <Position X="3" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAABAAAAAQAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Models\Terrains\Jungle.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -132,7 +132,7 @@
   <Class Name="Team8Project.Models.Terrains.Tundra" Collapsed="true">
     <Position X="5.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAABAAAAAQAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Models\Terrains\Tundra.cs</FileName>
     </TypeIdentifier>
   </Class>
