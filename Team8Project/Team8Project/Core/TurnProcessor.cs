@@ -13,8 +13,6 @@ namespace Team8Project.Core
         private IHero firstHero;
         private IHero secondHero;
         private readonly IDataContainer data;
-        private const int MIN_TURN = 0;
-        private const int MAX_TURN = 1000;
 
         public TurnProcessor(IDataContainer data)
         {
@@ -27,7 +25,7 @@ namespace Team8Project.Core
             get { return this.turnNumber; }
             private set
             {
-                Validations.ValidateRangeNumbers(value, MIN_TURN, MAX_TURN, $"Turns less than {MIN_TURN} or more than {MAX_TURN}");
+                Validations.ValidateRangeNumbers(value, Constants.MIN_TURN, Constants.MAX_TURN, $"Turns less than {Constants.MIN_TURN} or more than {Constants.MAX_TURN}");
                 this.turnNumber = value;
             }
         }

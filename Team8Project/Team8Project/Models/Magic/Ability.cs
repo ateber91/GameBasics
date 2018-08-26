@@ -16,12 +16,6 @@ namespace Team8Project.Models.Magic
         private EffectType type;
         private bool onCD = false;
         private int cDCounter;
-        private const int MIN_NAME_LEN = 1;
-        private const int MAX_NAME_LEN = 60;
-        protected const int MIN_CD = -2;
-        protected const int MAX_CD = 6;
-        private const int MIN_ABILITYPOWER = 0;
-        private const int MAX_ABILITYPOWER = 100;
 
         public Ability(string name, int cd, HeroClass heroClass, EffectType type, int abilityPower)
         {
@@ -38,7 +32,7 @@ namespace Team8Project.Models.Magic
             get { return this.name; }
             private set
             {
-                Validations.ValidateLength(value, MIN_NAME_LEN, MAX_NAME_LEN, $"The name of your ability can't be less than {MIN_NAME_LEN} and more than {MAX_NAME_LEN} characters");
+                Validations.ValidateLength(value, Constants.NAME_MIN_LEN, Constants.NAME_MAX_LEN, $"The name of your ability can't be less than {Constants.NAME_MIN_LEN} and more than {Constants.NAME_MAX_LEN} characters");
                 this.name = value;
             }
         }
@@ -47,7 +41,7 @@ namespace Team8Project.Models.Magic
             get { return this.cd; }
             set
             {
-                Validations.ValidateRangeNumbers(value, MIN_CD, MAX_CD, $"The cd of the ability can't be less than {MIN_CD} and more than {MAX_CD} stacks");
+                Validations.ValidateRangeNumbers(value, Constants.MIN_CD, Constants.MAX_CD, $"The cd of the ability can't be less than {Constants.MIN_CD} and more than {Constants.MAX_CD} stacks");
                 this.cd = value;
             }
         }
@@ -59,7 +53,7 @@ namespace Team8Project.Models.Magic
             }
             set
             {
-                Validations.ValidateRangeNumbers(value, MIN_CD, MAX_CD, $"The cd counter of the ability can't be less than {MIN_CD} and more than {MAX_CD} stacks");
+                Validations.ValidateRangeNumbers(value, Constants.MIN_CD, Constants.MAX_CD, $"The cd counter of the ability can't be less than {Constants.MIN_CD} and more than {Constants.MAX_CD} stacks");
                 this.cDCounter = value;
             }
         }
@@ -107,7 +101,7 @@ namespace Team8Project.Models.Magic
             get { return abilityPower; }
             set
             {
-                Validations.ValidateRangeNumbers(value, MIN_ABILITYPOWER, MAX_ABILITYPOWER, $"The ability power can't be less than {MIN_ABILITYPOWER} and more than {MAX_ABILITYPOWER}");
+                Validations.ValidateRangeNumbers(value, Constants.MIN_ABILITYPOWER, Constants.MAX_ABILITYPOWER, $"The ability power can't be less than {Constants.MIN_ABILITYPOWER} and more than {Constants.MAX_ABILITYPOWER}");
                 abilityPower = value;
             }
         }

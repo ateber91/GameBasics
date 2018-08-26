@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\Enums\EffectType.cs" />
     <Compile Include="Common\Enums\HeroClass.cs" />
     <Compile Include="Contracts\IEffect.cs" />

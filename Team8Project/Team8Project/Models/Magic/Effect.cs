@@ -22,7 +22,7 @@ namespace Team8Project.Models.Magic
             get { return this.currentStacks; }
             set
             {
-                Validations.ValidateRangeNumbers(value, MIN_CD, MAX_CD, $"Current stacks value is out of range {MIN_CD} - {MAX_CD}");
+                Validations.ValidateRangeNumbers(value, Constants.MIN_CD, Constants.MAX_CD, $"Current stacks value is out of range {Constants.MIN_CD} - {Constants.MAX_CD}");
                 this.currentStacks = value;
             }
         }
@@ -32,7 +32,7 @@ namespace Team8Project.Models.Magic
             get { return defaultStacks; }
             set
             {
-                Validations.ValidateRangeNumbers(value, MIN_CD, MAX_CD, $"Default stacks value is out of range {MIN_CD} - {MAX_CD}");
+                Validations.ValidateRangeNumbers(value, Constants.MIN_CD, Constants.MAX_CD, $"Default stacks value is out of range {Constants.MIN_CD} - {Constants.MAX_CD}");
                 defaultStacks = value;
             }
         }

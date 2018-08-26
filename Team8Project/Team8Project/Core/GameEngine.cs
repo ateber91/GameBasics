@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Team8Project.Common;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 using Team8Project.Core.Contracts;
@@ -15,11 +16,6 @@ namespace Team8Project.Core
 
     public class GameEngine : IEngine
     {
-        private const string INITIAL_MESSAGE = "Choose a character:\n 1.{0}\n 2.{1}\n 3.{2}\n 4.{3}";
-        private const int LOG_ROW_POS = 12;
-        private const int LOG_COL_POS = 0;
-
-
         private readonly IFactory factory;
         private TurnProcessor turn;
         private IEffectManager effect;
@@ -90,7 +86,7 @@ namespace Team8Project.Core
             Console.SetWindowSize(160, 40);
 
             //inital screen for creating heros
-            this.writer.WriteLine(string.Format(INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
+            this.writer.WriteLine(string.Format(Constants.INITIAL_MESSAGE, HeroClass.Assasin, HeroClass.Warrior, HeroClass.Mage, HeroClass.Cleric));
             this.writer.WriteLine(new String('-', Console.WindowWidth));
 
 
@@ -164,7 +160,7 @@ namespace Team8Project.Core
                 if (selectedAbility.OnCD == true)
                 {
                     this.data.Log.AppendLine("Chosen ability is on cooldown, choose another");
-                    this.writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, this.data.Log.ToString());
+                    this.writer.PrintOnPosition(Constants.LOG_ROW_POS, Constants.LOG_COL_POS, this.data.Log.ToString());
                     Console.SetCursorPosition(2, 9);
                     while (selectedAbility.OnCD == true)
                     {
@@ -193,8 +189,8 @@ namespace Team8Project.Core
         private void UpdataLog()
         {
             this.writer.ConsoleClear();
-            this.writer.PrintOnPosition(LOG_ROW_POS - 1, LOG_COL_POS, new String('-', Console.WindowWidth));
-            this.writer.PrintOnPosition(LOG_ROW_POS, LOG_COL_POS, this.data.Log.ToString());
+            this.writer.PrintOnPosition(Constants.LOG_ROW_POS - 1, Constants.LOG_COL_POS, new String('-', Console.WindowWidth));
+            this.writer.PrintOnPosition(Constants.LOG_ROW_POS, Constants.LOG_COL_POS, this.data.Log.ToString());
 
             this.writer.PrintOnPosition(0, 0, $"{this.terrainManager.Terrain.GetType().Name} set as terrain");
             this.writer.PrintOnPosition(0, 150, $" Turn: {turn.TurnNumber}", ConsoleColor.Red);

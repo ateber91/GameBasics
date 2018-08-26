@@ -17,11 +17,7 @@ namespace Team8Project.Models
         private IHero oppopnent;
         private HeroClass heroClass;
         private IList<IEffect> appliedEffects;
-        private const int NAME_MIN_LEN = 2;
-        private const int NAME_MAX_LEN = 20;
-        private const int HP_MIN = 1;
-        private const int HP_MAX = 500;
-
+       
         public Hero(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
             this.Name = name;
@@ -45,7 +41,7 @@ namespace Team8Project.Models
                 {
                     throw new ArgumentNullException("Your hero name is empty or null.");
                 }
-                Validations.ValidateLength(value, NAME_MIN_LEN, NAME_MAX_LEN, $"The name of your hero can be between {NAME_MIN_LEN} and {NAME_MAX_LEN} symbols!");
+                Validations.ValidateLength(value, Constants.NAME_MIN_LEN, Constants.NAME_MAX_LEN, $"The name of your hero can be between {Constants.NAME_MIN_LEN} and {Constants.NAME_MAX_LEN} symbols!");
                 this.name = value;
             }
         }
@@ -62,7 +58,7 @@ namespace Team8Project.Models
             get { return this.dmgStartOfRange; }
             set
             {
-                Validations.ValidateRangeNumbers(value, HP_MIN, HP_MAX, $"The damage ability of your hero can't be less than {HP_MIN} and more than {HP_MAX}");
+                Validations.ValidateRangeNumbers(value, Constants.HP_MIN, Constants.HP_MAX, $"The damage ability of your hero can't be less than {Constants.HP_MIN} and more than {Constants.HP_MAX}");
                 this.dmgStartOfRange = value;
             }
         }
@@ -71,7 +67,7 @@ namespace Team8Project.Models
             get { return this.dmgEndOfRange; }
             set
             {
-                Validations.ValidateRangeNumbers(value, this.DmgStartOfRange, HP_MAX, $"The damage ability of your hero can't be less than {this.DmgStartOfRange} and more than {HP_MAX}");
+                Validations.ValidateRangeNumbers(value, this.DmgStartOfRange, Constants.HP_MAX, $"The damage ability of your hero can't be less than {this.DmgStartOfRange} and more than {Constants.HP_MAX}");
                 this.dmgEndOfRange = value;
             }
         }
