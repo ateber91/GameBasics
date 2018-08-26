@@ -156,7 +156,7 @@ namespace Team8Project.Core
                 }
                 
                 var selectedAbility = this.commandProcessor.ProcessCommand(selectAbilityCommand);
-
+                
                 if (selectedAbility.OnCD == true)
                 {
                     this.data.Log.AppendLine("Chosen ability is on cooldown, choose another");
