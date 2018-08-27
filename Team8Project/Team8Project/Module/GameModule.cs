@@ -28,7 +28,8 @@ namespace Team8Project.Module
             builder.RegisterType<ConsoleReader>().As<IReader>().SingleInstance();
             builder.RegisterType<ConsoleWriter>().As<IWriter>().SingleInstance();
             builder.RegisterType<CommandProvider>().As<ICommandProvider>().SingleInstance();
-
+            builder.RegisterType<ConsoleRenderer>().As<IRender>().SingleInstance();
+            builder.RegisterType<Checker>().AsSelf().SingleInstance();
 
             RegisterDynamicTerrains(builder);
             RegisterDynamicCommands(builder);

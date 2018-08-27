@@ -55,7 +55,7 @@ namespace Team8Project.Core
             }
             else
             {
-                return "Terrain didn't affect any heros this turn.";
+                return "Terrain was merciful today";
             }
         }
 
