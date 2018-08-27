@@ -2,39 +2,42 @@
 using System.Collections.Generic;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
+using Team8Project.Core.Commands;
+using Team8Project.Data;
 
 namespace Team8Project.Core
 {
     public class CommandProcessor
     {
-        private List<IHero> listHeros;
-        private Factory factory;
+        private IFactory factory;
         private TurnProcessor turn;
-        public CommandProcessor()
+        private readonly IDataContainer data;
+        private readonly ICommandProvider commandProvider;
+        private Dictionary<string, string> heroSelection;
+
+        public CommandProcessor(IFactory factory, TurnProcessor turn, IDataContainer data, ICommandProvider commandProvider)
         {
-            this.factory = Factory.Instance;
-            this.turn = TurnProcessor.Instance;
-            this.listHeros = new List<IHero>();
-        }
-        public List<IHero> ListHeros
-        {
-            get { return new List<IHero>(this.listHeros); }
+            this.factory = factory;
+            this.turn = turn;
+            this.data = data;
+            this.commandProvider = commandProvider;
+            this.heroSelection = new Dictionary<string, string>()
+            {
+                { "1", "CreateAssasin"},
+                { "2", "CreateWarrior"},
+                { "3", "CreateMage"},
+                { "4", "CreateCleric"},
+            };
         }
 
-        public List<IHero> ProcessCommand(string[] players)
+
+        public void ProcessCommand(string[] players)
         {
             foreach (var player in players)
             {
-                switch (player)
-                {
-                    case "1": this.listHeros.Add(this.factory.CreateHero(HeroClass.Assasin)); break;
-                    case "2": this.listHeros.Add(this.factory.CreateHero(HeroClass.Warrior)); break;
-                    case "3": this.listHeros.Add(this.factory.CreateHero(HeroClass.Mage)); break;
-                    case "4": this.listHeros.Add(this.factory.CreateHero(HeroClass.Cleric)); break;
-                    default: throw new ArgumentException("I couldn't create you hero! :(");
-                }
+                var command = this.commandProvider.GetCommand(heroSelection[player].ToLower());
+                command.Execute();
             }
-            return this.ListHeros;
         }
 
         public IAbility ProcessCommand(string key)

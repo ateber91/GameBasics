@@ -5,22 +5,21 @@ using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 using Team8Project.Core.Providers;
 using Team8Project.Models;
+using Team8Project.Models.Characters;
 using Team8Project.Models.Magic;
+using Team8Project.Models.Magic.EffectAbilities;
 
 namespace Team8Project.Core
 {
-    public class Factory
+    public class Factory : IFactory
     {
-        private static Factory instance;
-        private IList<IAbility> spellPool;
-        private Factory()
+        public Factory()
         {
-            PopulateSpellPool();
         }
 
-        private void PopulateSpellPool()
+        private IList<IAbility> PopulateSpellPool()
         {
-            this.spellPool = new List<IAbility>()
+            return new List<IAbility>()
             {
                 new DamagingAbility("Heroic Attack",1, HeroClass.Warrior,EffectType.Damage,15),
                 new DamagingAbility("Blade Storm", 1,HeroClass.Warrior,EffectType.Damage, 18),
@@ -34,51 +33,51 @@ namespace Team8Project.Core
                 new DamagingAbility("Smite",1, HeroClass.Cleric,EffectType.Damage,15),
                 new DamagingAbility("Holy Fire", 1, HeroClass.Cleric,EffectType.Damage, 18),
                 new DamagingAbility("Penance", 1, HeroClass.Cleric,EffectType.Damage, 17),
-                new Effect("Poison",2,HeroClass.Assasin,EffectType.DOT,2,8),
-                new Effect("Critical",2,HeroClass.Assasin,EffectType.Buff,1,20),
-                new Effect("Evasion",2,HeroClass.Assasin,EffectType.Resistance,1,0),
-                new Effect("Bleed",2,HeroClass.Warrior,EffectType.DOT,2,10),
-                new Effect("Block",2,HeroClass.Warrior,EffectType.Resistance,1,0),
-                new Effect("Stun",2,HeroClass.Warrior,EffectType.Incapacitated,1,0),
-                new Effect("Ice Barrier",2,HeroClass.Mage,EffectType.Resistance,1,0),
-                new Effect("Burn",2,HeroClass.Mage,EffectType.DOT,2,9),
-                new Effect("Freeze",2,HeroClass.Mage,EffectType.Incapacitated,1,0),
-                new Effect("Regeneration",2,HeroClass.Cleric,EffectType.HOT,2,15),
-                new Effect("Curse",2,HeroClass.Cleric,EffectType.Debuff,2,20),
-                new Effect("Bless",2,HeroClass.Cleric,EffectType.Buff,2,20),
+                new Dot("Poison",2,HeroClass.Assasin,EffectType.DOT,2,8),
+                new Buff("Critical",2,HeroClass.Assasin,EffectType.Buff,1,20),
+                new Resistance("Evasion",2,HeroClass.Assasin,EffectType.Resistance,1,0),
+                new Dot("Bleed",2,HeroClass.Warrior,EffectType.DOT,2,10),
+                new Resistance("Block",2,HeroClass.Warrior,EffectType.Resistance,1,0),
+                new Incapacitation("Stun",2,HeroClass.Warrior,EffectType.Incapacitated,1,0),
+                new Resistance("Ice Barrier",2,HeroClass.Mage,EffectType.Resistance,1,0),
+                new Dot("Burn",2,HeroClass.Mage,EffectType.DOT,2,9),
+                new Incapacitation("Freeze",2,HeroClass.Mage,EffectType.Incapacitated,1,0),
+                new Hot("Regeneration",2,HeroClass.Cleric,EffectType.HOT,2,15),
+                new Debuff("Curse",2,HeroClass.Cleric,EffectType.Debuff,2,10),
+                new Buff("Bless",2,HeroClass.Cleric,EffectType.Buff,2,20),
             };
         }
-
-        public static Factory Instance
+        public IHero CreateAssasin(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
-            get
-            {
-                if (instance == null) { instance = new Factory(); }
-                return instance;
-            }
+            return new Assasin(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
         }
 
-        public IHero CreateHero(HeroClass heroClass)
+        public IHero CreateWarrior(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
-            switch (heroClass)
-            {
-                case HeroClass.Warrior: return new Hero("Pesho", heroClass, 150, 12, 18); 
-                case HeroClass.Mage: return new Hero("Penka", heroClass, 120, 10, 12); 
-                case HeroClass.Assasin: return new Hero("Gesho", heroClass, 150, 15, 20); 
-                case HeroClass.Cleric: return new Hero("Genka", heroClass, 100, 8, 10); 
-                default: throw new ArgumentException("Invalid hero class");
-            }
+            return new Warrior(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
         }
+        public IHero CreateMage(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
+        {
+            return new Mage(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
+        }
+
+        public IHero CreateCleric(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
+        {
+            return new Cleric(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
+        }
+
+
 
         public void CreateSpellBook(IHero hero)
         {
+            var spellPool = PopulateSpellPool().Where(x => x.HeroClass == hero.HeroClass);
             var basicAttack = new DamagingAbility("Basic Attack", 0, hero.HeroClass, EffectType.Damage, 0);
             hero.Abilities.Add(basicAttack); //add basic attack
 
-            var dmgAbilities = this.spellPool.Where(x => x.HeroClass == hero.HeroClass && x.Type == EffectType.Damage).ToList();
+            var dmgAbilities = spellPool.Where(x => x.Type == EffectType.Damage).ToList();
             hero.Abilities.Add(dmgAbilities[RandomProvider.Generate(0, dmgAbilities.Count - 1)]);  //add 2nd spell                                                                                                      //?
 
-            var effectAbilitues = spellPool.Where(x => x.HeroClass == hero.HeroClass && x.Type != EffectType.Damage).ToList();
+            var effectAbilitues = spellPool.Where(x => x.Type != EffectType.Damage).ToList();
             hero.Abilities.Add(effectAbilitues[RandomProvider.Generate(0, effectAbilitues.Count - 1)]);   //add 3rd spell
 
             foreach (var ability in hero.Abilities) { ability.Caster = hero; }

@@ -1,64 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Team8Project.Common.Validations" Collapsed="true">
-    <Position X="15.5" Y="2.5" Width="1.5" />
+    <Position X="14" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
       <FileName>Common\Validations.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Team8Project.Core.CommandProcessor" Collapsed="true">
-    <Position X="10.25" Y="0.5" Width="1.5" />
+    <Position X="8.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAIAAAAAAAAAAAAAAAAABAAABAAAAAQ=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Core\CommandProcessor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Team8Project.Core.Factory" Collapsed="true">
-    <Position X="10.25" Y="1.5" Width="1.5" />
+    <Position X="8.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAIAAAAAACAAIAAAABAAAAAQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Core\Factory.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Team8Project.Core.GameEngine" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="12" Y="1.5" Width="1.5" />
+    <Position X="10.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAiAAAAAAgAAYAAAgAKABAAAhAAAABQBAAAAEAAEY=</HashCode>
+      <HashCode>AAAAiAAAAAAgAAIAAAAAAAAAAAAAAAABCRAQAAAQAkI=</HashCode>
       <FileName>Core\GameEngine.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Team8Project.Core.EffectManager" Collapsed="true">
-    <Position X="15.5" Y="0.5" Width="1.5" />
+    <Position X="14" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAABAAAAAUAAAAAAAAIA=</HashCode>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQAAAAAIA=</HashCode>
       <FileName>Core\Managers\EffectManager.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Team8Project.Core.TerrainManager" Collapsed="true">
-    <Position X="12" Y="2.5" Width="1.5" />
+    <Position X="10.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAABAAAAAAAAACAEAAAAAABAAAAAQEAAAABAAAA=</HashCode>
+      <HashCode>AAACAAABAAAAAAAAACAEAAAAAAAAAAAAAEAAAABAAAA=</HashCode>
       <FileName>Core\Managers\TerrainManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Team8Project.Core.TurnProcessor" Collapsed="true">
-    <Position X="13.75" Y="2.5" Width="1.5" />
+    <Position X="12.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIhAAAAAAAAIAAAAAAgAgCAAAJAEAAgQBAAAAAwAAA=</HashCode>
+      <HashCode>AAIBAAAAAAAAIAAAAAAgAACAAAIAEAAgABAQAAAwAAA=</HashCode>
       <FileName>Core\TurnProcessor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Team8Project.Core.Providers.RandomProvider" Collapsed="true">
-    <Position X="15.5" Y="1.5" Width="1.5" />
+    <Position X="14" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAEAAAAA=</HashCode>
       <FileName>Core\Providers\RandomProvider.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Team8Project.IO.ConsoleReader" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="12" Y="0.5" Width="1.5" />
+    <Position X="10.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>IO\ConsoleReader.cs</FileName>
@@ -66,7 +68,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Team8Project.IO.ConsoleWriter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13.75" Y="0.5" Width="1.5" />
+    <Position X="12.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQABAAAAAAAIAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
       <FileName>IO\ConsoleWriter.cs</FileName>
@@ -74,9 +76,9 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Team8Project.Models.Hero" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13.75" Y="1.5" Width="1.5" />
+    <Position X="12.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgIAQAAQAIAAEAEAADQAAQCoJAEAAAAAAAAAiAICAE=</HashCode>
+      <HashCode>IAgIAQAAQAIAAEAEAADAAQQCsAAEAAAAAAAAAgAICAE=</HashCode>
       <FileName>Models\Characters\Hero.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -84,7 +86,7 @@
   <Class Name="Team8Project.Models.Magic.Ability" Collapsed="true">
     <Position X="1.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAoIAAACABAAAAAAAQAACAQBAAgFAAQAAQAEAAAMCAA=</HashCode>
+      <HashCode>AAoIAAACABAAAAAAAAAACAQAAAgFAAQAAQAEAAAMCAA=</HashCode>
       <FileName>Models\Magic\Ability.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -92,7 +94,7 @@
   <Class Name="Team8Project.Models.Magic.DamagingAbility" Collapsed="true">
     <Position X="0.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAABAAAAAEAAAAAAAAAAAAAAAAAAAAAAAEAEA=</HashCode>
+      <HashCode>gAAAAAAAABAAAAAEAAAAAAAAAAAAAAAAAAAAAAAEAEA=</HashCode>
       <FileName>Models\Magic\DamagingAbility.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -108,21 +110,21 @@
   <Class Name="Team8Project.Models.Terrains.Graveyard" Collapsed="true">
     <Position X="0.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAABAAAAAQAAAAAAAAQA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Models\Terrains\Graveyard.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Team8Project.Models.Terrains.Jungle" Collapsed="true">
     <Position X="3" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAABAAAAAQAAAAAAAAQA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Models\Terrains\Jungle.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Team8Project.Models.Terrains.Terrain" Collapsed="true">
     <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAABAAAAQQAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAABAAAAQQAAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Models\Terrains\Terrain.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -130,82 +132,82 @@
   <Class Name="Team8Project.Models.Terrains.Tundra" Collapsed="true">
     <Position X="5.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAABAAAAAQAAAAAAAAQA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Models\Terrains\Tundra.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Team8Project.StartUp" Collapsed="true">
-    <Position X="10.25" Y="2.5" Width="1.5" />
+    <Position X="8.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>StartUp.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Team8Project.Contracts.IAbility" Collapsed="true">
-    <Position X="6.75" Y="3.5" Width="1.5" />
+    <Position X="6" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgIAAACABAAAAAAAAAACAQAAAAAAAAAAQAEAAAEAAA=</HashCode>
       <FileName>Contracts\IAbility.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Team8Project.Contracts.IDamagingAbility" Collapsed="true">
-    <Position X="5.5" Y="4.75" Width="1.5" />
+    <Position X="4.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Contracts\IDamagingAbility.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Team8Project.Contracts.IEffect" Collapsed="true">
-    <Position X="7.75" Y="4.75" Width="1.5" />
+    <Position X="7" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>Contracts\IEffect.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Team8Project.Contracts.IHero" Collapsed="true">
-    <Position X="12" Y="3.75" Width="1.5" />
+    <Position X="10.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIAQAAQAIAAAAAAADAAAQAIAAAAAAAAAAAAAAIAAA=</HashCode>
+      <HashCode>IAAIAQAAQAIAAAAAAADAAQQAMAAAAAAAAAAAAAAIAAA=</HashCode>
       <FileName>Contracts\IHero.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Team8Project.Contracts.ITerrain" Collapsed="true">
-    <Position X="15.5" Y="3.75" Width="1.5" />
+    <Position X="14" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAABAAAAQAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAABAAAAQAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Contracts\ITerrain.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Team8Project.Core.Contracts.IEngine" Collapsed="true">
-    <Position X="10.25" Y="3.75" Width="1.5" />
+    <Position X="8.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
       <FileName>Core\Contracts\IEngine.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Team8Project.IO.Contracts.IReader" Collapsed="true">
-    <Position X="13.75" Y="3.75" Width="1.5" />
+    <Position X="12.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>IO\Contracts\IReader.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Team8Project.IO.Contracts.IWriter" Collapsed="true">
-    <Position X="10.25" Y="4.5" Width="1.5" />
+    <Position X="8.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQABAAAAAAAIAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
       <FileName>IO\Contracts\IWriter.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="Team8Project.Common.Enums.EffectType" Collapsed="true">
-    <Position X="10.25" Y="5.5" Width="1.5" />
+    <Position X="8.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AECAAACACIAAgAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
       <FileName>Common\Enums\EffectType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Team8Project.Common.Enums.HeroClass" Collapsed="true">
-    <Position X="12" Y="5.5" Width="1.5" />
+    <Position X="10.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAAAAAAAAAABAAAAAAAAAAAAAAAIAAAAAAEAIAAAA=</HashCode>
       <FileName>Common\Enums\HeroClass.cs</FileName>

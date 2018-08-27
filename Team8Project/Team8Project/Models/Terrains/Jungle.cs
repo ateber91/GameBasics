@@ -8,45 +8,37 @@ namespace Team8Project.Models.Terrains
 {
     public class Jungle : Terrain
     {
-        private static ITerrain instance;
-        
-        private Jungle() { }
+        public Jungle() { }
 
-        public static ITerrain Instance
+        public override void ApplyInitialAssasinEffect(IHero hero)
         {
-            get
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
             {
-                if (instance == null) { instance = new Jungle(); }
-                return instance;
+                ability.AbilityPower += 5;
             }
+            //return $"{hero.Name}'s damaging abilities power increased by 5";
         }
 
-        public override string HeroEffect(IHero hero)
+        public override void ApplyInitialClericEffect(IHero hero)
         {
-            switch (hero.HeroClass)
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.HOT))
             {
-                case HeroClass.Warrior:
-                    hero.HealthPoints += 50;
-                    return $"{hero.Name}'s healthpoints increased by 50";
-                case HeroClass.Assasin:
-                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
-                    {
-                        ability.AbilityPower += 5;
-                    }
-                    return $"{hero.Name}'s damaging abilities power increased by 5";
-                case HeroClass.Cleric:
-                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.HOT))
-                    {
-                        ability.AbilityPower += 2;
-                    }
-                    return $"{hero.Name}'s HOT abilities increased by 2";
-                case HeroClass.Mage:
-                    hero.HealthPoints -= 25;
-                    return $"{hero.Name}'s healthpoints decreased by 25";
-                default:
-                    return string.Empty;
+                ability.AbilityPower += 2;
             }
+            //return $"{hero.Name}'s HOT abilities increased by 2";
         }
+
+        public override void ApplyInitialMageEffect(IHero hero)
+        {
+            hero.HealthPoints -= 25;
+            //return $"{hero.Name}'s healthpoints decreased by 25";
+        }
+
+        public override void ApplyInitialWarriorEffect(IHero hero)
+        {
+            hero.HealthPoints += 50;
+        }
+
         public override string ContinuousEffect(IHero hero)
         {
             if (this.IsDay == true)

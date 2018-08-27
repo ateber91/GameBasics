@@ -8,48 +8,42 @@ namespace Team8Project.Models.Terrains
 {
     public class Tundra : Terrain
     {
-        //create an object of SingleObject
-        private static ITerrain instance;
 
-        //make the constructor private so that this class cannot be
-        //instantiated
-        private Tundra() { }
+        public Tundra() { }
 
-        public static ITerrain Instance
+        public override void ApplyInitialAssasinEffect(IHero hero)
         {
-            get
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
             {
-                if (instance == null) { instance = new Tundra(); }
-                return instance;
+                ability.AbilityPower -= 2;
             }
+            //return $"{hero.Name}'s damaging abilities decreased by 2";
         }
 
-        public override string HeroEffect(IHero hero)
+        public override void ApplyInitialClericEffect(IHero hero)
         {
-            switch (hero.HeroClass)
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
             {
-                case HeroClass.Warrior:
-                    hero.HealthPoints -= 25;
-                    return $"{hero.Name}'s health points decreased by 25";
-                case HeroClass.Assasin:
-                    hero.HealthPoints -= 50;
-                    return $"{hero.Name}'s health points decreased by 50";
-                case HeroClass.Cleric:
-                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
-                    {
-                        ability.AbilityPower -= 2;
-                    }
-                    return $"{hero.Name}'s damaging abilities decreased by 2";
-                case HeroClass.Mage:
-                    foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
-                    {
-                        ability.AbilityPower += 5;
-                    }
-                    return $"{hero.Name}'s damaging abilities power increased by 5";
-                default:
-                    return string.Empty;
+                ability.AbilityPower -= 2;
             }
+            //return $"{hero.Name}'s damaging abilities decreased by 2";
         }
+
+        public override void ApplyInitialMageEffect(IHero hero)
+        {
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
+            {
+                ability.AbilityPower += 5;
+            }
+            //return $"{hero.Name}'s damaging abilities power increased by 5";
+        }
+
+        public override void ApplyInitialWarriorEffect(IHero hero)
+        {
+            hero.HealthPoints -= 25;
+            //return $"{hero.Name}'s health points decreased by 25";
+        }
+
         public override string ContinuousEffect(IHero hero)
         {
             if (this.IsDay == false)

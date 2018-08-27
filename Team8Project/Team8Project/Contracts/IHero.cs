@@ -10,9 +10,12 @@ namespace Team8Project.Contracts
         int DmgStartOfRange { get; set; }
         int DmgEndOfRange { get; set; }
         IHero Opponent { get; set; }
+        bool IsIncapacitated { get; set; }
+        bool HasRessistance { get; set; }
         HeroClass HeroClass { get; set; }
-        IList<IAbility> Abilities { get; set; } 
+        IList<IAbility> Abilities { get; set; }
         IList<IEffect> AppliedEffects { get; set; }
         void UseAbility(IAbility ability);
+        void InitializeTerrain(ITerrain terrain);
     }
 }
