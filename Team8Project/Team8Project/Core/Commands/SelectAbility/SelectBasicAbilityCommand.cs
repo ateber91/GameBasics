@@ -6,9 +6,9 @@ namespace Team8Project.Core.Commands.SelectAbility
 {
     public class SelectBasicAbilityCommand : Command, ICommand
     {
-        private readonly TurnProcessor turn;
+        private readonly ITurnProcessor turn;
 
-        public SelectBasicAbilityCommand(IFactory factory, IDataContainer data, TurnProcessor turn) : base(factory, data)
+        public SelectBasicAbilityCommand(IFactory factory, IDataContainer data, ITurnProcessor turn) : base(factory, data)
         {
             this.turn = turn;
         }

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Linq;
 using Team8Project.Common;
 using Team8Project.Common.Enums;
 using Team8Project.Core.Advanced;
+using Team8Project.Core.Contracts;
 using Team8Project.Data;
 using Team8Project.IO.Contracts;
 
@@ -13,9 +13,10 @@ namespace Team8Project.IO
         private readonly IWriter writer;
         private readonly IReader reader;
         private readonly IDataContainer data;
-        private readonly TerrainManager terrainManager;
-        private readonly TurnProcessor turn;
-        public ConsoleRenderer(IWriter writer, IReader reader, IDataContainer data, TerrainManager terrainManager, TurnProcessor turn)
+        private readonly ITerrainManager terrainManager;
+        private readonly ITurnProcessor turn;
+        public ConsoleRenderer(IWriter writer, IReader reader, IDataContainer data,
+            ITerrainManager terrainManager, ITurnProcessor turn)
         {
             this.writer = writer;
             this.reader = reader;

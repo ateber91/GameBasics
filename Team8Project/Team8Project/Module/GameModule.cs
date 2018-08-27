@@ -1,14 +1,14 @@
 ﻿using Autofac;
 using System.Linq;
-using Team8Project.Core;
-using Team8Project.Core.Contracts;
-using Team8Project.Data;
-using Team8Project.IO.Contracts;
-using Team8Project.IO;
 using System.Reflection;
 using Team8Project.Contracts;
-using Team8Project.Core.Commands;
+using Team8Project.Core;
 using Team8Project.Core.Advanced;
+using Team8Project.Core.Commands;
+using Team8Project.Core.Contracts;
+using Team8Project.Data;
+using Team8Project.IO;
+using Team8Project.IO.Contracts;
 
 namespace Team8Project.Module
 {
@@ -18,16 +18,16 @@ namespace Team8Project.Module
         {
             builder.RegisterType<GameEngine>().As<IEngine>().SingleInstance();
             builder.RegisterType<Factory>().As<IFactory>().SingleInstance();
-            builder.RegisterType<TurnProcessor>().AsSelf().SingleInstance();
-            builder.RegisterType<TerrainManager>().AsSelf().SingleInstance();
-            builder.RegisterType<CommandProcessor>().AsSelf().SingleInstance();
+            builder.RegisterType<TurnProcessor>().As<ITurnProcessor>().SingleInstance();
+            builder.RegisterType<TerrainManager>().As<ITerrainManager>().SingleInstance();
+            builder.RegisterType<CommandProcessor>().As<ICommandProcessor>().SingleInstance();
             builder.RegisterType<DataContainer>().As<IDataContainer>().SingleInstance();
             builder.RegisterType<ConsoleReader>().As<IReader>().SingleInstance();
             builder.RegisterType<ConsoleWriter>().As<IWriter>().SingleInstance();
             builder.RegisterType<CommandProvider>().As<ICommandProvider>().SingleInstance();
             builder.RegisterType<ConsoleRenderer>().As<IRenderer>().SingleInstance();
             builder.RegisterType<ActManager>().As<IActManager>().SingleInstance();
-            builder.RegisterType<AdvancedChecker>().AsSelf().SingleInstance();
+            builder.RegisterType<AdvancedChecker>().As<IAdvancedChecker>().SingleInstance();
 
             RegisterDynamicTerrains(builder);
             RegisterDynamicCommands(builder);

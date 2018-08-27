@@ -9,15 +9,15 @@ namespace Team8Project.Core.Advanced
 {
     public class ActManager : IActManager
     {
-        private readonly AdvancedChecker checker;
+        private readonly IAdvancedChecker checker;
         private readonly IReader reader;
         private readonly IRenderer renderer;
-        private readonly CommandProcessor commandProcessor;
-        private readonly TurnProcessor turn;
+        private readonly ICommandProcessor commandProcessor;
+        private readonly ITurnProcessor turn;
         private readonly IDataContainer data;
 
-        public ActManager(AdvancedChecker checker, IRenderer renderer, IReader reader,
-            CommandProcessor commandProcessor, TurnProcessor turn, IDataContainer data)
+        public ActManager(IAdvancedChecker checker, IRenderer renderer, IReader reader,
+            ICommandProcessor commandProcessor, ITurnProcessor turn, IDataContainer data)
         {
             this.checker = checker;
             this.renderer = renderer;

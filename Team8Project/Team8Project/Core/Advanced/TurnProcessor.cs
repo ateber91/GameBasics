@@ -1,12 +1,13 @@
 ﻿using System;
 using Team8Project.Common;
-using Team8Project.Contracts;
 using Team8Project.Common.Providers;
+using Team8Project.Contracts;
+using Team8Project.Core.Contracts;
 using Team8Project.Data;
 
 namespace Team8Project.Core.Advanced
 {
-    public class TurnProcessor
+    public class TurnProcessor : ITurnProcessor
     {
         private int turnNumber = 1;
         private IHero activeHero;
@@ -26,18 +27,16 @@ namespace Team8Project.Core.Advanced
             get { return this.turnNumber; }
             private set
             {
-                Validations.ValidateRangeNumbers(value, Constants.MIN_TURN, Constants.MAX_TURN, $"Turns less than {Constants.MIN_TURN} or more than {Constants.MAX_TURN}");
+                Validations.ValidateRangeNumbers(value, Constants.MIN_TURN, Constants.MAX_TURN,
+                    $"Turns less than {Constants.MIN_TURN} or more than {Constants.MAX_TURN}");
                 this.turnNumber = value;
             }
         }
 
-
-      
         public void NextTurn()
         {
             this.turnNumber++;
         }
-
         public void SetFirstTurn()
         {
             SetRelationship();
@@ -68,10 +67,7 @@ namespace Team8Project.Core.Advanced
 
             this.firstHero.Opponent = this.secondHero;
             this.secondHero.Opponent = this.firstHero;
-
-
         }
-
         public IHero ActiveHero
         {
             get { return this.activeHero; }

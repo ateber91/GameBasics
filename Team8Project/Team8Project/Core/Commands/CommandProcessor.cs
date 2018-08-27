@@ -1,32 +1,20 @@
 ﻿using System.Collections.Generic;
-using Team8Project.Core.Advanced;
 using Team8Project.Core.Contracts;
 using Team8Project.Data;
 
 namespace Team8Project.Core.Commands
 {
-    public class CommandProcessor
+    public class CommandProcessor : ICommandProcessor
     {
-        private IFactory factory;
-        private TurnProcessor turn;
+        private readonly IFactory factory;
+        private readonly ITurnProcessor turn;
         private readonly IDataContainer data;
         private readonly ICommandProvider commandProvider;
-        private Dictionary<string, string> heroSelection;
-        private Dictionary<string, string> abilitySelection;
+        private readonly Dictionary<string, string> heroSelection;
+        private readonly Dictionary<string, string> abilitySelection;
 
-        public CommandProcessor(IFactory factory, TurnProcessor turn, IDataContainer data, ICommandProvider commandProvider)
+        public CommandProcessor(IFactory factory, ITurnProcessor turn, IDataContainer data, ICommandProvider commandProvider)
         {
-            this.factory = factory;
-            this.turn = turn;
-            this.data = data;
-            this.commandProvider = commandProvider;
-            this.heroSelection = new Dictionary<string, string>()
-            {
-                { "1", "CreateAssasin"},
-                { "2", "CreateWarrior"},
-                { "3", "CreateMage"},
-                { "4", "CreateCleric"},
-            };
             this.factory = factory;
             this.turn = turn;
             this.data = data;

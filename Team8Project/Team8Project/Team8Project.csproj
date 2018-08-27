@@ -50,12 +50,16 @@
     <Compile Include="Common\Enums\HeroClass.cs" />
     <Compile Include="Contracts\IEffect.cs" />
     <Compile Include="Core\Advanced\AdvancedChecker.cs" />
+    <Compile Include="Contracts\IAdvancedChecker.cs" />
+    <Compile Include="Contracts\ITurnProcessor.cs" />
+    <Compile Include="Core\Advanced\ITerrainManager.cs" />
     <Compile Include="Core\Commands\Command.cs" />
     <Compile Include="Core\Commands\CommandProvider.cs" />
     <Compile Include="Core\Commands\CreateHero\CreateAssasinCommand.cs" />
     <Compile Include="Core\Commands\CreateHero\CreateClericCommand.cs" />
     <Compile Include="Core\Commands\CreateHero\CreateMageCommand.cs" />
     <Compile Include="Core\Commands\CreateHero\CreateWarriorCommand.cs" />
+    <Compile Include="Contracts\ICommandProcessor.cs" />
     <Compile Include="Core\Contracts\ICommand.cs" />
     <Compile Include="Core\Contracts\ICommandProvider.cs" />
     <Compile Include="Core\Commands\SelectAbility\SelectBasicAbilityCommand.cs" />

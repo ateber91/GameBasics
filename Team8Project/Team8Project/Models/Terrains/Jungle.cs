@@ -1,8 +1,6 @@
 ﻿using System.Linq;
-using System.Text;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
-using Team8Project.Core;
 
 namespace Team8Project.Models.Terrains
 {
