@@ -2,7 +2,7 @@
 using Team8Project.Contracts;
 using Team8Project.Core;
 using System.Text;
-using Team8Project.Core.Providers;
+using Team8Project.Common.Providers;
 using Team8Project.Common.Enums;
 
 namespace Team8Project.Models.Magic
@@ -10,7 +10,6 @@ namespace Team8Project.Models.Magic
     public class DamagingAbility : Ability, IDamagingAbility
     {
         private int damageDealt;
-        //  private EffectManager effectManager;
 
         public DamagingAbility(string name, int cd, HeroClass heroClass, EffectType type, int abilityPower)
             : base(name, cd, heroClass, type, abilityPower)
@@ -21,7 +20,6 @@ namespace Team8Project.Models.Magic
         public override void Apply()
         {
 
-            //     damageDealt = this.effectManager.TransformDamage(damageDealt, this.Caster); //transfroms dmg based on effects on self and opponent
             if (Caster.Opponent.HasRessistance)
             {
                 this.damageDealt = 0;

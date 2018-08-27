@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
-using Team8Project.Core.Providers;
+using Team8Project.Common.Providers;
 using Team8Project.Models;
 using Team8Project.Models.Characters;
 using Team8Project.Models.Magic;
@@ -51,7 +51,6 @@ namespace Team8Project.Core
         {
             return new Assasin(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
         }
-
         public IHero CreateWarrior(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
             return new Warrior(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
@@ -60,7 +59,6 @@ namespace Team8Project.Core
         {
             return new Mage(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
         }
-
         public IHero CreateCleric(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange)
         {
             return new Cleric(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
