@@ -94,7 +94,8 @@ namespace Team8Project.Core
             factory.CreateSpellBook(turn.ActiveHero.Opponent);
 
             this.terrainManager.SetTerrain();
-            this.terrainManager.Terrain.ApplyInitialEffect(turn.ActiveHero);
+            turn.ActiveHero.InitializeTerrain(this.terrainManager.Terrain);
+            turn.ActiveHero.Opponent.InitializeTerrain(this.terrainManager.Terrain);
         }
 
         private void Act(IHero activeHero)
