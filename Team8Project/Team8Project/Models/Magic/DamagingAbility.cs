@@ -1,7 +1,7 @@
-﻿using Team8Project.Contracts;
-using System.Text;
-using Team8Project.Common.Providers;
+﻿using System.Text;
 using Team8Project.Common.Enums;
+using Team8Project.Common.Providers;
+using Team8Project.Contracts;
 
 namespace Team8Project.Models.Magic
 {

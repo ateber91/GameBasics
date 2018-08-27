@@ -6,9 +6,9 @@ namespace Team8Project.Core.Commands.SelectAbility
 {
     public class SelectEffectAbilityCommand : Command, ICommand
     {
-        private readonly TurnProcessor turn;
+        private readonly ITurnProcessor turn;
 
-        public SelectEffectAbilityCommand(IFactory factory, IDataContainer data, TurnProcessor turn) : base(factory, data)
+        public SelectEffectAbilityCommand(IFactory factory, IDataContainer data, ITurnProcessor turn) : base(factory, data)
         {
             this.turn = turn;
         }

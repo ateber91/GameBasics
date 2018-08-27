@@ -4,23 +4,24 @@ using System.Threading;
 using Team8Project.Common;
 using Team8Project.Common.Enums;
 using Team8Project.Core.Commands;
+using Team8Project.Core.Contracts;
 using Team8Project.Data;
 using Team8Project.IO.Contracts;
 
 namespace Team8Project.Core.Advanced
 {
-    public class AdvancedChecker
+    public class AdvancedChecker : IAdvancedChecker
     {
         private readonly IReader reader;
         private readonly IWriter writer;
-        private readonly TurnProcessor turn;
-        private readonly CommandProcessor processor;
-        private readonly TerrainManager terrainManager;
+        private readonly ITurnProcessor turn;
+        private readonly ICommandProcessor processor;
+        private readonly ITerrainManager terrainManager;
         private readonly IDataContainer data;
         private readonly IRenderer renderer;
 
-        public AdvancedChecker(IReader reader, IWriter writer, IRenderer renderer, TurnProcessor turn,
-            CommandProcessor processor, IDataContainer data, TerrainManager terrainManager)
+        public AdvancedChecker(IReader reader, IWriter writer, IRenderer renderer, ITurnProcessor turn,
+            ICommandProcessor processor, IDataContainer data, ITerrainManager terrainManager)
         {
             this.reader = reader;
             this.writer = writer;
@@ -50,7 +51,7 @@ namespace Team8Project.Core.Advanced
             }
         }
 
-        internal void CheckForTerrainContitiousEffect()
+        public void CheckForTerrainContitiousEffect()
         {
             if (turn.TurnNumber % 3 == 0)
             {

@@ -8,17 +8,16 @@ namespace Team8Project.Core
 {
     public class GameEngine : IEngine
     {
-        private readonly TurnProcessor turn;
+        private readonly ITurnProcessor turn;
         private readonly IDataContainer data;
-        private readonly AdvancedChecker checker;
-        private readonly TerrainManager terrainManager;
-        private readonly CommandProcessor commandProcessor;
+        private readonly IAdvancedChecker checker;
+        private readonly ITerrainManager terrainManager;
+        private readonly ICommandProcessor commandProcessor;
         private readonly IRenderer renderer;
         private readonly IActManager actManager;
 
-        public GameEngine(TurnProcessor turn, CommandProcessor commandProcessor,
-                          IDataContainer data, TerrainManager terrainManager,
-                          IRenderer render, IActManager actManager, AdvancedChecker checker)
+        public GameEngine(ITurnProcessor turn, ICommandProcessor commandProcessor, IDataContainer data,
+            ITerrainManager terrainManager, IRenderer render, IActManager actManager, IAdvancedChecker checker)
         {
             this.commandProcessor = commandProcessor;
             this.turn = turn;
@@ -56,8 +55,8 @@ namespace Team8Project.Core
             this.commandProcessor.ProcessCommand(this.renderer.CharacterSelection());
             this.turn.SetFirstTurn();
             this.terrainManager.SetTerrain();
-          this.  turn.ActiveHero.InitializeTerrain(this.terrainManager.Terrain);
-          this.  turn.ActiveHero.Opponent.InitializeTerrain(this.terrainManager.Terrain);
+            this.turn.ActiveHero.InitializeTerrain(this.terrainManager.Terrain);
+            this.turn.ActiveHero.Opponent.InitializeTerrain(this.terrainManager.Terrain);
         }
     }
 }
