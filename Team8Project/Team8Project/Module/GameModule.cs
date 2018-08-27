@@ -1,9 +1,5 @@
-﻿using System;
-using Autofac;
-using System.Collections.Generic;
+﻿using Autofac;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Team8Project.Core;
 using Team8Project.Core.Contracts;
 using Team8Project.Data;
@@ -12,7 +8,7 @@ using Team8Project.IO;
 using System.Reflection;
 using Team8Project.Contracts;
 using Team8Project.Core.Commands;
-using Team8Project.Core.Managers;
+using Team8Project.Core.Advanced;
 
 namespace Team8Project.Module
 {
@@ -37,9 +33,6 @@ namespace Team8Project.Module
             RegisterDynamicCommands(builder);
             base.Load(builder);
         }
-
-
-
 
         private static void RegisterDynamicTerrains(ContainerBuilder builder)
         {

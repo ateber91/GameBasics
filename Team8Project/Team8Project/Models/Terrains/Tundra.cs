@@ -1,14 +1,11 @@
 ﻿using System.Linq;
-using System.Text;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
-using Team8Project.Core;
 
 namespace Team8Project.Models.Terrains
 {
     public class Tundra : Terrain
     {
-
         public Tundra() { }
 
         public override void ApplyInitialAssasinEffect(IHero hero)
@@ -56,7 +53,7 @@ namespace Team8Project.Models.Terrains
                         ability.CDCounter = ability.Cd - 1;
                     }
                 }
-             return $"{hero.Name}'s available abilities are on cool down";
+                return $"{hero.Name}'s available abilities are on cool down";
             }
             else
             {

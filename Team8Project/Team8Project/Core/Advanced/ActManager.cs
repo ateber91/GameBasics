@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using Team8Project.Contracts;
+using Team8Project.Core.Commands;
+using Team8Project.Core.Contracts;
 using Team8Project.Data;
 using Team8Project.IO.Contracts;
 
-namespace Team8Project.Core.Managers
+namespace Team8Project.Core.Advanced
 {
     public class ActManager : IActManager
     {
@@ -49,8 +51,9 @@ namespace Team8Project.Core.Managers
 
                 this.data.EndGame = this.checker.CheckIfGameIsOver();
                 this.renderer.UpdataScreen();
-                this.EndAct();
             }
+            this.EndAct();
+
         }
         private void EndAct()
         {

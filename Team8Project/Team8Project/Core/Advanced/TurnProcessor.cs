@@ -4,7 +4,7 @@ using Team8Project.Contracts;
 using Team8Project.Common.Providers;
 using Team8Project.Data;
 
-namespace Team8Project.Core
+namespace Team8Project.Core.Advanced
 {
     public class TurnProcessor
     {

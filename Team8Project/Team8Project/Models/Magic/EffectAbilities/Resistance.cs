@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 
@@ -13,10 +9,8 @@ namespace Team8Project.Models.Magic.EffectAbilities
         public Resistance(string name, int cd, HeroClass heroClass, EffectType type, int defaultStacks, int abilityPower) : base(name, cd, heroClass, type, defaultStacks, abilityPower)
         {
         }
-
         public override void Apply()
         {
-
             base.Target = base.Caster;
             Target.HasRessistance = true;
             base.Apply();
@@ -26,8 +20,7 @@ namespace Team8Project.Models.Magic.EffectAbilities
         {
             this.Target.HasRessistance = true;
             this.CurrentStacks--;
-            if (CurrentStacks == 0)
-            {
+            if (CurrentStacks == 0)            {
                 this.Expire();
                 return string.Empty;
             }

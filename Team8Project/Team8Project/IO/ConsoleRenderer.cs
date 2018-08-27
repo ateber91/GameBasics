@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Team8Project.Common;
 using Team8Project.Common.Enums;
-using Team8Project.Core;
+using Team8Project.Core.Advanced;
 using Team8Project.Data;
 using Team8Project.IO.Contracts;
 

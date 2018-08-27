@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Team8Project.Common.Enums;
 using Team8Project.Contracts;
 
@@ -18,17 +14,13 @@ namespace Team8Project.Models.Magic.EffectAbilities
         {
             base.Target = base.Caster;
             base.Apply();
-
         }
 
         public override string Affect()
         {
             this.Target.HealthPoints += this.AbilityPower;
             this.CurrentStacks--;
-            if (CurrentStacks == 0)
-            {
-                this.Expire();
-            }
+            if (CurrentStacks == 0) { this.Expire(); }
             return ($"{this.Target.Name} heals {this.AbilityPower}dmg from {this.Name}");
         }
 

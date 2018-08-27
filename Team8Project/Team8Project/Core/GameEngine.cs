@@ -1,11 +1,11 @@
-﻿using Team8Project.Core.Contracts;
-using Team8Project.Core.Managers;
+﻿using Team8Project.Core.Advanced;
+using Team8Project.Core.Commands;
+using Team8Project.Core.Contracts;
 using Team8Project.Data;
 using Team8Project.IO.Contracts;
 
 namespace Team8Project.Core
 {
-
     public class GameEngine : IEngine
     {
         private readonly TurnProcessor turn;
@@ -20,8 +20,8 @@ namespace Team8Project.Core
                           IDataContainer data, TerrainManager terrainManager,
                           IRenderer render, IActManager actManager, AdvancedChecker checker)
         {
-            this.turn = turn;
             this.commandProcessor = commandProcessor;
+            this.turn = turn;
             this.data = data;
             this.terrainManager = terrainManager;
             this.renderer = render;
@@ -36,10 +36,7 @@ namespace Team8Project.Core
             {
                 this.renderer.UpdataScreen();
                 this.data.Log.AppendLine($"Turn: {turn.TurnNumber}:");
-
                 this.checker.CheckForTerrainContitiousEffect();
-
-               
 
                 //first hero move
                 this.actManager.Act(turn.ActiveHero);
@@ -59,8 +56,8 @@ namespace Team8Project.Core
             this.commandProcessor.ProcessCommand(this.renderer.CharacterSelection());
             this.turn.SetFirstTurn();
             this.terrainManager.SetTerrain();
-            turn.ActiveHero.InitializeTerrain(this.terrainManager.Terrain);
-            turn.ActiveHero.Opponent.InitializeTerrain(this.terrainManager.Terrain);
+          this.  turn.ActiveHero.InitializeTerrain(this.terrainManager.Terrain);
+          this.  turn.ActiveHero.Opponent.InitializeTerrain(this.terrainManager.Terrain);
         }
     }
 }

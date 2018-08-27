@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Team8Project.Common.Enums;
-using Team8Project.Contracts;
-using Team8Project.Core.Commands;
+﻿using System.Collections.Generic;
+using Team8Project.Core.Advanced;
+using Team8Project.Core.Contracts;
 using Team8Project.Data;
 
-namespace Team8Project.Core
+namespace Team8Project.Core.Commands
 {
     public class CommandProcessor
     {

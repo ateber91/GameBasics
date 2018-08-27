@@ -1,4 +1,4 @@
-﻿namespace Team8Project.Core.Commands
+﻿namespace Team8Project.Core.Contracts
 {
     public interface ICommandProvider
     {

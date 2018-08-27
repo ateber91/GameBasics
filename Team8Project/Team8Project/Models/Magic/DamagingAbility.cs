@@ -1,6 +1,4 @@
-﻿using Team8Project.Common;
-using Team8Project.Contracts;
-using Team8Project.Core;
+﻿using Team8Project.Contracts;
 using System.Text;
 using Team8Project.Common.Providers;
 using Team8Project.Common.Enums;
@@ -14,12 +12,10 @@ namespace Team8Project.Models.Magic
         public DamagingAbility(string name, int cd, HeroClass heroClass, EffectType type, int abilityPower)
             : base(name, cd, heroClass, type, abilityPower)
         {
-
         }
 
         public override void Apply()
         {
-
             if (Caster.Opponent.HasRessistance)
             {
                 this.damageDealt = 0;

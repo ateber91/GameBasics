@@ -1,10 +1,10 @@
 ﻿using System.Text;
 using Team8Project.Common.Enums;
-using System.Linq;
+using Team8Project.Contracts;
 
 namespace Team8Project.Models.Magic.EffectAbilities
 {
-    public class Dot : Effect
+    public class Dot : Effect, IEffect
     {
         public Dot(string name, int cd, HeroClass heroClass, EffectType type, int defaultStacks, int abilityPower) : base(name, cd, heroClass, type, defaultStacks, abilityPower)
         {
