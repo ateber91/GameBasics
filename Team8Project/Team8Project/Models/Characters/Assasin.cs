@@ -15,31 +15,9 @@ namespace Team8Project.Models.Characters
         {
         }
 
-        public override void InitializeGraveyard()
+        public override void InitializeTerrain(ITerrain terrain)
         {
-            foreach (var ability in this.Abilities.Where(x => x.Type == EffectType.DOT))
-            {
-                ability.AbilityPower += 5;
-            }
-            //return $"{hero.Name}'s DOT abilities power increased by 5";
-        }
-
-        public override void InitializeJungle()
-        {
-            foreach (var ability in this.Abilities.Where(x => x.Type == EffectType.Damage))
-            {
-                ability.AbilityPower += 5;
-            }
-            //return $"{hero.Name}'s damaging abilities power increased by 5";
-        }
-
-        public override void InitializeTundra()
-        {
-            foreach (var ability in this.Abilities.Where(x => x.Type == EffectType.Damage))
-            {
-                ability.AbilityPower -= 2;
-            }
-            //return $"{hero.Name}'s damaging abilities decreased by 2";
+            terrain.ApplyInitialAssasinEffect(this);
         }
     }
 }

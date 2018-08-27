@@ -13,28 +13,9 @@ namespace Team8Project.Models.Characters
         public Cleric(string name, HeroClass heroClass, int healthPoints, int dmgStartOfRange, int dmgEndOfRange) : base(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange)
         {
         }
-        public override void InitializeGraveyard()
+        public override void InitializeTerrain(ITerrain terrain)
         {
-            foreach (var ability in this.Abilities.Where(x => x.Type == EffectType.HOT))
-            {
-                ability.AbilityPower -= 5;
-            }
-        }
-        public override void InitializeJungle()
-        {
-            foreach (var ability in this.Abilities.Where(x => x.Type == EffectType.HOT))
-            {
-                ability.AbilityPower += 2;
-            }
-            //return $"{hero.Name}'s HOT abilities increased by 2";
-        }
-        public override void InitializeTundra()
-        {
-            foreach (var ability in this.Abilities.Where(x => x.Type == EffectType.Damage))
-            {
-                ability.AbilityPower -= 2;
-            }
-            //return $"{hero.Name}'s damaging abilities decreased by 2";
+            terrain.ApplyInitialClericEffect(this);
         }
     }
 }

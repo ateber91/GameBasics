@@ -14,24 +14,9 @@ namespace Team8Project.Models.Characters
         {
         }
 
-        public override void InitializeJungle()
+        public override void InitializeTerrain(ITerrain terrain)
         {
-            this.HealthPoints += 50;
-        }
-
-        public override void InitializeGraveyard()
-        {
-            foreach (var ability in this.Abilities.OfType<IDamagingAbility>())
-            {
-                ability.AbilityPower -= 10;
-            }
-            //return $"{hero.Name}'s damaging abilities decreased by 10";
-        }
-
-        public override void InitializeTundra()
-        {
-            this.HealthPoints -= 25;
-            //return $"{hero.Name}'s health points decreased by 25";
+            terrain.ApplyInitialWarriorEffect(this);
         }
     }
 }

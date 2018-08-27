@@ -49,7 +49,7 @@
     <Compile Include="Common\Enums\EffectType.cs" />
     <Compile Include="Common\Enums\HeroClass.cs" />
     <Compile Include="Contracts\IEffect.cs" />
-    <Compile Include="Core\Checker.cs" />
+    <Compile Include="Core\AdvancedChecker.cs" />
     <Compile Include="Core\Commands\Command.cs" />
     <Compile Include="Core\Commands\CommandProvider.cs" />
     <Compile Include="Core\Commands\CreateHero\CreateAssasinCommand.cs" />

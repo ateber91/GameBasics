@@ -10,6 +10,7 @@ namespace Team8Project.Core
     {
         private readonly TurnProcessor turn;
         private readonly IDataContainer data;
+        private readonly AdvancedChecker checker;
         private readonly TerrainManager terrainManager;
         private readonly CommandProcessor commandProcessor;
         private readonly IRenderer renderer;
@@ -17,7 +18,7 @@ namespace Team8Project.Core
 
         public GameEngine(TurnProcessor turn, CommandProcessor commandProcessor,
                           IDataContainer data, TerrainManager terrainManager,
-                          IRenderer render, IActManager actManager)
+                          IRenderer render, IActManager actManager, AdvancedChecker checker)
         {
             this.turn = turn;
             this.commandProcessor = commandProcessor;
@@ -25,6 +26,7 @@ namespace Team8Project.Core
             this.terrainManager = terrainManager;
             this.renderer = render;
             this.actManager = actManager;
+            this.checker = checker;
         }
 
         public void Run()
@@ -35,15 +37,9 @@ namespace Team8Project.Core
                 this.renderer.UpdataScreen();
                 this.data.Log.AppendLine($"Turn: {turn.TurnNumber}:");
 
-                if (turn.TurnNumber % 3 == 0)
-                {
-                    this.data.Log.AppendLine(this.terrainManager.ChangeDayNight());
-                }
+                this.checker.CheckForTerrainContitiousEffect();
 
-                string continiousEffect = this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero);
-                if (continiousEffect != string.Empty) { this.data.Log.AppendLine(continiousEffect); }
-
-                this.renderer.UpdataScreen();
+               
 
                 //first hero move
                 this.actManager.Act(turn.ActiveHero);
@@ -63,7 +59,8 @@ namespace Team8Project.Core
             this.commandProcessor.ProcessCommand(this.renderer.CharacterSelection());
             this.turn.SetFirstTurn();
             this.terrainManager.SetTerrain();
-            this.terrainManager.Terrain.ApplyInitialEffect(turn.ActiveHero);
+            turn.ActiveHero.InitializeTerrain(this.terrainManager.Terrain);
+            turn.ActiveHero.Opponent.InitializeTerrain(this.terrainManager.Terrain);
         }
     }
 }

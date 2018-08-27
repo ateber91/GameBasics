@@ -7,7 +7,7 @@ using Team8Project.Common.Enums;
 
 namespace Team8Project.Models
 {
-    public class Hero : IHero
+    public abstract class Hero : IHero
     {
         private string name;
         private int healthPoints;
@@ -108,17 +108,7 @@ namespace Team8Project.Models
             ability.Apply();
         }
 
-        public virtual void InitializeJungle()
-        {
-        }
-        public virtual void InitializeGraveyard()
-        {
-        }
-        public virtual void InitializeTundra()
-        {
-        }
-
-
+        public abstract void InitializeTerrain(ITerrain terrain);
 
         public override string ToString()
         {
@@ -132,19 +122,6 @@ namespace Team8Project.Models
             {
                 sb.Append(spell.Print());
             }
-
-            //if (this.Status.Count == 0)
-            //{
-            //    sb.AppendLine("NO EFFECTS CURRENTLY");
-            //}
-            //else
-            //{
-            //    sb.AppendLine("CURRENT EFFECTS:");
-            //    foreach (EffectType effect in this.CurrentEffects)
-            //    {
-            //        sb.Append(effect);
-            //    }
-            //}
             return sb.ToString();
         }
 

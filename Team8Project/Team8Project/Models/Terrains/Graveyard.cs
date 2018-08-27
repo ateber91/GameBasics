@@ -11,11 +11,6 @@ namespace Team8Project.Models.Terrains
     {
         public Graveyard() { }
 
-        public override void ApplyInitialEffect(IHero hero)
-        {
-            hero.InitializeGraveyard();
-        }
-
         public override string ContinuousEffect(IHero hero)
         {
             if (hero.AppliedEffects.Count != 0)
@@ -42,6 +37,41 @@ namespace Team8Project.Models.Terrains
                 }
             }
             return string.Empty;
+        }
+        
+        public override void ApplyInitialWarriorEffect(IHero hero)
+        {
+            foreach (var ability in hero.Abilities.OfType<IDamagingAbility>())
+            {
+                ability.AbilityPower -= 10;
+            }
+            //return $"{hero.Name}'s damaging abilities decreased by 10";
+        }
+
+        public override void ApplyInitialAssasinEffect(IHero hero)
+        {
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.DOT))
+            {
+                ability.AbilityPower += 5;
+            }
+            //return $"{hero.Name}'s DOT abilities power increased by 5";
+        }
+
+        public override void ApplyInitialClericEffect(IHero hero)
+        {
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.HOT))
+            {
+                ability.AbilityPower -= 5;
+            }
+        }
+
+        public override void ApplyInitialMageEffect(IHero hero)
+        {
+            foreach (var ability in hero.Abilities.OfType<IEffect>())
+            {
+                ability.Cd++;
+            }
+            //return $"{hero.Name}'s cooldowns on effect abilities increased by 1";
         }
     }
 }

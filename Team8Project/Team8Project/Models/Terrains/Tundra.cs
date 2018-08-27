@@ -10,10 +10,38 @@ namespace Team8Project.Models.Terrains
     {
 
         public Tundra() { }
-        
-        public override void ApplyInitialEffect(IHero hero)
+
+        public override void ApplyInitialAssasinEffect(IHero hero)
         {
-            hero.InitializeTundra();
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
+            {
+                ability.AbilityPower -= 2;
+            }
+            //return $"{hero.Name}'s damaging abilities decreased by 2";
+        }
+
+        public override void ApplyInitialClericEffect(IHero hero)
+        {
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
+            {
+                ability.AbilityPower -= 2;
+            }
+            //return $"{hero.Name}'s damaging abilities decreased by 2";
+        }
+
+        public override void ApplyInitialMageEffect(IHero hero)
+        {
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
+            {
+                ability.AbilityPower += 5;
+            }
+            //return $"{hero.Name}'s damaging abilities power increased by 5";
+        }
+
+        public override void ApplyInitialWarriorEffect(IHero hero)
+        {
+            hero.HealthPoints -= 25;
+            //return $"{hero.Name}'s health points decreased by 25";
         }
 
         public override string ContinuousEffect(IHero hero)

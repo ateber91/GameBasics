@@ -29,6 +29,17 @@ namespace Team8Project.Core
                 { "3", "CreateMage"},
                 { "4", "CreateCleric"},
             };
+            this.factory = factory;
+            this.turn = turn;
+            this.data = data;
+            this.commandProvider = commandProvider;
+            this.heroSelection = new Dictionary<string, string>()
+            {
+                { "1", "CreateAssasin"},
+                { "2", "CreateWarrior"},
+                { "3", "CreateMage"},
+                { "4", "CreateCleric"},
+            };
             this.abilitySelection = new Dictionary<string, string>()
             {
                 { "1", "SelectBasicAbility"},

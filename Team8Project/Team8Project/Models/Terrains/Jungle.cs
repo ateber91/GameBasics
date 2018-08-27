@@ -10,9 +10,33 @@ namespace Team8Project.Models.Terrains
     {
         public Jungle() { }
 
-        public override void ApplyInitialEffect(IHero hero)
+        public override void ApplyInitialAssasinEffect(IHero hero)
         {
-            hero.InitializeJungle();
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
+            {
+                ability.AbilityPower += 5;
+            }
+            //return $"{hero.Name}'s damaging abilities power increased by 5";
+        }
+
+        public override void ApplyInitialClericEffect(IHero hero)
+        {
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.HOT))
+            {
+                ability.AbilityPower += 2;
+            }
+            //return $"{hero.Name}'s HOT abilities increased by 2";
+        }
+
+        public override void ApplyInitialMageEffect(IHero hero)
+        {
+            hero.HealthPoints -= 25;
+            //return $"{hero.Name}'s healthpoints decreased by 25";
+        }
+
+        public override void ApplyInitialWarriorEffect(IHero hero)
+        {
+            hero.HealthPoints += 50;
         }
 
         public override string ContinuousEffect(IHero hero)

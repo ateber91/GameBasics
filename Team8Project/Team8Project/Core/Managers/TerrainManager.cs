@@ -30,17 +30,11 @@ namespace Team8Project.Core
 
         public void SetTerrain()
         {
-            var terrainNames = new List<string>();
-
-            var terrainTypes = Assembly.GetExecutingAssembly().DefinedTypes
+            var terrainNames = Assembly.GetExecutingAssembly().DefinedTypes
                 .Where(typeInfo =>
                     typeInfo.ImplementedInterfaces.Contains(typeof(ITerrain)) && typeInfo.IsAbstract == false)
+                .Select(terrainType => terrainType.Name.ToLower())
                 .ToList();
-
-            foreach (var terrainType in terrainTypes)
-            {
-                terrainNames.Add(terrainType.Name.ToLower());
-            }
 
             int t = RandomProvider.Generate(0, terrainNames.Count - 1);
 
@@ -61,7 +55,7 @@ namespace Team8Project.Core
             }
             else
             {
-                return "Terrain didn't affect any heros this turn.";
+                return "Terrain was merciful today";
             }
         }
 

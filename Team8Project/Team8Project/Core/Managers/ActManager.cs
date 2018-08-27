@@ -7,14 +7,14 @@ namespace Team8Project.Core.Managers
 {
     public class ActManager : IActManager
     {
-        private readonly Checker checker;
+        private readonly AdvancedChecker checker;
         private readonly IReader reader;
         private readonly IRenderer renderer;
         private readonly CommandProcessor commandProcessor;
         private readonly TurnProcessor turn;
         private readonly IDataContainer data;
 
-        public ActManager(Checker checker, IRenderer renderer, IReader reader,
+        public ActManager(AdvancedChecker checker, IRenderer renderer, IReader reader,
             CommandProcessor commandProcessor, TurnProcessor turn, IDataContainer data)
         {
             this.checker = checker;

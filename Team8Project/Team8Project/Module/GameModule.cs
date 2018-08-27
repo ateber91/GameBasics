@@ -25,15 +25,13 @@ namespace Team8Project.Module
             builder.RegisterType<TurnProcessor>().AsSelf().SingleInstance();
             builder.RegisterType<TerrainManager>().AsSelf().SingleInstance();
             builder.RegisterType<CommandProcessor>().AsSelf().SingleInstance();
-            builder.RegisterType<Checker>().AsSelf().SingleInstance();
             builder.RegisterType<DataContainer>().As<IDataContainer>().SingleInstance();
             builder.RegisterType<ConsoleReader>().As<IReader>().SingleInstance();
             builder.RegisterType<ConsoleWriter>().As<IWriter>().SingleInstance();
             builder.RegisterType<CommandProvider>().As<ICommandProvider>().SingleInstance();
             builder.RegisterType<ConsoleRenderer>().As<IRenderer>().SingleInstance();
             builder.RegisterType<ActManager>().As<IActManager>().SingleInstance();
-
-
+            builder.RegisterType<AdvancedChecker>().AsSelf().SingleInstance();
 
             RegisterDynamicTerrains(builder);
             RegisterDynamicCommands(builder);
@@ -52,8 +50,7 @@ namespace Team8Project.Module
                 .Where(typeInfo =>
                     typeInfo.ImplementedInterfaces.Contains(typeof(ITerrain)) && typeInfo.IsAbstract == false)
                 .ToList();
-
-            // register in autofac
+            
             foreach (var terrainType in terrainTypes)
             {
                 builder.RegisterType(terrainType.AsType())
