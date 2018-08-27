@@ -43,7 +43,7 @@ namespace Team8Project.Module
                 .Where(typeInfo =>
                     typeInfo.ImplementedInterfaces.Contains(typeof(ITerrain)) && typeInfo.IsAbstract == false)
                 .ToList();
-            
+
             foreach (var terrainType in terrainTypes)
             {
                 builder.RegisterType(terrainType.AsType())
