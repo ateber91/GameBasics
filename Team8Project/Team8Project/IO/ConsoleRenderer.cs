@@ -11,15 +11,17 @@ using Team8Project.IO.Contracts;
 
 namespace Team8Project.IO
 {
-    public class ConsoleRenderer : IRender
+    public class ConsoleRenderer : IRenderer
     {
         private readonly IWriter writer;
+        private readonly IReader reader;
         private readonly IDataContainer data;
         private readonly TerrainManager terrainManager;
         private readonly TurnProcessor turn;
-        public ConsoleRenderer(IWriter writer, IDataContainer data, TerrainManager terrainManager, TurnProcessor turn)
+        public ConsoleRenderer(IWriter writer, IReader reader, IDataContainer data, TerrainManager terrainManager, TurnProcessor turn)
         {
             this.writer = writer;
+            this.reader = reader;
             this.data = data;
             this.terrainManager = terrainManager;
             this.turn = turn;
@@ -59,6 +61,18 @@ namespace Team8Project.IO
         public void SetScreenSize()
         {
             Console.SetWindowSize(160, 40);
+        }
+
+        public string[] CharacterSelection()
+        {
+            string[] players = new string[2];
+            this.writer.ConsoleWrite("Player 1: ");
+            players[0] = this.reader.ConsoleReadKey();
+            this.writer.WriteLine("");
+            this.writer.ConsoleWrite("Player 2: ");
+            players[1] = this.reader.ConsoleReadKey();
+            this.writer.ConsoleClear();
+            return players;
         }
     }
 }

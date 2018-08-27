@@ -17,11 +17,12 @@ namespace Team8Project.Core.Commands.CreateHero
 
         public override void Execute()
         {
-            string name = "Pesho";
+            string name = "Penka";
             HeroClass heroClass = HeroClass.Mage;
-            int healthPoints = 150;
-            int dmgStartOfRange = 12;
-            int dmgEndOfRange = 18;
+            int healthPoints = 120;
+            int dmgStartOfRange = 10;
+            int dmgEndOfRange = 12;
+
 
             IHero hero = this.factory.CreateMage(name, heroClass, healthPoints, dmgStartOfRange, dmgEndOfRange);
             this.data.ListHeros.Add(hero);

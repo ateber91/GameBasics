@@ -63,6 +63,8 @@
     <Compile Include="Core\Commands\SelectAbility\SelectEffectAbilityCommand.cs" />
     <Compile Include="Core\Contracts\IEngine.cs" />
     <Compile Include="Core\IFactory.cs" />
+    <Compile Include="Core\Managers\ActManager.cs" />
+    <Compile Include="Core\Managers\IActManager.cs" />
     <Compile Include="Data\DataContainer.cs" />
     <Compile Include="Data\IDataContainer.cs" />
     <Compile Include="IO\ConsoleRenderer.cs" />
@@ -78,7 +80,7 @@
     <Compile Include="Contracts\IHero.cs" />
     <Compile Include="IO\ConsoleReader.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
-    <Compile Include="IO\Contracts\IRender.cs" />
+    <Compile Include="IO\Contracts\IRenderer.cs" />
     <Compile Include="Models\Characters\Assasin.cs" />
     <Compile Include="Models\Characters\Cleric.cs" />
     <Compile Include="Models\Characters\Hero.cs" />

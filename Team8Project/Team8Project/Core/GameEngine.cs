@@ -1,56 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using Team8Project.Common;
-using Team8Project.Common.Enums;
-using Team8Project.Contracts;
-using Team8Project.Core.Contracts;
+﻿using Team8Project.Core.Contracts;
+using Team8Project.Core.Managers;
 using Team8Project.Data;
-using Team8Project.IO;
 using Team8Project.IO.Contracts;
-using Team8Project.Models.Magic.EffectAbilities;
 
 namespace Team8Project.Core
 {
 
     public class GameEngine : IEngine
     {
-        private readonly IFactory factory;
         private readonly TurnProcessor turn;
-        private readonly IReader reader;
-        private readonly IWriter writer;
         private readonly IDataContainer data;
         private readonly TerrainManager terrainManager;
         private readonly CommandProcessor commandProcessor;
-        private readonly IRender renderer;
-        private readonly Checker checker;
-        private bool endGame = false;
+        private readonly IRenderer renderer;
+        private readonly IActManager actManager;
 
-        public GameEngine(IFactory factory, TurnProcessor turn, IReader reader, IWriter writer,
-            CommandProcessor commandProcessor, IDataContainer data, TerrainManager terrainManager,
-            IRender render, Checker checker)
+        public GameEngine(TurnProcessor turn, CommandProcessor commandProcessor,
+                          IDataContainer data, TerrainManager terrainManager,
+                          IRenderer render, IActManager actManager)
         {
-            this.factory = factory;
             this.turn = turn;
-            this.reader = reader;
-            this.writer = writer;
             this.commandProcessor = commandProcessor;
             this.data = data;
             this.terrainManager = terrainManager;
             this.renderer = render;
-            this.checker = checker;
+            this.actManager = actManager;
         }
 
         public void Run()
         {
             PreBuildGame();
-
-            //START GAME
             while (true)
             {
                 this.renderer.UpdataScreen();
+                this.data.Log.AppendLine($"Turn: {turn.TurnNumber}:");
 
                 if (turn.TurnNumber % 3 == 0)
                 {
@@ -60,68 +43,27 @@ namespace Team8Project.Core
                 string continiousEffect = this.terrainManager.ApplyContinuousEffect(this.turn.ActiveHero);
                 if (continiousEffect != string.Empty) { this.data.Log.AppendLine(continiousEffect); }
 
-
                 this.renderer.UpdataScreen();
 
+                //first hero move
+                this.actManager.Act(turn.ActiveHero);
+                if (this.data.EndGame) { return; }
+                //second hero move
+                this.actManager.Act(turn.ActiveHero);
 
-                Act(turn.ActiveHero); //first hero move
-                turn.EndAct();
-                if (this.endGame) { return; }
-                Act(turn.ActiveHero); //second hero move
-                turn.EndAct();
-                turn.UpdateCooldowns(turn.ActiveHero);
-                turn.NextTurn();
+                this.turn.UpdateCooldowns(turn.ActiveHero);
+                this.turn.NextTurn();
             }
         }
 
         private void PreBuildGame()
         {
-            renderer.SetScreenSize();
-            renderer.InitialScreen();
-
-            string[] players = new string[2];
-            this.writer.ConsoleWrite("Player 1: ");
-            players[0] = this.reader.ConsoleReadKey();
-            this.writer.WriteLine("");
-            this.writer.ConsoleWrite("Player 2: ");
-            players[1] = this.reader.ConsoleReadKey();
-            this.writer.ConsoleClear();
-
-            commandProcessor.ProcessCommand(players);
-
-            turn.SetFirstTurn();
-            factory.CreateSpellBook(turn.ActiveHero);
-            factory.CreateSpellBook(turn.ActiveHero.Opponent);
-
+            this.renderer.SetScreenSize();
+            this.renderer.InitialScreen();
+            this.commandProcessor.ProcessCommand(this.renderer.CharacterSelection());
+            this.turn.SetFirstTurn();
             this.terrainManager.SetTerrain();
             this.terrainManager.Terrain.ApplyInitialEffect(turn.ActiveHero);
-        }
-
-        private void Act(IHero activeHero)
-        {
-            if (this.checker.CheckForIncapacitation() == false)
-            {
-                foreach (var effect in turn.ActiveHero.AppliedEffects.ToList())
-                {
-                    var resultToBeLogged = effect.Affect();
-                    if (resultToBeLogged != string.Empty) { this.data.Log.AppendLine(resultToBeLogged); }
-                }
-
-                this.renderer.UpdataScreen();
-                this.renderer.UpdateActiveHero();
-
-                var selectAbilityKey = this.checker.CheckIfabilityInputIsValid(this.reader.ConsoleReadKey()); //read from input
-
-                this.commandProcessor.ProcessCommand(selectAbilityKey); // execute command
-                this.checker.SetAbilityThatIsReadyForUse();
-
-                turn.ActiveHero.UseAbility(this.data.SelectedAbility);
-
-                this.data.Log.AppendLine($"{turn.ActiveHero.Name} uses {this.data.SelectedAbility.Name} and {this.data.SelectedAbility.ToString()}.");
-            }
-
-            this.endGame = this.checker.CheckIfGameIsOver();
-            this.renderer.UpdataScreen();
         }
     }
 }

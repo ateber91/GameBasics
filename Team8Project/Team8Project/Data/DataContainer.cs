@@ -9,16 +9,16 @@ namespace Team8Project.Data
 {
     public class DataContainer : IDataContainer
     {
-        private IAbility selectedAbility;
-
-        public StringBuilder Log { get; set; }
-        public IList<IHero> ListHeros { get; set; }
-        public IAbility SelectedAbility { get; set; }
-
         public DataContainer()
         {
             this.ListHeros = new List<IHero>();
             this.Log = new StringBuilder();
         }
+        public StringBuilder Log { get; set; }
+        public IList<IHero> ListHeros { get; set; }
+        public IAbility SelectedAbility { get; set; }
+        public bool EndGame { get; set; }
+
+
     }
 }

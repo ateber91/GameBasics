@@ -9,5 +9,6 @@ namespace Team8Project.Data
         IList<IHero> ListHeros { get; set; }
         StringBuilder Log { get; set; }
         IAbility SelectedAbility { get; set; }
+        bool EndGame { get; set; }
     }
 }

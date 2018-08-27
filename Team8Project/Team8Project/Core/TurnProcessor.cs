@@ -13,10 +13,12 @@ namespace Team8Project.Core
         private IHero firstHero;
         private IHero secondHero;
         private readonly IDataContainer data;
+        private readonly IFactory factory;
 
-        public TurnProcessor(IDataContainer data)
+        public TurnProcessor(IDataContainer data, IFactory factory)
         {
             this.data = data;
+            this.factory = factory;
         }
 
         public int TurnNumber
@@ -30,10 +32,7 @@ namespace Team8Project.Core
         }
 
 
-        public void EndAct()
-        {
-            this.ActiveHero = ActiveHero.Opponent;
-        }
+      
         public void NextTurn()
         {
             this.turnNumber++;
@@ -42,6 +41,11 @@ namespace Team8Project.Core
         public void SetFirstTurn()
         {
             SetRelationship();
+            SetActiveHero();
+            SetAbilities();
+        }
+        public void SetActiveHero()
+        {
             var res = RandomProvider.Generate(1, 2);
             if (res == 1)
             {
@@ -52,7 +56,11 @@ namespace Team8Project.Core
                 this.ActiveHero = this.secondHero;
             }
         }
-
+        private void SetAbilities()
+        {
+            factory.CreateSpellBook(this.ActiveHero);
+            factory.CreateSpellBook(this.ActiveHero.Opponent);
+        }
         private void SetRelationship()
         {
             this.firstHero = this.data.ListHeros[0];
@@ -60,6 +68,8 @@ namespace Team8Project.Core
 
             this.firstHero.Opponent = this.secondHero;
             this.secondHero.Opponent = this.firstHero;
+
+
         }
 
         public IHero ActiveHero
