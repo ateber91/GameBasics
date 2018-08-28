@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Team8Project.Contracts;
 using Team8Project.Core;
 using Team8Project.Core.Commands.CreateHero;
