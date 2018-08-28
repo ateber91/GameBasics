@@ -5,7 +5,7 @@ namespace Team8Project.Contracts
 {
     public interface IHero
     {
-        string Name { get; }
+        string Name { get; set; }
         int HealthPoints { get; set; }
         int DmgStartOfRange { get; set; }
         int DmgEndOfRange { get; set; }

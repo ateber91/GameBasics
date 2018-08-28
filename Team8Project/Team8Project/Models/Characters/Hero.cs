@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Team8Project.Contracts;
 using Team8Project.Common;
 using Team8Project.Common.Enums;
+using Team8Project.Contracts;
 
 namespace Team8Project.Models
 {
@@ -35,7 +35,7 @@ namespace Team8Project.Models
             {
                 return this.name;
             }
-            private set
+             set
             {
                 if (string.IsNullOrEmpty(value))
                 {

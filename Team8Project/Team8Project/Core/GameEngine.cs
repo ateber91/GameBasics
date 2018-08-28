@@ -37,10 +37,10 @@ namespace Team8Project.Core
                 this.data.Log.AppendLine($"Turn: {turn.TurnNumber}:");
                 this.checker.CheckForTerrainContitiousEffect();
 
-                //first hero move
+                //first hero act
                 this.actManager.Act(turn.ActiveHero);
                 if (this.data.EndGame) { return; }
-                //second hero move
+                //second hero act
                 this.actManager.Act(turn.ActiveHero);
 
                 this.turn.UpdateCooldowns(turn.ActiveHero);
