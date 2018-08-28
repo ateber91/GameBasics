@@ -15,6 +15,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Team8Project\Team8Project.csproj" />
+    <Folder Include="Commands\" />
+    <Folder Include="Core\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Team8Project\Team8Project.csproj" />
   </ItemGroup>
 
 </Project>

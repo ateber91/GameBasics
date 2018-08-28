@@ -38,7 +38,7 @@ namespace Team8Project.Models.Terrains
         
         public override void ApplyInitialWarriorEffect(IHero hero)
         {
-            foreach (var ability in hero.Abilities.OfType<IDamagingAbility>())
+            foreach (var ability in hero.Abilities.Where(x => x.Type == EffectType.Damage))
             {
                 ability.AbilityPower -= 10;
             }
