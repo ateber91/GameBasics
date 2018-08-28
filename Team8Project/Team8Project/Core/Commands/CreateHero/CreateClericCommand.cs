@@ -10,7 +10,7 @@ using Team8Project.Data;
 
 namespace Team8Project.Core.Commands.CreateHero
 {
-    class CreateClericCommand : Command, ICommand
+    public class CreateClericCommand : Command, ICommand
     {
         public CreateClericCommand(IFactory factory, IDataContainer data) : base(factory, data)
         {
